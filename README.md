@@ -21,5 +21,11 @@ Para publicar a branch develop para acesso remoto, basta fazer um
 Obs.: Quando finalizar a feature ela será removida do repositório remoto
 também
 
-#### Criar uma realease (branch para testes)
+#### Criar uma release (branch para testes)
 ``` git flow release start (version) ```
+
+Obs.: Caso encontre algum problema, resolva na própria release
+
+#### Finalizar release (branch para testes)
+``` git flow release finish (version) ```
+
