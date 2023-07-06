@@ -29,3 +29,11 @@ Obs.: Caso encontre algum problema, resolva na própria release
 #### Finalizar release (branch para testes)
 ``` git flow release finish (version) ```
 
+Obs.: Caso encontre algum erro após os testes, basta executar o 
+comando abaixo (pode ser a partir da main)
+
+#### HotFix
+``` git flow hotfix start 1.1 ```
+
+#### Subir todas as branchs (develop e main para nuvem)
+``` git push --all ```
