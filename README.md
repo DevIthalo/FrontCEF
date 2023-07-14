@@ -24,7 +24,7 @@ Instalem essas dependências antes de executar ``` npm run dev ```
 ##### Carousel responsivo
 ``` npm install react-responsive-carousel ```
 
-
+------------------------------------ Opcional -----------------------------------------------------
 #### Iniciar o git flow 
 ``` git flow init ```
 
