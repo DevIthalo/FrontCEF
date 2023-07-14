@@ -1,0 +1,42 @@
+{
+  "name": "nextjs_cef",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-editor-classic": "^38.1.1",
+    "@ckeditor/ckeditor5-react": "^6.1.0",
+    "@editorjs/editorjs": "^2.27.2",
+    "@ionic/react": "^7.1.2",
+    "@tinymce/tinymce-react": "^4.3.0",
+    "@zeit/next-css": "^1.0.1",
+    "axios": "^1.4.0",
+    "cookies-next": "^2.1.2",
+    "copy-webpack-plugin": "^11.0.0",
+    "dayjs": "^1.11.9",
+    "dropzone": "^6.0.0-beta.2",
+    "eslint": "8.44.0",
+    "eslint-config-next": "13.4.9",
+    "fs": "^0.0.1-security",
+    "htmltojsx": "^0.3.0",
+    "ionicons": "^7.1.2",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^3.1.2",
+    "next": "13.4.9",
+    "nookies": "^2.5.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.10.1",
+    "react-responsive-carousel": "^3.2.23",
+    "tinymce": "^6.6.0",
+    "trumbowyg": "^2.27.3"
+  },
+  "devDependencies": {
+    "cookie-cutter": "^0.2.0"
+  }
+}

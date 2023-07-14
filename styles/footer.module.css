@@ -1,0 +1,165 @@
+.footer .ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 250px;
+}
+
+.footer .ul .logo {
+    flex-grow: 0.2;
+    text-align: center;
+}
+
+.footer .ul .logo li {
+    list-style: none;
+}
+
+.footer .ul .novidades {
+    width: 30%;
+    display: grid;
+    gap: 1rem;
+    color: #555;
+}
+
+.footer .ul .novidades .send {
+    color: #555;
+}
+
+.footer .ul .novidades li:first-child {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #287bff;
+    font-weight: bold;
+}
+
+.footer .ul .novidades div a {
+    background: #287bff;
+    padding: 10px 10px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-bottom: 2px solid #287bff;
+    text-decoration: none;
+    color: #fff;
+}
+
+.footer .ul .novidades div input {
+    padding: 10px;
+    width: 100%;
+}
+
+.footer .ul .novidades li {
+    list-style: none;
+}
+
+.footer .ul .novidades div {
+    display: flex;
+    align-items: center;
+}
+
+.footer .links {
+    display: grid;
+    gap: 1rem;
+}
+
+.footer .links .title {
+    font-weight: bold;
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    color: #287bff;
+}
+
+.footer .links .title .icon {
+    font-size: 25px;
+}
+
+.footer .links ul {
+    display: flex;
+    list-style: inside;
+    gap: 3rem;
+    color: #555;
+}
+
+.footer .links ul li {
+    margin-bottom: 2.5px;
+}
+
+.bottom_mobile {
+    bottom: 0;
+    padding: 10px;
+    background: #607283;
+    text-align: center;
+    color: white;
+    display: none;
+}
+.bottom_pc {
+    bottom: 0;
+    padding: 10px;
+    background: #607283;
+    text-align: center;
+    color: white;
+    display: block;
+}
+
+
+
+.icon {
+    font-size: 20px;
+}
+@media(max-width: 975px){
+    .ul .logo{
+        display: none;
+    }
+    .footer .ul .novidades{
+        width: 40%;
+        padding: 10px;
+    }
+}
+@media(max-width: 600px){
+    .footer .links{
+        padding: 10px;
+    }
+    
+    .footer .links ul{
+        display: block;
+        flex-direction: column;
+        gap: 0rem;
+    }
+}
+
+@media(max-width: 785px){
+    .ul .logo{
+        display: none;
+    }
+    .footer{
+        width: 100%;
+    }
+    .footer .ul {
+        display: block;
+        position: absolute;
+        width: 100%;
+    }
+    .footer .ul .novidades{
+        flex-wrap: 2;
+        width: 100%;
+    }
+    .footer .links{
+        padding: 10px;
+    }
+    .footer .links ul{
+        margin-right: 50px;
+        gap: 8rem;
+    }
+    .bottom_mobile{
+        display: block;
+        width: 100%;
+    }
+    .bottom_pc{
+        display: none;
+    }
+   
+}

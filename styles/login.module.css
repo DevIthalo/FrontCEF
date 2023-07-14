@@ -1,0 +1,161 @@
+.login_navbar {
+    display: flex;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.login_navbar a:nth-child(2) {
+    text-decoration: none;
+    padding: 10px 20px;
+    color: white;
+    background: #287bff;
+    border-radius: 50px;
+}
+
+.login_navbar div:first-child a {
+    text-decoration: none;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #555;
+}
+
+.login_navbar div:first-child .login_back_icon {
+    text-decoration: none;
+    font-size: 40px;
+    color: #555;
+}
+
+.login_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+}
+
+
+.login_container .login_svg {
+    background-color: #f7f7f7;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    justify-content: center;
+}
+
+.login_container .login_svg h1 {
+    color: #287bff;
+    text-align: center;
+}
+
+
+.login_container .login_svg img {
+    display: flex;
+    align-items: center;
+    width: 450px;
+}
+
+.login_title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+
+    color: #287bff;
+
+}
+
+.login_card {
+    text-align: left;
+    height: 100%;
+    width: 100vw;
+    display: grid;
+    z-index: 1;
+}
+
+.login_container .login_card .login_logo {
+    margin: 40px auto;
+}
+
+.login_card .login_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+    width: 60%;
+}
+
+.login_card .login_form label {
+    color: #555;
+}
+
+.login_card .login_form .login_image {
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.input_btn {
+    background: #287bff;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.input_btn_none {
+    display: none;
+}
+
+.input_btn_title {
+    color: #fff;
+    padding: 10px;
+}
+
+.login_register {
+    text-align: center;
+    color: #555;
+}
+
+.login_register a {
+    text-decoration: none;
+    color: #287bff;
+
+}
+
+@media(max-width: 530px) {
+    .login_card .login_form {
+        width: 80%;
+        margin-top: 30px;
+    }
+}
+
+@media(max-width: 1015px) {
+    .login_container .login_svg img {
+        width: 400px;
+    }
+}
+
+@media(max-width: 940px) {
+    .login_container .login_svg {
+        display: none;
+    }
+}
+
+@media(max-height: 510px) {
+    .login_container .login_svg {
+        display: none;
+    }
+}
