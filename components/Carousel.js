@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 

@@ -2,7 +2,7 @@
     position: relative;
     display: grid;
     gap: 1rem;
-    width: calc(100% - 40%);
+    width: 1100px;
     left: 10%;
     margin: 0 auto;
     overflow: auto;
@@ -13,7 +13,7 @@
     position: relative;
     margin: 0 auto;    
     left: 0px;
-    width: calc(100% - 40%);
+    width: 1100px;
     padding: 10px;
     transition: 1s ease;
 }

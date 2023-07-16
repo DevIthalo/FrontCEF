@@ -1,7 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 import React, { useRef } from "react";
 import axios from "axios";
-
 export function CustomEditor(props) {
   const editorRef = useRef(null);
 
@@ -37,7 +36,6 @@ export function CustomEditor(props) {
       init={{
         min_height: 700,
         menubar: true,
-        selector:'textarea',
         plugins: [
           "advlist",
           "autolink",
@@ -58,7 +56,7 @@ export function CustomEditor(props) {
           "help",
           "wordcount",
         ],
-        content_style: "@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300&display=swap'); body{font-family: Lexend Deca;}",
+        content_style: "@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300&display=swap'); body{font-family: Lexend Deca;line-height:5px;}",
         images_upload_url: "http://localhost:8000/api/upload-image/",
         images_upload_handler: uploadImage,
         toolbar:
@@ -67,6 +65,44 @@ export function CustomEditor(props) {
           "alignright alignjustify | image | bullist numlist outdent indent | " +
           "removeformat | help",
         file_picker_types: 'image',
+        setup: function (editor) {
+          editor.on('NodeChange', function (e) {
+            if (e && e.element.nodeName === 'IMG') {
+              e.element.classList.add('img-600-responsive');
+              if (e.element.getAttribute('width') > '1000px' && e.element.getAttribute('width') <= '1100px') {
+                e.element.classList.add('img-1000-1100-responsive')
+                console.log('testando')
+              }
+              if (e.element.getAttribute('width') > '900px') {
+                e.element.classList.add('img-900-1000-responsive')
+                e.element.classList.remove('img-1000-1100-responsive');
+                console.log('Testando2')
+              }
+
+              if (e.element.getAttribute('width') > '800px' && e.element.getAttribute('width') < '900px') {
+                e.element.classList.add('img-800-900-responsive')
+                e.element.classList.remove('img-900-1000-responsive')
+                e.element.classList.remove('img-1000-1100-responsive');
+                console.log('Testando3')
+              }
+              if (e.element.getAttribute('width') > '700px' && e.element.getAttribute('width') < '800px') {
+                e.element.classList.add('img-700-800-responsive');
+                e.element.classList.remove('img-800-900-responsive')
+                e.element.classList.remove('img-900-1000-responsive')
+                e.element.classList.remove('img-1000-1100-responsive');
+                console.log('Testando4')
+              }
+              if (e.element.getAttribute('width') > '600px' && e.element.getAttribute('width') < '700px') {
+                e.element.classList.add('img-600-700-responsive');
+                e.element.classList.remove('img-700-800-responsive');
+                e.element.classList.remove('img-800-900-responsive')
+                e.element.classList.remove('img-900-1000-responsive')
+                e.element.classList.remove('img-1000-1100-responsive');
+                console.log('Testando5')
+              }
+            }
+          });
+        }
       }}
       onEditorChange={props.handleOnEditorChange}
     />

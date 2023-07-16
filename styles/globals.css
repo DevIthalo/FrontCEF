@@ -11,3 +11,41 @@
 body {
     background: #fff;
 }
+
+
+@media(max-width: 600px){
+    .img-600-responsive{
+        width: 100%;
+        height: auto;
+    }
+}
+@media(max-width: 700px){
+    .img-600-700-responsive{
+        width: 100%;
+        height: auto;
+    }
+}
+@media(max-width: 800px){
+    .img-700-800-responsive{
+        width: 100%;
+        height: auto;
+    }
+}
+@media(max-width: 900px){
+    .img-800-900-responsive{
+        width: 100%;
+        height: auto;
+    }
+}
+@media(max-width: 1000px){
+    .img-900-1000-responsive{
+        width: 100%;
+        height: auto;
+    }
+}
+@media(max-width: 1100px){
+    .img-1000-1100-responsive{
+        width: 100%;
+        height: auto;
+    }
+}

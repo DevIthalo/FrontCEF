@@ -8,8 +8,8 @@ import Modal from '@/components/Modal';
 
 const PostRegister = () => {
     const [isToggle, setIsToggle] = useState(true);
-    const [title, setTitle] = useState();
-    const [content, setContent] = useState();
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
 
     const handleToggle = () => {
@@ -30,9 +30,6 @@ const PostRegister = () => {
         setModalOpen(false);
     };
 
-  
-
-
     return (
         <>
         <div className={adminStyles.admin_container}>
@@ -52,9 +49,10 @@ const PostRegister = () => {
             </div>
         </div>
         <Modal isOpen={modalOpen} onRequestClose={handleCloseModal}>
-            <h1>{title}</h1>
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <h1>{title}</h1><br/>
+            <div dangerouslySetInnerHTML={{ __html: '<div style="line-height:1.5;word-wrap:break-word">'+content+'</div>'} }/>
         </Modal>
+        {content}
      </>
     )
 }
