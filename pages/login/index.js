@@ -10,11 +10,13 @@ import { IoIosArrowBack } from 'react-icons/io'
 import Link from 'next/link'
 import { parseCookies } from 'nookies'
 const LoginPage = () => {
-  const { loginUser, isLoading, setIsLoading } = useContext(AuthContext);
+  const { loginUser, isLoading, setIsLoading, errors } = useContext(AuthContext);
 
   useEffect(() => {
     setIsLoading(false)
   }, [setIsLoading])
+
+
 
   return (
     <>
@@ -30,15 +32,20 @@ const LoginPage = () => {
         <div className={styles.login_card}>
           <form className={styles.login_form} onSubmit={loginUser}>
             <Image className={styles.login_logo} src={"/assets/images/logo.png"} width={186} height={72} alt='Logo' />
-            <label>Email</label>
-            <Input type={"text"} name={"email"} placeholder={"Digite seu email"} />
-            <label>
-              Senha
-            </label>
-            <Input type={"password"} name={"password"} placeholder={"Digite sua senha"} />
+            {errors?.details ? <div className={styles.error_credentials}>{errors.details}</div> : ""}
+            <div>
+              <label>Email</label>
+              <input type={"text"} name={"email"} className={`${styles.input_email} ${errors?.email && styles.error_input}`} placeholder={"Digite seu email"} />
+              {errors?.email && (<label className={styles.error_label}>{errors?.email}</label>)} 
+            </div>
+            <div>
+              <label>Senha</label>
+              <input type={"password"} name={"password"} className={`${styles.input_password} ${errors?.password && styles.error_input}`} placeholder={"Digite sua senha"} />
+              {errors?.password && (<label className={styles.error_label}>{errors?.password}</label>)}
+            </div>
             <button type='submit' className={!isLoading ? styles.input_btn : styles.input_btn_none} disabled={isLoading}>Logar</button>
             {isLoading && <img src='assets/images/loading.svg' style={{ padding: '5px', margin: '0 auto' }} width={60} height={60} />}
-            <div className={styles.login_register}>Ainda não possui cadastro? <Link href={'/register'}>Registre-se</Link></div>
+            <p className={styles.login_register}>Ainda não possui cadastro? <Link href={'/register'}>Registre-se</Link></p>
           </form>
         </div>
 

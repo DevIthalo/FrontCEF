@@ -33,7 +33,7 @@ axiosInstance.interceptors.request.use(async req => {
     })
     
     setCookie(undefined, 'authTokens', JSON.stringify(response.data), {
-        maxAge: 60 * 5 // 5 minutes
+        maxAge: 2 * 86400 // 5 minutes
     });
     req.headers.Authorization = `Bearer ${response.data.access}`;
 

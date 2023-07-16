@@ -44,15 +44,14 @@ const PostRegister = () => {
             </div>
             <div className={styles.new_content}>
                 <label>Conteúdo</label>
-                <label>Edite o conteúdo da forma que quiser</label>
+                <label>Utilize o botão de visualizar para ver como o conteúdo vai ficar quando for publicado</label>
                 <CustomEditor handleOnEditorChange={handleOnEditorChange}/>
             </div>
         </div>
         <Modal isOpen={modalOpen} onRequestClose={handleCloseModal}>
             <h1>{title}</h1><br/>
-            <div dangerouslySetInnerHTML={{ __html: '<div style="line-height:1.5;word-wrap:break-word">'+content+'</div>'} }/>
+            <div dangerouslySetInnerHTML={{ __html: '<div style="line-height:1.4;word-wrap:break-word">'+content+'</div>'} }/>
         </Modal>
-        {content}
      </>
     )
 }

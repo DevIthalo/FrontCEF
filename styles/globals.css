@@ -12,6 +12,16 @@ body {
     background: #fff;
 }
 
+.p-space{
+    margin-bottom: 20px;
+}
+.li-space{
+    margin-left: 40px;
+}
+.p-space.li-space{
+    margin-bottom: 0px;
+    margin-left: 40px;
+}
 
 @media(max-width: 600px){
     .img-600-responsive{
@@ -25,7 +35,7 @@ body {
         height: auto;
     }
 }
-@media(max-width: 800px){
+@media(max-width: 860px){
     .img-700-800-responsive{
         width: 100%;
         height: auto;

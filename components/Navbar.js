@@ -62,7 +62,7 @@ const Navbar = () => {
         <div className={styles.user}>
           {user ? (
             <div>
-              <li>Bem-vindo {user.username}</li>
+              <li>Bem-vindo {user.email}</li>
               <li><a href='#' onClick={logoutUser}>Logout</a></li>
             </div>
           )

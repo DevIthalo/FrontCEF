@@ -1,8 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React, { useContext, useState, useEffect } from 'react'
-import Navbar from '@/components/Navbar'
-import AuthContext from '@/context/AuthContext'
 import styles from '@/styles/login.module.css'
 import Image from 'next/image'
 import Input from '@/components/Input'
