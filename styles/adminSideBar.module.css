@@ -1,0 +1,153 @@
+.admin_sidebar {
+    width: 350px;
+    background: #287bff;
+    height: 100vh;
+    position: fixed;
+    padding: 10px 20px;
+    overflow-y: auto;
+    transition: 1s ease;
+}
+
+
+.admin_sidebar_toggle {
+    width: 80px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 1s ease;
+}
+
+.admin_sidebar div:first-child a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    font-size: 20px;
+    width: 100%;
+    text-decoration: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+}
+
+.admin_sidebar div:first-child .admin_sidebar_icon_back {
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.admin_sidebar div:nth-child(2) {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    font-size: 15px;
+}
+
+.admin_sidebar div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 10px;
+    color: white;
+    font-size: 15px;
+}
+
+.admin_sidebar div a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    gap: 1rem;
+}
+
+.admin_sidebar div a .admin_sidebar_icon {
+    font-size: 30px;
+}
+
+.admin_sidebar div p {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin_sidebar .admin_sidebar_selected {
+    background: #fff;
+    color: #287bff;
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+@media(max-width:880px) {
+    .admin_sidebar {
+        width: 40%;
+        left: 0;
+    }
+
+    .admin_sidebar_toggle {
+        width: 80px;
+        padding: 0px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: 1s ease;
+    }
+}
+
+@media(max-width:600px) {
+
+
+    .admin_sidebar {
+        width: 45%;
+        left: 0;
+    }
+
+    .admin_sidebar_toggle {
+        width: 80px;
+        padding: 0px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: 1s ease;
+    }
+}
+
+@media(max-width:500px) {
+    .admin_sidebar {
+        width: 80%;
+        left: 0;
+    }
+
+    .admin_sidebar_toggle {
+        width: 80px;
+        padding: 0px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: 1s ease;
+    }
+}
+
+@media(max-width:425px) {
+    .admin_sidebar {
+        width: 80%;
+        left: 0;
+
+    }
+
+    .admin_sidebar_toggle {
+        width: 0px;
+        padding: 0px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: 1s ease;
+    }
+}

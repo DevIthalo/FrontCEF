@@ -1,28 +1,9 @@
 # CEF - Centro Educacional de Floriano 
 
 #### IMPORTANTE!!!!
-Instalem essas dependências antes de executar ``` npm run dev ```
+Executem o ``` npm install ``` antes de executar ``` npm run dev ```
 
-##### Tiny MCE (Editor de texto personalizado)
-``` npm install --save tinymce @tinymce/tinymce-react copy-webpack-plugin ```
 
-##### Jwt Decode (Decodar o jwt vindo do backend)
-``` npm install jwt-decode ```
-
-##### Armazenar informações nos cookies
-``` npm install nookies ```
-
-##### Axios (Responsável por fazer requisições para o backend)
-``` npm install axios ```
-
-##### Pegar o dia e a hora atuais
-``` npm install dayjs ```
-
-##### Biblioteca de ícones
-``` npm install react-icons --save ```
-
-##### Carousel responsivo
-``` npm install react-responsive-carousel ```
 
 ------------------------------------ Opcional -----------------------------------------------------
 #### Iniciar o git flow 
@@ -62,4 +43,27 @@ comando abaixo (pode ser a partir da main)
 #### Subir todas as branchs (develop e master para nuvem)
 ``` git push --all ```
 
+--------------------------- Não precisa instalar (pq já está no package.json) -------------------------------
+##### Tiny MCE (Editor de texto personalizado)
+``` npm install --save tinymce @tinymce/tinymce-react copy-webpack-plugin ```
 
+##### Jwt Decode (Decodar o jwt vindo do backend)
+``` npm install jwt-decode ```
+
+##### Armazenar informações nos cookies
+``` npm install nookies ```
+
+##### Axios (Responsável por fazer requisições para o backend)
+``` npm install axios ```
+
+##### Pegar o dia e a hora atuais
+``` npm install dayjs ```
+
+##### Biblioteca de ícones
+``` npm install react-icons --save ```
+
+##### Carousel responsivo
+``` npm install react-responsive-carousel ```
+
+##### React Modal 
+``` npm install react-modal ```

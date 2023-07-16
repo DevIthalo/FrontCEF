@@ -22,9 +22,8 @@ export function CustomEditor(props) {
         },
       });
       resolve("http://localhost:8000" + response.data)
-      console.log('Imagem enviada com sucesso:', response.data);
     } catch (error) {
-      console.error('Erro ao enviar imagem:', error);
+      reject("Erro ao enviar, certifique-se de que você está mandando uma imagem!")
     }
   })
 
@@ -38,6 +37,7 @@ export function CustomEditor(props) {
       init={{
         min_height: 700,
         menubar: true,
+        selector:'textarea',
         plugins: [
           "advlist",
           "autolink",
@@ -58,7 +58,7 @@ export function CustomEditor(props) {
           "help",
           "wordcount",
         ],
-
+        content_style: "@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300&display=swap'); body{font-family: Lexend Deca;}",
         images_upload_url: "http://localhost:8000/api/upload-image/",
         images_upload_handler: uploadImage,
         toolbar:
@@ -67,8 +67,6 @@ export function CustomEditor(props) {
           "alignright alignjustify | image | bullist numlist outdent indent | " +
           "removeformat | help",
         file_picker_types: 'image',
-        content_style:
-          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
       }}
       onEditorChange={props.handleOnEditorChange}
     />
