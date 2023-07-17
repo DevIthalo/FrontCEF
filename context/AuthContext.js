@@ -93,7 +93,6 @@ export function AuthProvider({ children }) {
                 }
             }
         }
-
     }
 
     const registerUser = async (e) => {
