@@ -18,6 +18,11 @@ const api = axios.create({
     }
 });
 
+const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
 export function AuthProvider({ children }) {
     useEffect(() => {
         const { ['authTokens']: token } = parseCookies();
@@ -42,6 +47,9 @@ export function AuthProvider({ children }) {
         }
         if (e.target.password.value === '' || e.target.email.value === undefined) {
             errors.password = "O campo senha não pode estar em branco!"
+        }
+        if (!validateEmail(e.target.email.value) && e.target.email.value !== '' || e.target.email.value === undefined) {
+            errors.email = "Digite um e-mail valido! Ex.: fulano@gmail.com"
         }
         if (Object.keys(errors).length > 0) {
             setFormErrors(errors);
@@ -115,6 +123,9 @@ export function AuthProvider({ children }) {
         if (e.target.password.value !== e.target.confirm_password.value) {
             errors.confirm_password = "As senhas estão diferentes!"
         }
+        if (!validateEmail(e.target.email.value) && e.target.email.value !== '' || e.target.email.value === undefined) {
+            errors.email = "Digite um e-mail valido! Ex.: fulano@gmail.com"
+        }
         if (Object.keys(errors).length > 0) {
             setFormErrors(errors);
             setIsLoading(false);
@@ -144,7 +155,6 @@ export function AuthProvider({ children }) {
                 }
             }
         }
-
     }
 
 
