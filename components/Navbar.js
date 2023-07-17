@@ -38,10 +38,10 @@ const Navbar = () => {
               <li><Link className={`${router.pathname === '/' ? styles.menu_links_backgroud : ''}`} href={`/`}><AiOutlineHome className={styles.iconHome} />  Página Inicial</Link></li>
             </div>
             <div className={styles.menu_container}>
-              
+
               <Link className={styles.menu_login} href={`/login`}>Login</Link>
-              <br/>
-              <li>Ainda não possui cadastro? <a className={styles.menu_register} href="#">Registre-se</a></li>
+              <br />
+              <li>Ainda não possui cadastro? <a className={styles.menu_register} href="/register">Registre-se</a></li>
             </div>
           </div>
 
@@ -69,7 +69,7 @@ const Navbar = () => {
             : (
               <div>
                 <li className={styles.login}><Link href={`/login`}>Login</Link></li>
-                <li className={styles.register}><a href="#">Registre-se</a></li>
+                <li className={styles.register}><a href="/register">Registre-se</a></li>
               </div>
             )
           }

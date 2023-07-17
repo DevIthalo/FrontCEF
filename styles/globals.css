@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300&display=swap');
+
 * {
     padding: 0;
     margin: 0;
@@ -12,49 +13,56 @@ body {
     background: #fff;
 }
 
-.p-space{
+.p-space {
     margin-bottom: 20px;
 }
-.li-space{
+
+.li-space {
     margin-left: 40px;
 }
-.p-space.li-space{
+
+.p-space.li-space {
     margin-bottom: 0px;
     margin-left: 40px;
 }
 
-@media(max-width: 600px){
-    .img-600-responsive{
+@media(max-width: 680px) {
+    .img-600-responsive {
         width: 100%;
         height: auto;
     }
 }
-@media(max-width: 700px){
-    .img-600-700-responsive{
+
+@media(max-width: 780px) {
+    .img-600-700-responsive {
         width: 100%;
         height: auto;
     }
 }
-@media(max-width: 860px){
-    .img-700-800-responsive{
+
+@media(max-width: 880px) {
+    .img-700-800-responsive {
         width: 100%;
         height: auto;
     }
 }
-@media(max-width: 900px){
-    .img-800-900-responsive{
+
+@media(max-width: 980px) {
+    .img-800-900-responsive {
         width: 100%;
         height: auto;
     }
 }
-@media(max-width: 1000px){
-    .img-900-1000-responsive{
+
+@media(max-width: 1080px) {
+    .img-900-1000-responsive {
         width: 100%;
         height: auto;
     }
 }
-@media(max-width: 1100px){
-    .img-1000-1100-responsive{
+
+@media(max-width: 1180px) {
+    .img-1000-1100-responsive {
         width: 100%;
         height: auto;
     }

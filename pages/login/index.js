@@ -10,10 +10,11 @@ import { IoIosArrowBack } from 'react-icons/io'
 import Link from 'next/link'
 import { parseCookies } from 'nookies'
 const LoginPage = () => {
-  const { loginUser, isLoading, setIsLoading, errors } = useContext(AuthContext);
+  const { loginUser, isLoading, setIsLoading, errors, setFormErrors } = useContext(AuthContext);
 
   useEffect(() => {
-    setIsLoading(false)
+    setIsLoading(false);
+    setFormErrors({});
   }, [setIsLoading])
 
 
@@ -36,7 +37,7 @@ const LoginPage = () => {
             <div>
               <label>Email</label>
               <input type={"text"} name={"email"} className={`${styles.input_email} ${errors?.email && styles.error_input}`} placeholder={"Digite seu email"} />
-              {errors?.email && (<label className={styles.error_label}>{errors?.email}</label>)} 
+              {errors?.email && (<label className={styles.error_label}>{errors?.email}</label>)}
             </div>
             <div>
               <label>Senha</label>

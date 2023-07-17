@@ -95,7 +95,8 @@
     margin: 0 auto;
     width: 60%;
 }
-.login_card .login_form div{
+
+.login_card .login_form div {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -110,16 +111,22 @@
     margin-bottom: 40px;
 }
 
-.login_card .login_form .input_email{
-    padding: 10px;
-    width: 100%;
-}
-.login_card .login_form .input_password{
+.login_card .login_form .input_email {
     padding: 10px;
     width: 100%;
 }
 
-.login_card .login_form .error_credentials{
+.login_card .login_form .input_password {
+    padding: 10px;
+    width: 100%;
+}
+
+.login_card .login_form .input_confirm_password {
+    padding: 10px;
+    width: 100%;
+}
+
+.login_card .login_form .error_credentials {
     border: 1px solid red;
     border-radius: 5px;
     background: rgb(255, 241, 241);
@@ -127,11 +134,13 @@
     padding: 10px;
     text-align: center;
 }
-.login_card .login_form .error_label{
+
+.login_card .login_form .error_label {
     font-size: 12px;
     color: red;
 }
-.login_card .login_form .error_input{
+
+.login_card .login_form .error_input {
     border: 1px solid red;
 }
 
@@ -160,7 +169,6 @@
     flex-direction: row;
     gap: 5px;
     justify-content: center;
-
     color: #555;
 }
 
