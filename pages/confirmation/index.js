@@ -94,7 +94,7 @@ const EmailConfirmation = () => {
             inputRef6.current.focus();
         }
         setNumbers(
-            inputRef1.current.value+ "" + 
+            inputRef1.current.value + "" +
             inputRef2.current.value + "" +
             inputRef3.current.value + "" +
             inputRef4.current.value + "" +
@@ -128,9 +128,9 @@ const EmailConfirmation = () => {
                 inputRef4.current.value = digits[3];
                 inputRef5.current.value = digits[4];
                 inputRef6.current.value = digits[5];
+                setNumbers(pasteData);
             }
         }
-        setNumbers(pasteData);
 
     }
 
@@ -245,12 +245,12 @@ export const getServerSideProps = async (ctx) => {
         }
     }
     const user = jwtDecode(token);
-    const response = await axios.get(`http://127.0.0.1:8000/api/get_isValidated/?email=paulobruno_51@hotmail.com`,{
-        headers:{
+    const response = await axios.get(`http://127.0.0.1:8000/api/get_isValidated/?email=paulobruno_51@hotmail.com`, {
+        headers: {
             "Content-Type": "application/json"
         }
     })
-    if(response.data === true){
+    if (response.data === true) {
         return {
             redirect: {
                 destination: '/',

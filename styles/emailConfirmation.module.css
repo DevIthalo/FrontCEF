@@ -51,13 +51,21 @@
     justify-content: center;
 }
 
+.confirmation_card .confirmation_title .confirmation_inputs input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+
+}
+
 .confirmation_card .confirmation_title .confirmation_inputs input {
     width: 40px;
     height: 40px;
+    border: 1px solid black;
     text-align: center;
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
-.confirmation_card .confirmation_title .confirmation_btn{
+.confirmation_card .confirmation_title .confirmation_btn {
     padding: 10px;
     width: 70%;
     background: #287bff;
@@ -67,7 +75,8 @@
     margin: 10px auto;
     cursor: pointer;
 }
-.confirmation_card .confirmation_title .confirmation_btn:disabled{
+
+.confirmation_card .confirmation_title .confirmation_btn:disabled {
     padding: 10px;
     width: 70%;
     background: #b0ceff;
@@ -78,25 +87,29 @@
     margin: 10px auto;
 }
 
-.confirmation_card .confirmation_title .confirmation_msg{
+.confirmation_card .confirmation_title .confirmation_msg {
     padding: 10px;
     margin: 5px;
     border: 1px solid red;
     color: red;
     background: rgb(255, 235, 235);
 }
-.confirmation_card .confirmation_title .confirmation_resend{
+
+.confirmation_card .confirmation_title .confirmation_resend {
     display: flex;
     justify-content: center;
     gap: 1rem;
 }
-.confirmation_card .confirmation_title .confirmation_resend .confirmation_resend_count{
+
+.confirmation_card .confirmation_title .confirmation_resend .confirmation_resend_count {
     color: #287bff;
 }
-.confirmation_card .confirmation_title .confirmation_resend .confirmation_resend_none{
+
+.confirmation_card .confirmation_title .confirmation_resend .confirmation_resend_none {
     display: none;
 }
-.confirmation_card .confirmation_title .confirmation_btn_resend{
+
+.confirmation_card .confirmation_title .confirmation_btn_resend {
 
     text-decoration: none;
     color: #287bff;
@@ -105,9 +118,10 @@
     background: transparent;
     font-size: 15px;
 }
-.confirmation_card .confirmation_title .confirmation_btn_resend:disabled{
+
+.confirmation_card .confirmation_title .confirmation_btn_resend:disabled {
     text-decoration: none;
     color: #999;
     cursor: unset;
-    
+
 }

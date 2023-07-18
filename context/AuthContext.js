@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
     const { push } = useRouter();
 
 
-    const loginUser = async (e, isRegister=false) => {
+    const loginUser = async (e, isRegister = false) => {
         setIsLoading(true);
         e.preventDefault();
         const errors = {}
@@ -68,7 +68,7 @@ export function AuthProvider({ children }) {
                     setCookie(undefined, 'authTokens', JSON.stringify(data), {
                         maxAge: 2 * 86400// 5 minutes
                     });
-                    if(isRegister) push('/emailConfirmation');
+                    if (isRegister) push('/confirmation');
                     else push('/')
                 }
             } catch (error) {
