@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40%;
+    width: 600px;
     padding: 10px;
     box-shadow: 1px 1px 5px #999;
     background: #fff;
@@ -55,4 +55,59 @@
     width: 40px;
     height: 40px;
     text-align: center;
+}
+
+.confirmation_card .confirmation_title .confirmation_btn{
+    padding: 10px;
+    width: 70%;
+    background: #287bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin: 10px auto;
+    cursor: pointer;
+}
+.confirmation_card .confirmation_title .confirmation_btn:disabled{
+    padding: 10px;
+    width: 70%;
+    background: #b0ceff;
+    color: #fff;
+    border: none;
+    cursor: unset;
+    border-radius: 5px;
+    margin: 10px auto;
+}
+
+.confirmation_card .confirmation_title .confirmation_msg{
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid red;
+    color: red;
+    background: rgb(255, 235, 235);
+}
+.confirmation_card .confirmation_title .confirmation_resend{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.confirmation_card .confirmation_title .confirmation_resend .confirmation_resend_count{
+    color: #287bff;
+}
+.confirmation_card .confirmation_title .confirmation_resend .confirmation_resend_none{
+    display: none;
+}
+.confirmation_card .confirmation_title .confirmation_btn_resend{
+
+    text-decoration: none;
+    color: #287bff;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    font-size: 15px;
+}
+.confirmation_card .confirmation_title .confirmation_btn_resend:disabled{
+    text-decoration: none;
+    color: #999;
+    cursor: unset;
+    
 }

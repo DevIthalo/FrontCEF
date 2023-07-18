@@ -3,7 +3,7 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   future: {
     webpack5: true,
@@ -14,7 +14,6 @@ const nextConfig = {
       'trumbowyg/dist/plugins/upload/trumbowyg.upload.min.css',
     ],
   },
-
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.plugins.push(
       new CopyPlugin({

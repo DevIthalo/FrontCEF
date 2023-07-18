@@ -15,6 +15,7 @@ const Register = () => {
   useEffect(() => {
     setIsLoading(false);
     setFormErrors({});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setIsLoading])
 
   return (

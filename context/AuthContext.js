@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
     const { push } = useRouter();
 
 
-    const loginUser = async (e) => {
+    const loginUser = async (e, isRegister=false) => {
         setIsLoading(true);
         e.preventDefault();
         const errors = {}
@@ -68,7 +68,8 @@ export function AuthProvider({ children }) {
                     setCookie(undefined, 'authTokens', JSON.stringify(data), {
                         maxAge: 2 * 86400// 5 minutes
                     });
-                    push('/');
+                    if(isRegister) push('/emailConfirmation');
+                    else push('/')
                 }
             } catch (error) {
                 if (error.response) {
@@ -136,10 +137,8 @@ export function AuthProvider({ children }) {
                         "Content-Type": "application/json",
                     },
                 });
-                const data = response.data;
                 if (response.status === 201) {
-                    console.log(data);
-                    loginUser(e);
+                    loginUser(e, true);
                 }
             } catch (error) {
                 if (error.response) {
