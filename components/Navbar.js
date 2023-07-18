@@ -9,11 +9,16 @@ import { useRouter } from 'next/router'
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [startX, setStartX] = useState(0);
   const router = useRouter();
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
+  }
+
+  const toggleDropDown = () => {
+    setIsDropDownOpen(!isDropDownOpen);
   }
 
   const handleTouchStart = (event) => {
@@ -61,8 +66,13 @@ const Navbar = () => {
         <div className={styles.user}>
           {user ? (
             <div>
-              <li>Bem-vindo {user.email}</li>
-              <li><a href='#' onClick={logoutUser}>Logout</a></li>
+              <Image onClick={toggleDropDown} className={`${styles.profile_photo}`} src={`/assets/images/profile_photo.webp`} width={50} height={50} alt='Profile Photo' />
+              <div className={`${styles.dropdown_container} ${isDropDownOpen ? styles.toggle_dropdown_open : ''}`}>
+                <div className={styles.dropdown_info}>
+                  <p>Olá! Tudo bem?</p>
+                  <p>Complete seu cadastro para realizar pagamentos, incrições em cursos e outras ações no sistema</p>
+                </div>
+              </div>
             </div>
           )
             : (

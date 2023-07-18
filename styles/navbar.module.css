@@ -20,14 +20,16 @@
     list-style: none;
     z-index: 999;
 }
+
 .ul .links a {
     position: relative;
 }
+
 .ul .links a::after {
     content: '';
     position: absolute;
     left: 0;
-    bottom: 0;    
+    bottom: 0;
     margin-bottom: -5px;
     width: 0;
     height: 3px;
@@ -39,12 +41,14 @@
     width: 100%;
 }
 
-.ul .links .menu_links_border_bottom{
+.ul .links .menu_links_border_bottom {
     display: flex;
     align-items: center;
 }
-.ul .links .menu_links_border_bottom a{
-    color: #287bff;    padding-bottom: 6px;
+
+.ul .links .menu_links_border_bottom a {
+    color: #287bff;
+    padding-bottom: 6px;
 
     border-bottom: 3px solid #287bff;
     pointer-events: none;
@@ -71,11 +75,42 @@
     align-items: center;
 }
 
-.ul .user div {
-    display: flex;
-    gap: 2rem;
-    z-index: 999;
+.ul .user .dropdown_container {
+    position: absolute;
+    height: 0;
+    width: 0;
+    right: 0;
+    margin: 10px;
+    transition: height 0.3s ease-out, width 0.3s ease-out;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #d5d5d5;
 }
+
+.ul .user .toggle_dropdown_open {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    transition: height 0.3s ease-in, width 0.3s ease-in;
+}
+
+.ul .user .dropdown_container .dropdown_info p {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.ul .user .dropdown_container .dropdown_info p:nth-child(2) {
+    font-size: 11px;
+    text-align: center;
+    font-weight: lighter;
+}
+
+.ul .user .profile_photo {
+    border-radius: 50%;
+}
+
 
 .ul .user div .login a {
     color: #287bff;
@@ -92,7 +127,6 @@
 .ul .user li {
     list-style: none;
     z-index: 999;
-
 }
 
 .ul .user li a {
