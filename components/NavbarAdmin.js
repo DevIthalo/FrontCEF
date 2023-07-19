@@ -2,7 +2,7 @@
 import React from 'react'
 import { FiMenu } from 'react-icons/fi'
 import { LiaSearchSolid } from 'react-icons/lia'
-import {BsEye, BsSend} from 'react-icons/bs'
+import { BsEye, BsSend } from 'react-icons/bs'
 import Link from 'next/link'
 import styles from '@/styles/adminNavbar.module.css'
 const NavbarAdmin = (props) => {
@@ -14,11 +14,11 @@ const NavbarAdmin = (props) => {
                     <input type={'text'} name={'serch'} placeholder={'Pesquisar Postagens'} />
                     <a href=""><LiaSearchSolid className={styles.admin_main_search_icon} /></a>
                 </div>
-                : <button className={styles.admin_main_navbar_btn_view} onClick={props.handleOpenModal}><BsEye/>Visualizar</button>}
+                    : <button className={styles.admin_main_navbar_btn_view} onClick={props.handleOpenModal}><BsEye />Visualizar</button>}
                 {
                     !props.isNew ?
-                    <Link href="#"><img src="/assets/images/profile_photo.webp" width={50} height={50} alt="" /></Link>
-                    : <button className={styles.admin_main_navbar_btn_publish}><BsSend/>Publicar</button>
+                        <Link href="#"><img src="/assets/images/profile_photo.webp" width={50} height={50} alt="" /></Link>
+                        : <button className={styles.admin_main_navbar_btn_publish}><BsSend />Publicar</button>
                 }
             </div>
         </div>

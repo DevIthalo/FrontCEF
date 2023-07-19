@@ -32,11 +32,11 @@ const PerfilUser = () => {
 
   return (
     <>
-      <div className={adminStyles.admin_container}>
-        <SideBarUser isToggle={isToggle} />
-        <NavbarUser isToggle={isToggle} isEditBasic={isEditBasic} isEditEndereco={isEditEndereco} isEditCpf={isEditCpf} handleToggle={handleToggle} />
-      </div>
-      <div className={`${styles.user_container} ${isToggle ? styles.user_container_toggle : ''}`}>
+
+      <SideBarUser isSideBarOpen={isToggle} />
+      <NavbarUser isToggle={isToggle} isEditBasic={isEditBasic} isEditEndereco={isEditEndereco} isEditCpf={isEditCpf} handleToggle={handleToggle} />
+
+      <div className={`${styles.user_container}`}>
         <div className={styles.user_container_title}>
           <h3>Informações Básicas</h3>
           <a style={{ cursor: 'pointer' }} onClick={handleEditBasic}><LuEdit className={styles.user_container_edit_icon} /></a>
@@ -56,7 +56,7 @@ const PerfilUser = () => {
                   <p>Não infomado ainda</p>
                 </div>
               </div>)
-                : 
+                :
                 <div className={styles.user_basic_information_container_name}>
                   <div className={styles.user_basic_information_grid}>
                     <p>Nome</p>
@@ -119,73 +119,73 @@ const PerfilUser = () => {
                 </div>
               </div>
             </div>
-            ) : (
-              <div className={styles.user_endereco_container_grid}>
-                <div className={styles.user_endereco_container}>
-                  <div className={styles.user_basic_information_grid}>
-                    <p>Logradouro (Rua, Conjunto ou outro)</p>
-                    <input type="text" placeholder='Informe o logradouro'/>
-                  </div>
-                  <div className={styles.user_basic_information_grid}>
-                    <p>Bairro</p>
-                    <input type="text" placeholder='Informe o bairro'/>
-                  </div>
-                  <div className={styles.user_basic_information_grid}>
-                    <p>Número</p>
-                    <input type="text" placeholder='Informe o número'/>
-                  </div>
+          ) : (
+            <div className={styles.user_endereco_container_grid}>
+              <div className={styles.user_endereco_container}>
+                <div className={styles.user_basic_information_grid}>
+                  <p>Logradouro (Rua, Conjunto ou outro)</p>
+                  <input type="text" placeholder='Informe o logradouro' />
                 </div>
-                <div className={styles.user_endereco_container}>
-                  <div className={styles.user_basic_information_grid}>
-                    <p>CEP</p>
-                    <input type="text" placeholder='Informe o CEP'/>
-                  </div>
-                  <div className={styles.user_basic_information_grid}>
-                    <p>Cidade</p>
-                    <input type="text" placeholder='Informe a cidade onde mora'/>
-                  </div>
-                  <div className={styles.user_basic_information_grid}>
-                    <p>Estado</p>
-                    <input type="text" placeholder='Informe o estado onde mora'/>
-                  </div>
+                <div className={styles.user_basic_information_grid}>
+                  <p>Bairro</p>
+                  <input type="text" placeholder='Informe o bairro' />
                 </div>
-                <div className={styles.user_endereco_container}>
-                  <div className={styles.user_basic_information_grid}>
-                    <p>Complemento</p>
-                    <input type="text" placeholder='Complemento, Ex.: Apto Nº 240 4º Andar'/>
-                  </div>
+                <div className={styles.user_basic_information_grid}>
+                  <p>Número</p>
+                  <input type="text" placeholder='Informe o número' />
                 </div>
               </div>
-            )
+              <div className={styles.user_endereco_container}>
+                <div className={styles.user_basic_information_grid}>
+                  <p>CEP</p>
+                  <input type="text" placeholder='Informe o CEP' />
+                </div>
+                <div className={styles.user_basic_information_grid}>
+                  <p>Cidade</p>
+                  <input type="text" placeholder='Informe a cidade onde mora' />
+                </div>
+                <div className={styles.user_basic_information_grid}>
+                  <p>Estado</p>
+                  <input type="text" placeholder='Informe o estado onde mora' />
+                </div>
+              </div>
+              <div className={styles.user_endereco_container}>
+                <div className={styles.user_basic_information_grid}>
+                  <p>Complemento</p>
+                  <input type="text" placeholder='Complemento, Ex.: Apto Nº 240 4º Andar' />
+                </div>
+              </div>
+            </div>
+          )
           }
         </div>
-        <br/><br/>
+        <br /><br />
         <div className={styles.user_container_title}>
           <h3>CPF</h3>
           <a style={{ cursor: 'pointer' }} onClick={handleEditCpf}><LuEdit className={styles.user_container_edit_icon} /></a>
         </div>
-        <p style={{fontSize: 12}}>Obs.: Uma vez atualizado o CPF, você não conseguirá mais editar. Então, insira-o corretamente!</p>
-        <hr/><br/>
+        <p style={{ fontSize: 12 }}>Obs.: Uma vez atualizado o CPF, você não conseguirá mais editar. Então, insira-o corretamente!</p>
+        <hr /><br />
         {!isEditCpf ? (
-            <div className={styles.user_endereco_container_grid}>
-              <div className={styles.user_endereco_container}>
-                <div className={styles.user_basic_information_grid}>
-                  <p>CPF</p>
-                  <p>Não infomado ainda</p>
-                </div>
+          <div className={styles.user_endereco_container_grid}>
+            <div className={styles.user_endereco_container}>
+              <div className={styles.user_basic_information_grid}>
+                <p>CPF</p>
+                <p>Não infomado ainda</p>
               </div>
             </div>
-            ) : (
-              <div className={styles.user_endereco_container_grid}>
-                <div className={styles.user_endereco_container}>
-                  <div className={styles.user_basic_information_grid}>
-                    <p>CPF</p>
-                    <input type="text" placeholder='Informe o logradouro'/>
-                  </div>
-                </div>
+          </div>
+        ) : (
+          <div className={styles.user_endereco_container_grid}>
+            <div className={styles.user_endereco_container}>
+              <div className={styles.user_basic_information_grid}>
+                <p>CPF</p>
+                <input type="text" placeholder='Informe o logradouro' />
               </div>
-            )
-          }
+            </div>
+          </div>
+        )
+        }
       </div>
     </>
   )
