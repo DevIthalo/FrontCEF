@@ -4,6 +4,7 @@
     width: calc(100% - 350px);
     padding: 10px 20px;
     z-index: 999;
+    background: #fff;
     transition: 1s ease;
 }
 
@@ -86,6 +87,12 @@
     background: #287bff;
     text-align: center;
     cursor: pointer;
+}
+.admin_main .admin_main_navbar .admin_main_navbar_btn_publish:disabled{
+    background: #bfd7ff;
+    border: none;
+    cursor: unset;
+    color: #0040ad;
 }
 
 

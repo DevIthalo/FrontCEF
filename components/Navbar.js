@@ -6,6 +6,11 @@ import { BiMenu } from 'react-icons/bi'
 import Image from 'next/image'
 import { AiOutlineHome } from 'react-icons/ai'
 import { useRouter } from 'next/router'
+import {BiEdit} from 'react-icons/bi'
+import {CgProfile} from 'react-icons/cg'
+import {BiCommentDetail} from 'react-icons/bi'
+import {MdLogout} from 'react-icons/md'
+
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -69,14 +74,33 @@ const Navbar = () => {
               <Image onClick={toggleDropDown} className={`${styles.profile_photo}`} src={`/assets/images/profile_photo.webp`} width={50} height={50} alt='Profile Photo' />
               <div className={`${styles.dropdown_container} ${isDropDownOpen ? styles.toggle_dropdown_open : ''}`}>
                 <div className={styles.dropdown_info}>
-                  <p>Olá! Tudo bem?</p>
-                  <p>Complete seu cadastro para realizar pagamentos, incrições em cursos e outras ações no sistema</p>
+                  <br/>
+                  <div className={styles.dropdown_info_container}>
+                    <Link href={`/user/perfil`}>
+                      <div className={styles.dropdown_info_separated}>
+                        <CgProfile className={styles.dropdown_info_separated_icon}/>
+                        <p>Ver perfil</p>
+                      </div>
+                    </Link>
+                    <Link href={'/user/comments'}>
+                      <div className={styles.dropdown_info_separated}>
+                        <BiCommentDetail className={styles.dropdown_info_separated_icon}/>
+                        <p>Seus comentários</p>
+                      </div>
+                    </Link>
+                    <a onClick={logoutUser} style={{cursor:'pointer'}}>
+                      <div className={`${styles.dropdown_info_separated} ${styles.dropdown_info_logout}`}>
+                        <MdLogout className={styles.dropdown_info_separated_icon}/>
+                        <p>Logout</p>
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           )
             : (
-              <div>
+              <div className={styles.user_login_register}>
                 <li className={styles.login}><Link href={`/login`}>Login</Link></li>
                 <li className={styles.register}><Link href={`/register`}>Registre-se</Link></li>
               </div>

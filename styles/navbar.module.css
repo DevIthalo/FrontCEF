@@ -75,26 +75,37 @@
     align-items: center;
 }
 
+.ul .user .user_login_register{
+    display: flex;
+    gap: 1rem;
+}
+
 .ul .user .dropdown_container {
     position: absolute;
     height: 0;
     width: 0;
+    color: #fff;
     right: 0;
     margin: 10px;
+    margin-right: 40px;
     transition: height 0.3s ease-out, width 0.3s ease-out;
     overflow: hidden;
     border-radius: 10px;
-    background: #d5d5d5;
+    background: #287bff;
 }
 
 .ul .user .toggle_dropdown_open {
     position: absolute;
     width: 200px;
-    height: 200px;
+    height: 180px;
     padding: 10px;
     transition: height 0.3s ease-in, width 0.3s ease-in;
 }
 
+.ul .user .dropdown_container .dropdown_info a {
+    text-decoration: none;
+    color: #fff;
+}
 .ul .user .dropdown_container .dropdown_info p {
     font-size: 15px;
     font-weight: bold;
@@ -103,6 +114,33 @@
 
 .ul .user .dropdown_container .dropdown_info p:nth-child(2) {
     font-size: 11px;
+    text-align: center;
+    font-weight: lighter;
+}
+.ul .user .dropdown_container .dropdown_info .dropdown_info_container{
+    display: grid;
+    gap: 1rem;
+}
+.ul .user .dropdown_container .dropdown_info .dropdown_info_separated{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.ul .user .dropdown_container .dropdown_info .dropdown_info_separated.dropdown_info_logout{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 90%;
+    border-top: 1px solid white;
+    padding: 10px 0px 10px 0px;
+}
+.ul .user .dropdown_container .dropdown_info .dropdown_info_separated p{
+    font-size: 15px;
+    text-align: center;
+    font-weight: lighter;
+}
+.ul .user .dropdown_container .dropdown_info .dropdown_info_separated .dropdown_info_separated_icon{
+    font-size: 30px;
     text-align: center;
     font-weight: lighter;
 }
