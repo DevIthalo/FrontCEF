@@ -67,3 +67,6 @@ comando abaixo (pode ser a partir da main)
 
 ##### React Modal 
 ``` npm install react-modal ```
+
+##### React Mask 
+``` npm install react-input-mask ```

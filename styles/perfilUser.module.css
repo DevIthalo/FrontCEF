@@ -7,7 +7,7 @@
     overflow: scroll;
 }
 
-.user_container.user_container_closed{
+.user_container.user_container_closed {
     width: calc(100% - 570px);
     left: 15%;
 }
@@ -79,37 +79,57 @@
     gap: 2rem;
 }
 
+@media(max-width: 3180px) {
+    .user_container {
+        position: relative;
+        left: 15%;
+        overflow: auto;
+        top: 100px;
+        width: calc(100% - 800px);
+        transition: 1s ease;
+    }
+
+    .user_container.user_container_closed {
+        width: calc(100% - 800px);
+        left: 12%;
+        top: 100px;
+    }
+
+}
+
 @media(max-width: 2825px) {
     .user_container {
         position: relative;
         left: 15%;
         overflow: auto;
-        
-        top: 60px;
+        top: 100px;
         width: calc(100% - 500px);
         transition: 1s ease;
     }
-    .user_container.user_container_closed{
+
+    .user_container.user_container_closed {
         width: calc(100% - 570px);
         left: 12%;
-        top: 60px;
+        top: 100px;
     }
 
 }
+
 @media(max-width: 2400px) {
     .user_container {
         position: relative;
         left: 18%;
         overflow: auto;
-        
-        top: 60px;
+
+        top: 100px;
         width: calc(100% - 500px);
         transition: 1s ease;
     }
-    .user_container.user_container_closed{
+
+    .user_container.user_container_closed {
         width: calc(100% - 570px);
         left: 12%;
-        top: 60px;
+        top: 100px;
     }
 
 }
@@ -119,7 +139,7 @@
         position: relative;
         left: 20%;
         overflow: auto;
-        top: 60px;
+        top: 100px;
         width: calc(100% - 500px);
         transition: 1s ease;
     }
@@ -130,15 +150,15 @@
         position: relative;
         left: 24%;
         overflow: auto;
-
-        top: 60px;
+        top: 100px;
         width: calc(100% - 500px);
         transition: 1s ease;
     }
-    .user_container.user_container_closed{
+
+    .user_container.user_container_closed {
         width: calc(100% - 570px);
         left: 15%;
-        top: 60px;
+        top: 100px;
     }
 }
 
@@ -146,15 +166,16 @@
     .user_container {
         position: relative;
         left: 25%;
-        top: 60px;
+        top: 100px;
         overflow: auto;
         width: calc(100% - 500px);
         transition: 1s ease;
     }
-    .user_container.user_container_closed{
+
+    .user_container.user_container_closed {
         width: calc(100% - 570px);
         left: 15%;
-        top: 60px;
+        top: 100px;
     }
 }
 
@@ -167,15 +188,16 @@
     .user_container {
         position: relative;
         left: 28%;
-        top: 60px;
+        top: 100px;
 
         width: calc(100% - 500px);
         transition: 1s ease;
     }
-    .user_container.user_container_closed{
+
+    .user_container.user_container_closed {
         width: calc(100% - 570px);
         left: 15%;
-        top: 60px;
+        top: 100px;
     }
 
 }
@@ -184,15 +206,16 @@
     .user_container {
         position: relative;
         left: 30%;
-        top: 60px;
+        top: 100px;
 
         width: calc(100% - 500px);
         transition: 1s ease;
     }
-    .user_container.user_container_closed{
+
+    .user_container.user_container_closed {
         width: calc(70%);
         left: 15%;
-        top: 60px;
+        top: 100px;
     }
 }
 
@@ -205,7 +228,7 @@
     .user_container {
         position: relative;
         left: 33%;
-        top: 60px;
+        top: 100px;
 
         width: calc(100% - 500px);
         transition: 1s ease;
@@ -216,7 +239,7 @@
     .user_container {
         position: relative;
         left: 32%;
-        top: 60px;
+        top: 100px;
         width: calc(100% - 440px);
         transition: 1s ease;
     }
@@ -231,27 +254,28 @@
     .user_container {
         position: relative;
         left: 10%;
-        top: 60px;
+        top: 100px;
         width: calc(80%);
         transition: 1s ease;
     }
-    .user_container.user_container_closed{
+
+    .user_container.user_container_closed {
         width: calc(80%);
         left: 10%;
-        top: 60px;
+        top: 100px;
     }
 }
+
 @media(max-width: 520px) {
     .user_container {
         position: relative;
         left: 10%;
-        top: 60px;
+        top: 100px;
         width: calc(80%);
         transition: 1s ease;
     }
+
     .user_container .user_basic_information {
         gap: 10px;
     }
 }
-
-

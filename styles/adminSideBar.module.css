@@ -1,6 +1,7 @@
 .admin_sidebar_container {
     position: fixed;
     width: 300px;
+    top: 0;
     height: 100vh;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
@@ -13,12 +14,12 @@
 }
 
 .admin_sidebar {
-    background: #fff;
-    color: #287bff;
+    background: #287bff;
+    color: #fff;
     height: 100vh;
     width: 300px;
+    padding: 0px 20px;
     position: absolute;
-    padding: 10px 20px;
     z-index: 999;
     border-right: 1px solid #999;
     overflow-y: auto;
@@ -35,8 +36,9 @@
 .admin_sidebar div:first-child a {
     display: flex;
     align-items: center;
-    color: #222;
+    color: #fff;
     font-size: 20px;
+    padding: 10px;
     padding-left: 0;
     text-decoration: none;
 
@@ -51,7 +53,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: #222;
+    color: #fff;
     font-size: 15px;
 }
 
@@ -60,7 +62,7 @@
     align-items: center;
     gap: 1rem;
     padding: 10px;
-    color: #222;
+    color: #fff;
     font-size: 15px;
 }
 
@@ -68,7 +70,7 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #222;
+    color: #fff;
     padding: 10px;
     width: 100%;
     gap: 1rem;
@@ -86,10 +88,10 @@
 
 .admin_sidebar .admin_sidebar_selected {
     background: #fff;
-    color: #222;
+    color: #287bff;
     padding: 10px;
     width: 100%;
-    border: 1px solid #222;
+    border: 1px solid #287bff;
     border-radius: 10px;
 }
 
@@ -103,6 +105,7 @@
         transition: transform 0.3s ease-in-out;
         z-index: 999;
     }
+
     .admin_sidebar_container.admin_sidebar_open {
         transform: translateX(0%);
         z-index: 999;

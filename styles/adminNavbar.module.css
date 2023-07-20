@@ -1,13 +1,19 @@
 .admin_main {
+    position: fixed;
     margin-left: 0px;
-    width: 100%;
+    width: calc(100% - 300px);
+    left: 300px;
     padding: 10px 20px;
     background: #fff;
-    color: 999;
-    transition: 1s ease;
+    transition: 0.3s ease;
+    z-index: 999;
     border-bottom: 1px solid #999;
 }
 
+.admin_main.admin_main_toggle {
+    width: 100%;
+    left: 0px;
+}
 
 .admin_main .admin_main_navbar {
     display: flex;

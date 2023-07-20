@@ -6,6 +6,7 @@ import { IoIosArrowBack } from 'react-icons/io'
 import { BsChatLeftText } from 'react-icons/bs'
 import { BsPlusSquare, BsSend, BsEye } from 'react-icons/bs'
 import { RxDashboard } from 'react-icons/rx'
+import { AiOutlinePlus } from 'react-icons/ai'
 import { useRouter } from 'next/router';
 import { FiMenu } from 'react-icons/fi';
 import { LiaSearchSolid } from 'react-icons/lia';
@@ -25,7 +26,7 @@ const SideBarAdmin = (props) => {
 
 
     const handleResize = () => {
-        if(window.innerWidth <= 1024){
+        if (window.innerWidth <= 1024) {
             setIsSideBarOpen(false);
         }
     };
@@ -41,8 +42,7 @@ const SideBarAdmin = (props) => {
 
     return (
         <>
-
-            <div className={`${stylesNavbar.admin_main} ${isSideBarOpen ? stylesNavbar.admin_main_toggle : ''}`}>
+            <div className={`${stylesNavbar.admin_main} ${!isSideBarOpen ? stylesNavbar.admin_main_toggle : ''}`}>
                 <div className={stylesNavbar.admin_main_navbar}>
                     <FiMenu className={stylesNavbar.admin_main_navbar_menu_icon} onClick={openCloseSideBar} />
                     {!props.isNew ? <div className={stylesNavbar.admin_main_search}>
@@ -59,24 +59,24 @@ const SideBarAdmin = (props) => {
             </div>
             <div className={`${styles.admin_sidebar_container} ${isSideBarOpen ? styles.admin_sidebar_open : ''} : ''}`}>
 
-            <div className={`${styles.admin_sidebar} `}  >
-                <div>
-                    <Link href={'/'}>
-                        <IoIosArrowBack className={`${styles.admin_sidebar_icon_back} `} />
-                         <p>Página Inicial</p>
-                    </Link>
+                <div className={`${styles.admin_sidebar} `}  >
+                    <div>
+                        <Link href={'/'}>
+                            <IoIosArrowBack className={`${styles.admin_sidebar_icon_back} `} />
+                            <p>Página Inicial</p>
+                        </Link>
+                    </div>
+                    <div>
+                        <Link className={router.pathname === "/dashboard/new" ? styles.admin_sidebar_selected : ""} href={"/dashboard/new"}><AiOutlinePlus className={styles.admin_sidebar_icon} />Nova Postagem</Link>
+                    </div>
+                    <div>
+                        <Link className={router.pathname === "/dashboard" ? styles.admin_sidebar_selected : ""} href={"/dashboard"}><RxDashboard className={styles.admin_sidebar_icon} />Dashboard</Link>
+                    </div>
+                    <div>
+                        <Link href={"#"}><BsChatLeftText className={styles.admin_sidebar_icon} />Comentários</Link>
+                    </div>
                 </div>
-                <div>
-                    <Link className={router.pathname === "/dashboard/new" ? styles.admin_sidebar_selected : ""} href={"/dashboard/new"}><BsPlusSquare className={styles.admin_sidebar_icon} />Nova Postagem</Link>
-                </div>
-                <div>
-                    <Link className={router.pathname === "/dashboard" ? styles.admin_sidebar_selected : ""} href={"/dashboard"}><RxDashboard className={styles.admin_sidebar_icon} />Dashboard</Link>
-                </div>
-                <div>
-                    <Link href={"#"}><BsChatLeftText className={styles.admin_sidebar_icon} />Comentários</Link>
-                </div>
-            </div>
-            <div className={styles.overlay} onClick={openCloseSideBar}></div>
+                <div className={styles.overlay} onClick={openCloseSideBar}></div>
 
             </div>
         </>

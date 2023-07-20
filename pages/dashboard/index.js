@@ -5,10 +5,14 @@ import SideBarAdmin from '@/components/SideBarAdmin';
 import NavbarAdmin from '@/components/NavbarAdmin';
 
 function Admin() {
-    
+    const [isToggle, setIsToggle] = useState(true);
+
+    const handleValueChange = (value) => {
+        setIsToggle(value);
+    }
     return (
         <>
-            <SideBarAdmin />
+            <SideBarAdmin onValueChange={handleValueChange} />
         </>
     )
 }

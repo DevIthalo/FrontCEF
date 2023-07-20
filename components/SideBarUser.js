@@ -14,7 +14,7 @@ const SideBarUser = (props) => {
     const router = useRouter();
 
     const [isSideBarOpen, setIsSideBarOpen] = useState(true);
-
+    const [isEditable, setIsEditable] = useState(false);
 
     const openCloseSideBar = () => {
         setIsSideBarOpen(!isSideBarOpen);
@@ -23,7 +23,7 @@ const SideBarUser = (props) => {
 
 
     const handleResize = () => {
-        if(window.innerWidth <= 1024){
+        if (window.innerWidth <= 1024) {
             setIsSideBarOpen(false);
             props.onValueChange(false);
         }
@@ -37,15 +37,29 @@ const SideBarUser = (props) => {
         };
     }, []);
 
+    useEffect(() => {
+        (props.data?.nome ||
+            props.data?.sobrenome ||
+            props.data?.logradouro ||
+            props.data?.cep ||
+            props.data?.bairro ||
+            props.data?.cidade ||
+            props.data?.estado ||
+            props.data?.complemento ||
+            props.data?.telefone1 ||
+            props.data?.telefone2 ||
+            props.data?.cpf) ? setIsEditable(true) : setIsEditable(false);
+    }, [props.data])
+
 
     return (
-        <>  
+        <>
             <div>
-                <div className={`${stylesNavbar.admin_main}`}>
+                <div className={`${stylesNavbar.admin_main} ${!isSideBarOpen ? stylesNavbar.admin_main_toggle : ''}`}>
                     <div className={stylesNavbar.admin_main_navbar}>
                         <FiMenu className={stylesNavbar.admin_main_navbar_menu_icon} onClick={openCloseSideBar} />
                         <p>Olá, Seja Bem-Vindo!</p>
-                        <button className={stylesNavbar.admin_main_navbar_btn_publish} disabled={(props.isEditEndereco === false && props.isEditContato && props.isEditBasic === false && props.isEditCpf === false) ? true : false}><BsSend />Atualizar</button>
+                        <button className={stylesNavbar.admin_main_navbar_btn_publish} disabled={!isEditable}><BsSend />Atualizar</button>
                     </div>
                 </div>
             </div>

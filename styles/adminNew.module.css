@@ -1,24 +1,24 @@
-.new_container{
+.new_container {
     position: relative;
     display: grid;
     gap: 1rem;
     width: 1100px;
-    top: 40px;
+    top: 80px;
     left: 10%;
     overflow: auto;
     transition: 1s ease;
     padding: 10px;
-
 }
-.new_container_toggle{
+
+.new_container_toggle {
     position: relative;
-    top: 40px;
+    top: 80px;
     left: 25%;
     width: 1100px;
     padding: 10px;
 }
 
-.new_container .new_title{
+.new_container .new_title {
     display: grid;
     gap: 5px;
     width: 100%;
@@ -29,27 +29,29 @@
     border-radius: 5px;
     border: 1px solid black;
 }
+
 .new_container .new_title label:first-child {
     font-weight: bold;
 }
 
-.new_container .new_title label:nth-child(2){
+.new_container .new_title label:nth-child(2) {
     font-size: 12px;
 }
 
-.new_container .new_content{
+.new_container .new_content {
     display: grid;
     gap: 5px;
 }
 
-.new_container .new_content label:first-child{
+.new_container .new_content label:first-child {
     font-weight: bold;
 }
-.new_container .new_content label:nth-child(2){
+
+.new_container .new_content label:nth-child(2) {
     font-size: 12px;
 }
 
-.new_container .new_btn_publish button:first-child{
+.new_container .new_btn_publish button:first-child {
     width: 100%;
     padding: 10px;
     background: #287bff;
@@ -58,101 +60,120 @@
 }
 
 @media(max-width: 2620px) {
-    .new_container{
+    .new_container {
         width: calc(1100px);
         left: 30%;
     }
-    .new_container_toggle{
+
+    .new_container_toggle {
         width: calc(1100px);
         left: 30%;
     }
 }
+
 @media(max-width: 2220px) {
-    .new_container{
+    .new_container {
         width: calc(1100px);
         left: 20%;
     }
-    .new_container_toggle{
+
+    .new_container_toggle {
         width: calc(1100px);
         left: 30%;
     }
 }
+
 @media(max-width: 1800px) {
-    .new_container{
+    .new_container {
         width: calc(1100px);
         left: 18%;
     }
-    .new_container_toggle{
+
+    .new_container_toggle {
         width: calc(1100px);
         left: 25%;
     }
 }
+
 @media(max-width: 1750px) {
-    .new_container{
+    .new_container {
         width: calc(1100px);
         left: 18%;
     }
-    .new_container_toggle{
+
+    .new_container_toggle {
         width: calc(1100px);
         left: 25%;
     }
 }
+
 @media(max-width: 1560px) {
-    .new_container{
+    .new_container {
         width: calc(1100px);
         left: 14%;
     }
-    .new_container_toggle{
+
+    .new_container_toggle {
         width: calc(1100px);
         left: 22%;
     }
 }
+
 @media(max-width: 1430px) {
-    .new_container{
+    .new_container {
         width: calc(100% - 30%);
         left: 13%;
     }
-    .new_container_toggle{
+
+    .new_container_toggle {
         width: calc(100% - 30%);
         left: 25%;
     }
 }
+
 @media(max-width: 1345px) {
-    .new_container{
+    .new_container {
         width: calc(100% - 30%);
         left: 14%;
     }
-    .new_container_toggle{
+
+    .new_container_toggle {
         width: calc(100% - 30%);
         left: 26%;
     }
 }
+
 @media(max-width: 1220px) {
-    .new_container{
+    .new_container {
         width: calc(100% - 35%);
         left: 13%;
     }
-    .new_container_toggle{
+
+    .new_container_toggle {
         width: calc(100% - 30%);
         left: 27%;
     }
 }
+
 @media(max-width: 1170px) {
-    .new_container{
+    .new_container {
         width: calc(100% - 25%);
         left: 12%;
     }
-    .new_container_toggle{
+
+    .new_container_toggle {
         width: calc(100% - 35%);
         left: 30%;
     }
 }
+
 @media(max-width: 1024px) {
-    .new_container{
+    .new_container {
         width: calc(100% - 10%);
         left: 5%;
     }
-    .new_container_toggle{
+
+    .new_container_toggle {
         width: calc(100% - 10%);
         left: 5%;
     }

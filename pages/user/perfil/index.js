@@ -8,6 +8,8 @@ import Link from 'next/link'
 import AuthContext from '@/context/AuthContext'
 import { LuEdit } from 'react-icons/lu'
 import useAxios from '@/services/useAxios'
+import InputMask from 'react-input-mask';
+
 const PerfilUser = () => {
   const { user } = useContext(AuthContext);
   const [isEditBasic, setIsEditBasic] = useState(false);
@@ -16,6 +18,7 @@ const PerfilUser = () => {
   const [isEditCpf, setIsEditCpf] = useState(false);
   const [isEditContato, setIsEditContato] = useState(false);
   const [data, setData] = useState({});
+  const [dataSend, setDataSend] = useState({});
 
   const api = useAxios();
 
@@ -32,24 +35,69 @@ const PerfilUser = () => {
     setIsEditContato(!isEditContato);
   }
 
+  function validarCPF(cpf) {
+    cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
+    if (cpf.length !== 11) return false;
+
+    let soma = 0;
+    for (let i = 0; i < 9; i++) {
+      soma += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+
+    let resto = 11 - (soma % 11);
+    if (resto === 10 || resto === 11) resto = 0;
+
+    if (resto !== parseInt(cpf.charAt(9))) return false;
+
+    soma = 0;
+    for (let i = 0; i < 10; i++) {
+      soma += parseInt(cpf.charAt(i)) * (11 - i);
+    }
+
+    resto = 11 - (soma % 11);
+    if (resto === 10 || resto === 11) resto = 0;
+
+    if (resto !== parseInt(cpf.charAt(10))) return false;
+
+    return true;
+  }
+
+
   const handleValueChange = (value) => {
     setIsToggle(value);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     getUserByEmail()
-  },[])
+  }, [])
 
-  const getUserByEmail = async() => {
+  const getUserByEmail = async () => {
     const response = await api.get(`/api/user/?email=${user?.email}`);
     setData(response.data);
   }
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    const newData = { ...dataSend, [name]: value }
+    if (name === 'cpf') {
+      if (validarCPF(value)) {
+        console.log("CPF Válido");
+      } else {
+        console.log("CPF Inválido!");
+      }
+    }
+    setDataSend(newData);
+  }
+
+  const sendData = () => {
+    console.log(data);
+  }
+
+
   return (
     <>
 
-      <SideBarUser onValueChange={handleValueChange} isEditBasic={isEditBasic} isEditContato={isEditContato} isEditEndereco={isEditEndereco} isEditCpf={isEditCpf} />
-
+      <SideBarUser onValueChange={handleValueChange} data={dataSend} sendData={sendData} />
       <div className={`${styles.user_container} ${!isToggle ? styles.user_container_closed : ''}`}>
         <div className={styles.user_container_title}>
           <h3>Informações Básicas</h3>
@@ -74,11 +122,11 @@ const PerfilUser = () => {
                 <div className={styles.user_basic_information_container_name}>
                   <div className={styles.user_basic_information_grid}>
                     <p>Nome</p>
-                    <input type="text" name="nome" placeholder='Digite seu nome' />
+                    <input type="text" name="nome" onChange={handleChange} placeholder='Digite seu nome' />
                   </div>
                   <div className={styles.user_basic_information_grid}>
                     <p>Sobrenome</p>
-                    <input type="text" name="sobrenome" placeholder='Digite seu sobrenome' />
+                    <input type="text" name="sobrenome" onChange={handleChange} placeholder='Digite seu sobrenome' />
                   </div>
                 </div>
               }
@@ -138,35 +186,35 @@ const PerfilUser = () => {
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>Logradouro (Rua, Conjunto ou outro)</p>
-                  <input type="text" placeholder='Informe o logradouro' />
+                  <input type="text" name="logradouro" onChange={handleChange} placeholder='Informe o logradouro' />
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Bairro</p>
-                  <input type="text" placeholder='Informe o bairro' />
+                  <input type="text" name="bairro" onChange={handleChange} placeholder='Informe o bairro' />
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Número</p>
-                  <input type="text" placeholder='Informe o número' />
+                  <input type="text" name="numero" onChange={handleChange} placeholder='Informe o número' />
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>CEP</p>
-                  <input type="text" placeholder='Informe o CEP' />
+                  <InputMask mask="99999-999" name="cep" onChange={handleChange} placeholder='Informe o CEP' />
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Cidade</p>
-                  <input type="text" placeholder='Informe a cidade onde mora' />
+                  <input type="text" name="cidade" onChange={handleChange} placeholder='Informe a cidade onde mora' />
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Estado</p>
-                  <input type="text" placeholder='Informe o estado onde mora' />
+                  <input type="text" name="estado" onChange={handleChange} placeholder='Informe o estado onde mora' />
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>Complemento</p>
-                  <input type="text" placeholder='Complemento, Ex.: Apto Nº 240 4º Andar' />
+                  <input type="text" name="complemento" onChange={handleChange} placeholder='Complemento, Ex.: Apto Nº 240 4º Andar' />
                 </div>
               </div>
             </div>
@@ -177,7 +225,7 @@ const PerfilUser = () => {
         <div className={styles.user_container_title}>
           <h3>Contato</h3>
           <a style={{ cursor: 'pointer' }} onClick={handleEditContato}><LuEdit className={styles.user_container_edit_icon} /></a>
-        </div><br/>
+        </div><br />
         <hr /><br />
         {!isEditContato ? (
           <div className={styles.user_endereco_container_grid}>
@@ -197,11 +245,11 @@ const PerfilUser = () => {
             <div className={styles.user_endereco_container}>
               <div className={styles.user_basic_information_grid}>
                 <p>Telefone 1</p>
-                <input type="text" placeholder='Informe o logradouro' />
+                <InputMask mask="(99) 99999-9999" name="telefone1" onChange={handleChange} placeholder='Informe seu telefone' />
               </div>
               <div className={styles.user_basic_information_grid}>
                 <p>Telefone 2</p>
-                <input type="text" placeholder='Informe o logradouro' />
+                <InputMask mask="(99) 99999-9999" name="telefone2" onChange={handleChange} placeholder='Informe seu telefone' />
               </div>
             </div>
           </div>
@@ -228,16 +276,13 @@ const PerfilUser = () => {
             <div className={styles.user_endereco_container}>
               <div className={styles.user_basic_information_grid}>
                 <p>CPF</p>
-                <input type="text" placeholder='Informe o logradouro' />
+                <InputMask mask="999.999.999-99" name="cpf" onChange={handleChange} placeholder='Informe seu cpf' />
               </div>
             </div>
           </div>
         )
         }
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <br /><br /><br /><br />
       </div>
     </>
   )
