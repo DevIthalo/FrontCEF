@@ -3,12 +3,12 @@ import jwt_decode from "jwt-decode";
 import dayjs from 'dayjs';
 import { useContext } from 'react';
 import AuthContext from '@/context/AuthContext';
-import { setCookie } from 'nookies';
+import { setCookie, destroyCookie } from 'nookies';
 
 const baseUrl = "http://localhost:8000";
 
 const useAxios = () => {
-    const { authTokens, setUser, setAuthTokens } = useContext(AuthContext)
+    const { authTokens, setUser, setAuthTokens, logoutUser } = useContext(AuthContext)
     const axiosInstance = axios.create({
         baseURL: baseUrl,
         headers: {
@@ -21,16 +21,13 @@ const useAxios = () => {
 
         const user = jwt_decode(authTokens.access);
         const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-        console.log(isExpired);
 
         if (!isExpired) return req;
-
         const response = await axios.post(`${baseUrl}/api/token/refresh/`, {
             refresh: authTokens.refresh
         })
-
         setCookie(undefined, 'authTokens', JSON.stringify(response.data), {
-            maxAge: 60 * 5 // 5 minutes
+            maxAge: 2 * 86400 // 2 dias
         });
         setAuthTokens(response.data)
         setUser(jwt_decode(response.data.access))

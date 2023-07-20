@@ -5,17 +5,11 @@ import SideBarAdmin from '@/components/SideBarAdmin';
 import NavbarAdmin from '@/components/NavbarAdmin';
 
 function Admin() {
-    const [isToggle, setIsToggle] = useState(true);
-
-    const handleToggle = () => {
-        setIsToggle(!isToggle);
-    }
-
+    
     return (
-        <div className={styles.admin_container}>
-            <SideBarAdmin isToggle={isToggle}/>
-            <NavbarAdmin isToggle={isToggle} isNew={false} handleToggle={handleToggle}/>
-        </div>
+        <>
+            <SideBarAdmin />
+        </>
     )
 }
 

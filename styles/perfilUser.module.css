@@ -1,10 +1,15 @@
 .user_container {
-    position: absolute;
+    position: relative;
     left: 25%;
-    top: 60px;
+    top: 400px;
     width: calc(100% - 570px);
     transition: 1s ease;
     overflow: scroll;
+}
+
+.user_container.user_container_closed{
+    width: calc(100% - 570px);
+    left: 15%;
 }
 
 .user_container a img {
@@ -12,11 +17,6 @@
     background: pink;
 }
 
-.user_container_toggle {
-    left: 80px;
-    left: 20%;
-    width: calc(100% - 570px);
-}
 
 .user_container .user_basic_information {
     display: flex;
@@ -81,23 +81,44 @@
 
 @media(max-width: 2825px) {
     .user_container {
-        position: absolute;
-        left: 25%;
+        position: relative;
+        left: 15%;
         overflow: auto;
-
+        
         top: 60px;
         width: calc(100% - 500px);
         transition: 1s ease;
+    }
+    .user_container.user_container_closed{
+        width: calc(100% - 570px);
+        left: 12%;
+        top: 60px;
+    }
+
+}
+@media(max-width: 2400px) {
+    .user_container {
+        position: relative;
+        left: 18%;
+        overflow: auto;
+        
+        top: 60px;
+        width: calc(100% - 500px);
+        transition: 1s ease;
+    }
+    .user_container.user_container_closed{
+        width: calc(100% - 570px);
+        left: 12%;
+        top: 60px;
     }
 
 }
 
 @media(max-width: 2100px) {
     .user_container {
-        position: absolute;
-        left: 25%;
+        position: relative;
+        left: 20%;
         overflow: auto;
-
         top: 60px;
         width: calc(100% - 500px);
         transition: 1s ease;
@@ -106,27 +127,35 @@
 
 @media(max-width: 1700px) {
     .user_container {
-        position: absolute;
-        left: 25%;
+        position: relative;
+        left: 24%;
         overflow: auto;
 
         top: 60px;
         width: calc(100% - 500px);
         transition: 1s ease;
+    }
+    .user_container.user_container_closed{
+        width: calc(100% - 570px);
+        left: 15%;
+        top: 60px;
     }
 }
 
 @media(max-width: 1650px) {
     .user_container {
-        position: absolute;
-        left: 27%;
+        position: relative;
+        left: 25%;
         top: 60px;
         overflow: auto;
-
         width: calc(100% - 500px);
         transition: 1s ease;
     }
-
+    .user_container.user_container_closed{
+        width: calc(100% - 570px);
+        left: 15%;
+        top: 60px;
+    }
 }
 
 @media(max-width: 1550px) {
@@ -136,27 +165,35 @@
     }
 
     .user_container {
-        position: absolute;
-        left: 29%;
+        position: relative;
+        left: 28%;
         top: 60px;
 
         width: calc(100% - 500px);
         transition: 1s ease;
     }
-
+    .user_container.user_container_closed{
+        width: calc(100% - 570px);
+        left: 15%;
+        top: 60px;
+    }
 
 }
 
 @media(max-width: 1400px) {
     .user_container {
-        position: absolute;
-        left: 33%;
+        position: relative;
+        left: 30%;
         top: 60px;
 
         width: calc(100% - 500px);
         transition: 1s ease;
     }
-
+    .user_container.user_container_closed{
+        width: calc(70%);
+        left: 15%;
+        top: 60px;
+    }
 }
 
 @media(max-width: 1300px) {
@@ -166,8 +203,8 @@
     }
 
     .user_container {
-        position: absolute;
-        left: 35%;
+        position: relative;
+        left: 33%;
         top: 60px;
 
         width: calc(100% - 500px);
@@ -177,129 +214,44 @@
 
 @media(max-width: 1215px) {
     .user_container {
-        position: absolute;
-        left: 36%;
+        position: relative;
+        left: 32%;
         top: 60px;
         width: calc(100% - 440px);
         transition: 1s ease;
     }
 
     .user_container .user_basic_information {
-        gap: 5px;
+        gap: 40px;
     }
 
 }
 
-@media(max-width: 1060px) {
-    .user_container {
-        position: absolute;
-        left: 40%;
-        top: 60px;
-        width: calc(100% - 440px);
-        transition: 1s ease;
-    }
-}
-
-@media(max-width: 940px) {
-    .user_container {
-        position: absolute;
-        left: 42%;
-        top: 60px;
-
-        width: calc(100% - 400px);
-        transition: 1s ease;
-    }
-
-}
-
-@media(max-width: 800px) {
-    .user_container {
-        position: absolute;
-        left: 42%;
-        top: 60px;
-        width: calc(100% - 350px);
-        transition: 1s ease;
-
-    }
-
-    .user_container .user_basic_information {
-        gap: 5px;
-    }
-
-}
-
-@media(max-width: 700px) {
-    .user_container {
-        position: absolute;
-        left: 43%;
-        top: 60px;
-        width: calc(100% - 300px);
-        transition: 1s ease;
-    }
-
-    .user_container .user_basic_information {
-        gap: 0px;
-    }
-
-}
-
-@media(max-width: 630px) {
-    .user_container {
-        position: absolute;
-        left: 45%;
-        top: 60px;
-        width: calc(100% - 300px);
-        transition: 1s ease;
-        overflow: auto;
-
-    }
-
-    .user_container .user_basic_information {
-        gap: 0px;
-    }
-
-}
-
-@media(max-width: 590px) {
-    .user_container {
-        position: relative;
-        left: 8%;
-        width: calc(100% - 80px);
-        top: 20px;
-        overflow: auto;
-    }
-
-    .user_container .user_basic_information {
-        gap: 0px;
-    }
-
-}
-
-@media(max-width: 500px) {
+@media(max-width: 1024px) {
     .user_container {
         position: relative;
         left: 10%;
-        width: calc(100% - 80px);
-        top: 20px;
-        overflow: auto;
+        top: 60px;
+        width: calc(80%);
+        transition: 1s ease;
     }
-
-    .user_container .user_basic_information {
-        gap: 0px;
+    .user_container.user_container_closed{
+        width: calc(80%);
+        left: 10%;
+        top: 60px;
     }
 }
-
-@media(max-width: 475px) {
+@media(max-width: 520px) {
     .user_container {
         position: relative;
         left: 10%;
-        width: calc(100% - 80px);
-        top: 0px;
-        overflow: auto;
+        top: 60px;
+        width: calc(80%);
+        transition: 1s ease;
     }
-
     .user_container .user_basic_information {
-        gap: 0px;
+        gap: 10px;
     }
-
 }
+
+

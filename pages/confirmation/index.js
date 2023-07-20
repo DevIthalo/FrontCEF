@@ -245,7 +245,7 @@ export const getServerSideProps = async (ctx) => {
         }
     }
     const user = jwtDecode(token);
-    const response = await axios.get(`http://127.0.0.1:8000/api/get_isValidated/?email=paulobruno_51@hotmail.com`, {
+    const response = await axios.get(`http://127.0.0.1:8000/api/get_isValidated/?email=${user?.email}`, {
         headers: {
             "Content-Type": "application/json"
         }

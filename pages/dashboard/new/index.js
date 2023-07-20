@@ -7,14 +7,11 @@ import styles from '@/styles/adminNew.module.css'
 import Modal from '@/components/Modal';
 
 const PostRegister = () => {
-    const [isToggle, setIsToggle] = useState(true);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
+    const [isToggle, setIsToggle] = useState(true);
 
-    const handleToggle = () => {
-        setIsToggle(!isToggle);
-    }
     const handleOnEditorChange = (content, editor) => {
         setContent(content);
     }
@@ -29,14 +26,15 @@ const PostRegister = () => {
     const handleCloseModal = () => {
         setModalOpen(false);
     };
+    const handleValueChange = (value) =>{
+        setIsToggle(value);
+    }
 
     return (
         <>
-            <div className={adminStyles.admin_container}>
-                <SideBarAdmin isToggle={isToggle} />
-                <NavbarAdmin isToggle={isToggle} handleOpenModal={handleOpenModal} isNew={true} handleToggle={handleToggle} />
-            </div>
-            <div className={`${styles.new_container} ${isToggle && styles.new_container_toggle}`}>
+            <SideBarAdmin isNew={true} handleOpenModal={handleOpenModal} onValueChange={handleValueChange}/>
+
+            <div className={`${styles.new_container} ${isToggle ? styles.new_container_toggle : ''}`}>
                 <div className={styles.new_title}>
                     <label>Título</label>
                     <label>Seja específico e suscinto, imagine um título de um jornal (simples, mas chamativo)</label>

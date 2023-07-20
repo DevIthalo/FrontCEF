@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
@@ -5,19 +6,49 @@ import { BiEdit } from 'react-icons/bi'
 import { CgProfile } from 'react-icons/cg'
 import { BiCommentDetail } from 'react-icons/bi'
 import { useRouter } from 'next/router';
-
+import stylesNavbar from '@/styles/adminNavbar.module.css';
+import { BsSend } from 'react-icons/bs';
+import { FiMenu } from 'react-icons/fi'
 import styles from '@/styles/adminSideBar.module.css'
 const SideBarUser = (props) => {
     const router = useRouter();
 
-    const [isSideBarOpen, setIsSideBarOpen] = useState(props.isSideBarOpen);
+    const [isSideBarOpen, setIsSideBarOpen] = useState(true);
 
-    const closeSideBar = () => {
+
+    const openCloseSideBar = () => {
         setIsSideBarOpen(!isSideBarOpen);
+        props.onValueChange(!isSideBarOpen);
     }
 
+
+    const handleResize = () => {
+        if(window.innerWidth <= 1024){
+            setIsSideBarOpen(false);
+            props.onValueChange(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+
     return (
-        <>
+        <>  
+            <div>
+                <div className={`${stylesNavbar.admin_main}`}>
+                    <div className={stylesNavbar.admin_main_navbar}>
+                        <FiMenu className={stylesNavbar.admin_main_navbar_menu_icon} onClick={openCloseSideBar} />
+                        <p>Olá, Seja Bem-Vindo!</p>
+                        <button className={stylesNavbar.admin_main_navbar_btn_publish} disabled={(props.isEditEndereco === false && props.isEditContato && props.isEditBasic === false && props.isEditCpf === false) ? true : false}><BsSend />Atualizar</button>
+                    </div>
+                </div>
+            </div>
             <div className={`${styles.admin_sidebar_container} ${isSideBarOpen ? styles.admin_sidebar_open : ''} : ''}`}>
                 <div className={`${styles.admin_sidebar}`}>
                     <div>
@@ -33,8 +64,9 @@ const SideBarUser = (props) => {
                         <Link className={router.pathname === "/user/comments" ? styles.admin_sidebar_selected : ""} href={"/user/comments"}><BiCommentDetail className={styles.admin_sidebar_icon} />{!props.isToggle && 'Seus Comentários'}</Link>
                     </div>
                 </div>
-                <div className={styles.overlay} onClick={closeSideBar}></div>
+                <div className={styles.overlay} onClick={openCloseSideBar}></div>
             </div>
+
         </>
 
     )

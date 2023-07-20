@@ -301,7 +301,6 @@
     left: 400px;
     /* Define a parte direita que será clicável */
     background-color: transparent;
-    box-shadow: 0px 0px 20px 0px black;
     /* Deixe transparente ou adicione uma cor de sobreposição */
     cursor: pointer;
 }
