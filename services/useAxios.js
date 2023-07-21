@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import dayjs from 'dayjs';
 import { useContext } from 'react';
 import AuthContext from '@/context/AuthContext';
-import { setCookie, destroyCookie } from 'nookies';
+import { setCookie, destroyCookie, parseCookies } from 'nookies';
 
 const baseUrl = "http://localhost:8000";
 

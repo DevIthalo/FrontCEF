@@ -48,11 +48,13 @@
 
 .user_basic_information_grid select {
     padding: 6px;
-    width: 300px;
+    width: 250px;
 }
+
 .user_basic_information_grid .input_cep:focus {
     border: 2px solid red;
 }
+
 .user_basic_information_grid .input_cep:focus {
     border: 2px solid red;
 }

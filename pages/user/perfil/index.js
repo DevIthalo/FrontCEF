@@ -19,8 +19,10 @@ const PerfilUser = () => {
   const [isToggle, setIsToggle] = useState(true);
   const [isEditCpf, setIsEditCpf] = useState(false);
   const [isEditContato, setIsEditContato] = useState(false);
-  const [data, setData] = useState({});
+  const [isValidCpf, setIsValidCpf] = useState(false);
+  const [verifyData, setVerifyData] = useState({});
   const [dataSend, setDataSend] = useState({});
+  const [isValidFields, setIsValidFields] = useState({});
 
   const api = useAxios();
 
@@ -29,6 +31,8 @@ const PerfilUser = () => {
   }
   const handleEditEndereco = () => {
     setIsEditEndereco(!isEditEndereco);
+    setIsValidFields({ "endereco": { "verify": false } })
+
   }
   const handleEditCpf = () => {
     setIsEditCpf(!isEditCpf);
@@ -62,22 +66,38 @@ const PerfilUser = () => {
     if (newData[name] == "") {
       delete newData[name];
     }
-
-    console.log(newData);
+    verifyFieldsEndereco(newData);
     setDataSend(newData);
   }
 
+  const verifyFieldsEndereco = (data) => {
+    if (!data?.logradouro && !data?.bairro && !data?.cep &&
+      !data?.cidade && !data?.estado && !data?.numero) {
+      setIsValidFields({ "endereco": { "verify": false } })
+    }
+  }
+
+
   const sendData = () => {
+    verifyFieldsEndereco();
+
     if (dataSend.cpf)
       isValidCPF(dataSend?.cpf) ? setIsValidCpf(true) : setIsValidCpf(false);
-
-    if (!dataSend.logradouro && !dataSend.bairro && !dataSend.cidade && !dataSend.estado && !dataSend.numero && !dataSend.cep) {
-      console.log("Atualizar o resto");
-    } else if (dataSend.logradouro && dataSend.bairro && dataSend.cidade && dataSend.estado && dataSend.numero && dataSend.cep) {
-      console.log("Campos de endereço preenchidos, atualizar")
+    if (Object.keys(dataSend).length === 0) {
+      console.log("Nenhum campo preenchido!")
     } else {
-      console.log("Erro tem algum campo de endereço preenchido e outros não!")
-      console.log(dataSend);
+      if (!dataSend.logradouro && !dataSend.bairro && !dataSend.cidade && !dataSend.estado && !dataSend.numero && !dataSend.cep) {
+        console.log("Atualizar o resto");
+      } else if (dataSend.logradouro && dataSend.bairro && dataSend.cidade && dataSend.estado && dataSend.numero && dataSend.cep) {
+        console.log("Campos de endereço preenchidos, atualizar")
+      } else {
+        console.log("Erro tem algum campo de endereço preenchido e outros não!")
+        setIsEditEndereco(true);
+        setIsValidFields({ "endereco": { "verify": true } })
+        console.log(dataSend);
+      }
+
+
     }
 
   }
@@ -231,15 +251,11 @@ const PerfilUser = () => {
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Estado</p>
-                  <p>{data.estado ? data.estado : "Não informado ainda"}</p>
+                  <p>{verifyData.estado ? verifyData.estado : "Não informado ainda"}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Cidade</p>
                   <p>{verifyData.cidade ? verifyData.cidade : "Não informado ainda"}</p>
-                </div>
-                <div className={styles.user_basic_information_grid}>
-                  <p>Estado</p>
-                  <p>{data.estado ? data.estado : "Não informado ainda"}</p>
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
@@ -255,14 +271,17 @@ const PerfilUser = () => {
                 <div className={styles.user_basic_information_grid}>
                   <p>Logradouro (Rua, Conjunto ou outro)</p>
                   <input type="text" name="logradouro" value={dataSend?.logradouro ? dataSend?.logradouro : ''} onChange={handleChange} placeholder='Informe o logradouro' />
+                  {isValidFields.endereco?.verify && !dataSend?.logradouro ? (<p style={{ color: 'red', fontSize: 12 }}>Campo obrigatório!</p>) : ("")}
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Bairro</p>
                   <input type="text" name="bairro" value={dataSend?.bairro ? dataSend?.bairro : ''} onChange={handleChange} placeholder='Informe o bairro' />
+                  {isValidFields.endereco?.verify && !dataSend?.bairro ? (<p style={{ color: 'red', fontSize: 12 }}>Campo obrigatório!</p>) : ("")}
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Número</p>
                   <input type="text" name="numero" value={dataSend?.numero ? dataSend?.numero : ''} onChange={handleChange} placeholder='Informe o número' />
+                  {isValidFields.endereco?.verify && !dataSend?.numero ? (<p style={{ color: 'red', fontSize: 12 }}>Campo obrigatório!</p>) : ("")}
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
@@ -270,6 +289,7 @@ const PerfilUser = () => {
                   <p>CEP</p>
                   <InputMask mask="99999-999" className={isValidFields.cep?.error && styles.input_cep} name="cep" onChange={handleChange} placeholder='Informe o CEP' />
                   {isValidFields.cep?.error ? <p style={{ color: 'red', fontSize: 12 }}>{isValidFields.cep?.error}</p> : ''}
+                  {isValidFields.endereco?.verify && !dataSend?.cep ? (<p style={{ color: 'red', fontSize: 12 }}>Campo obrigatório!</p>) : ("")}
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Estado</p>
