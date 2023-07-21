@@ -45,6 +45,7 @@ const SideBarUser = (props) => {
             props.data?.bairro ||
             props.data?.cidade ||
             props.data?.estado ||
+            props.data?.numero ||
             props.data?.complemento ||
             props.data?.telefone1 ||
             props.data?.telefone2 ||
@@ -59,7 +60,7 @@ const SideBarUser = (props) => {
                     <div className={stylesNavbar.admin_main_navbar}>
                         <FiMenu className={stylesNavbar.admin_main_navbar_menu_icon} onClick={openCloseSideBar} />
                         <p>Olá, Seja Bem-Vindo!</p>
-                        <button className={stylesNavbar.admin_main_navbar_btn_publish} disabled={!isEditable}><BsSend />Atualizar</button>
+                        <button className={stylesNavbar.admin_main_navbar_btn_publish} onClick={props.sendData} disabled={!isEditable}><BsSend />Atualizar</button>
                     </div>
                 </div>
             </div>
