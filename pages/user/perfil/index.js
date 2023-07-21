@@ -17,7 +17,7 @@ const PerfilUser = () => {
   const [isToggle, setIsToggle] = useState(true);
   const [isEditCpf, setIsEditCpf] = useState(false);
   const [isEditContato, setIsEditContato] = useState(false);
-  const [data, setData] = useState({});
+  const [verifyData, setVerifyData] = useState({});
   const [dataSend, setDataSend] = useState({});
 
   const api = useAxios();
@@ -35,34 +35,6 @@ const PerfilUser = () => {
     setIsEditContato(!isEditContato);
   }
 
-  function validarCPF(cpf) {
-    cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
-    if (cpf.length !== 11) return false;
-
-    let soma = 0;
-    for (let i = 0; i < 9; i++) {
-      soma += parseInt(cpf.charAt(i)) * (10 - i);
-    }
-
-    let resto = 11 - (soma % 11);
-    if (resto === 10 || resto === 11) resto = 0;
-
-    if (resto !== parseInt(cpf.charAt(9))) return false;
-
-    soma = 0;
-    for (let i = 0; i < 10; i++) {
-      soma += parseInt(cpf.charAt(i)) * (11 - i);
-    }
-
-    resto = 11 - (soma % 11);
-    if (resto === 10 || resto === 11) resto = 0;
-
-    if (resto !== parseInt(cpf.charAt(10))) return false;
-
-    return true;
-  }
-
-
   const handleValueChange = (value) => {
     setIsToggle(value);
   };
@@ -73,7 +45,7 @@ const PerfilUser = () => {
 
   const getUserByEmail = async () => {
     const response = await api.get(`/api/user/?email=${user?.email}`);
-    setData(response.data);
+    setVerifyData(response.data);
   }
 
   const handleChange = (event) => {
@@ -111,11 +83,11 @@ const PerfilUser = () => {
               {!isEditBasic ? (<div className={styles.user_basic_information_container_name}>
                 <div className={styles.user_basic_information_grid}>
                   <p>Nome</p>
-                  <p>{data.nome ? data.nome : "Não informado ainda"}</p>
+                  <p>{verifyData.nome ? verifyData.nome : "Não informado ainda"}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Sobrenome</p>
-                  <p>{data.sobrenome ? data.sobrenome : "Não informado ainda"}</p>
+                  <p>{verifyData.sobrenome ? verifyData.sobrenome : "Não informado ainda"}</p>
                 </div>
               </div>)
                 :
@@ -149,35 +121,35 @@ const PerfilUser = () => {
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>Logradouro (Rua, Conjunto ou outro)</p>
-                  <p>{data.logradouro ? data.logradouro : "Não informado ainda"}</p>
+                  <p>{verifyData.logradouro ? verifyData.logradouro : "Não informado ainda"}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Bairro</p>
-                  <p>{data.bairro ? data.bairro : "Não informado ainda"}</p>
+                  <p>{verifyData.bairro ? verifyData.bairro : "Não informado ainda"}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Número</p>
-                  <p>{data.numero ? data.numero : "Não informado ainda"}</p>
+                  <p>{verifyData.numero ? verifyData.numero : "Não informado ainda"}</p>
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>CEP</p>
-                  <p>{data.cep ? data.cep : "Não informado ainda"}</p>
+                  <p>{verifyData.cep ? verifyData.cep : "Não informado ainda"}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Cidade</p>
-                  <p>{data.cidade ? data.cidade : "Não informado ainda"}</p>
+                  <p>{verifyData.cidade ? verifyData.cidade : "Não informado ainda"}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Estado</p>
-                  <p>{data.estado ? data.estado : "Não informado ainda"}</p>
+                  <p>{verifyData.estado ? verifyData.estado : "Não informado ainda"}</p>
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>Complemento</p>
-                  <p>{data.complemento ? data.complemento : "Não informado ainda"}</p>
+                  <p>{verifyData.complemento ? verifyData.complemento : "Não informado ainda"}</p>
                 </div>
               </div>
             </div>
@@ -232,11 +204,11 @@ const PerfilUser = () => {
             <div className={styles.user_endereco_container}>
               <div className={styles.user_basic_information_grid}>
                 <p>Telefone 1</p>
-                <p>{data.telefone ? data.telefone : "Não informado ainda"}</p>
+                <p>{verifyData.telefone ? verifyData.telefone : "Não informado ainda"}</p>
               </div>
               <div className={styles.user_basic_information_grid}>
                 <p>Telefone 2</p>
-                <p>{data.telefone2 ? data.telefone2 : "Não informado ainda"}</p>
+                <p>{verifyData.telefone2 ? verifyData.telefone2 : "Não informado ainda"}</p>
               </div>
             </div>
           </div>
@@ -267,7 +239,7 @@ const PerfilUser = () => {
             <div className={styles.user_endereco_container}>
               <div className={styles.user_basic_information_grid}>
                 <p>CPF</p>
-                <p>{data.cpf ? data.cpf : "Não informado ainda"}</p>
+                <p>{verifyData.cpf ? verifyData.cpf : "Não informado ainda"}</p>
               </div>
             </div>
           </div>
