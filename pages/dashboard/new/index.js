@@ -39,7 +39,7 @@ const PostRegister = () => {
                     <label>Título</label>
                     <label>Seja específico e suscinto, imagine um título de um jornal (simples, mas chamativo)</label>
                     <input type="text" onChange={handleTitle} />
-                </div>
+                </div>  
                 <div className={styles.new_content}>
                     <label>Conteúdo</label>
                     <label>Utilize o botão de visualizar para ver como o conteúdo vai ficar quando for publicado</label>

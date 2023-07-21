@@ -9,6 +9,8 @@ import AuthContext from '@/context/AuthContext'
 import { LuEdit } from 'react-icons/lu'
 import useAxios from '@/services/useAxios'
 import InputMask from 'react-input-mask';
+import jsonData from '@/json/estados-cidades.json'
+import { consultarCep } from 'correios-brasil/dist'
 
 const PerfilUser = () => {
   const { user } = useContext(AuthContext);
@@ -17,7 +19,7 @@ const PerfilUser = () => {
   const [isToggle, setIsToggle] = useState(true);
   const [isEditCpf, setIsEditCpf] = useState(false);
   const [isEditContato, setIsEditContato] = useState(false);
-  const [verifyData, setVerifyData] = useState({});
+  const [data, setData] = useState({});
   const [dataSend, setDataSend] = useState({});
 
   const api = useAxios();
@@ -43,6 +45,12 @@ const PerfilUser = () => {
     getUserByEmail()
   }, [])
 
+  useEffect(() => {
+    if (dataSend.cep) {
+      validateCEP(dataSend.cep);
+    }
+  }, [dataSend?.cep])
+
   const getUserByEmail = async () => {
     const response = await api.get(`/api/user/?email=${user?.email}`);
     setVerifyData(response.data);
@@ -51,19 +59,103 @@ const PerfilUser = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     const newData = { ...dataSend, [name]: value }
-    if (name === 'cpf') {
-      if (validarCPF(value)) {
-        console.log("CPF Válido");
-      } else {
-        console.log("CPF Inválido!");
-      }
+    if (newData[name] == "") {
+      delete newData[name];
     }
+
+    console.log(newData);
     setDataSend(newData);
   }
 
   const sendData = () => {
-    console.log(data);
+    if (dataSend.cpf)
+      isValidCPF(dataSend?.cpf) ? setIsValidCpf(true) : setIsValidCpf(false);
+
+    if (!dataSend.logradouro && !dataSend.bairro && !dataSend.cidade && !dataSend.estado && !dataSend.numero && !dataSend.cep) {
+      console.log("Atualizar o resto");
+    } else if (dataSend.logradouro && dataSend.bairro && dataSend.cidade && dataSend.estado && dataSend.numero && dataSend.cep) {
+      console.log("Campos de endereço preenchidos, atualizar")
+    } else {
+      console.log("Erro tem algum campo de endereço preenchido e outros não!")
+      console.log(dataSend);
+    }
+
   }
+
+  const validateCEP = async (cep) => {
+    cep = cep.replace(/\D/g, '');
+    if (cep.length === 8) {
+      const response = await consultarCep(cep);
+      if (response.erro) {
+        setIsValidFields({ "cep": { "error": "CEP Inválido, tente novamente!" } });
+      } else {
+        setDataSend({
+          "logradouro": response.logradouro,
+          "bairro": response.bairro,
+          "estado": response.uf,
+          "complemento": response.complemento,
+          "cidade": response.localidade,
+          "cep": response.cep,
+          "numero": dataSend?.numero,
+          "nome": dataSend?.nome,
+          "sobrenome": dataSend?.sobrenome,
+          "telefone1": dataSend?.telefone1,
+          "telefone2": dataSend?.telefone2,
+          "cpf": dataSend?.cpf,
+        });
+        setIsValidFields({ "cep": { "error": "" } });
+      }
+    } else if (cep.length !== 8) {
+      delete dataSend["logradouro"];
+      delete dataSend["bairro"];
+      delete dataSend["complemento"];
+      delete dataSend["cidade"];
+      delete dataSend["estado"];
+      delete dataSend["numero"];
+      if (!dataSend["nome"])
+        delete dataSend["numero"];
+      if (!dataSend["sobrenome"])
+        delete dataSend["sobrenome"];
+      if (!dataSend["telefone1"])
+        delete dataSend["telefone1"];
+      if (!dataSend["telefone2"])
+        delete dataSend["telefone2"];
+      if (!dataSend["cpf"])
+        delete dataSend["cpf"];
+
+      setIsValidFields({ "cep": { "error": "" } });
+    }
+  }
+
+  const isValidCPF = (cpf) => {
+    cpf = cpf.replace(/[^\d]/g, ''); // Remove non-digit characters
+
+    // Validate length
+    if (cpf.length !== 11) return false;
+
+    // Validate repetitive numbers
+    if (/^(\d)\1{10}$/.test(cpf)) return false;
+
+    // Calculate the first verification digit
+    let sum = 0;
+    for (let i = 0; i < 9; i++) {
+      sum += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+    let remainder = (sum * 10) % 11;
+    if (remainder === 10 || remainder === 11) remainder = 0;
+    if (remainder !== parseInt(cpf.charAt(9))) return false;
+
+    // Calculate the second verification digit
+    sum = 0;
+    for (let i = 0; i < 10; i++) {
+      sum += parseInt(cpf.charAt(i)) * (11 - i);
+    }
+    remainder = (sum * 10) % 11;
+    if (remainder === 10 || remainder === 11) remainder = 0;
+    if (remainder !== parseInt(cpf.charAt(10))) return false;
+
+    return true;
+  };
 
 
   return (
@@ -94,11 +186,11 @@ const PerfilUser = () => {
                 <div className={styles.user_basic_information_container_name}>
                   <div className={styles.user_basic_information_grid}>
                     <p>Nome</p>
-                    <input type="text" name="nome" onChange={handleChange} placeholder='Digite seu nome' />
+                    <input type="text" value={dataSend?.nome ? dataSend?.nome : ''} name="nome" onChange={handleChange} placeholder='Digite seu nome' />
                   </div>
                   <div className={styles.user_basic_information_grid}>
                     <p>Sobrenome</p>
-                    <input type="text" name="sobrenome" onChange={handleChange} placeholder='Digite seu sobrenome' />
+                    <input type="text" value={dataSend?.sobrenome ? dataSend?.sobrenome : ''} name="sobrenome" onChange={handleChange} placeholder='Digite seu sobrenome' />
                   </div>
                 </div>
               }
@@ -138,12 +230,16 @@ const PerfilUser = () => {
                   <p>{verifyData.cep ? verifyData.cep : "Não informado ainda"}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
+                  <p>Estado</p>
+                  <p>{data.estado ? data.estado : "Não informado ainda"}</p>
+                </div>
+                <div className={styles.user_basic_information_grid}>
                   <p>Cidade</p>
                   <p>{verifyData.cidade ? verifyData.cidade : "Não informado ainda"}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Estado</p>
-                  <p>{verifyData.estado ? verifyData.estado : "Não informado ainda"}</p>
+                  <p>{data.estado ? data.estado : "Não informado ainda"}</p>
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
@@ -158,35 +254,48 @@ const PerfilUser = () => {
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>Logradouro (Rua, Conjunto ou outro)</p>
-                  <input type="text" name="logradouro" onChange={handleChange} placeholder='Informe o logradouro' />
+                  <input type="text" name="logradouro" value={dataSend?.logradouro ? dataSend?.logradouro : ''} onChange={handleChange} placeholder='Informe o logradouro' />
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Bairro</p>
-                  <input type="text" name="bairro" onChange={handleChange} placeholder='Informe o bairro' />
+                  <input type="text" name="bairro" value={dataSend?.bairro ? dataSend?.bairro : ''} onChange={handleChange} placeholder='Informe o bairro' />
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Número</p>
-                  <input type="text" name="numero" onChange={handleChange} placeholder='Informe o número' />
+                  <input type="text" name="numero" value={dataSend?.numero ? dataSend?.numero : ''} onChange={handleChange} placeholder='Informe o número' />
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>CEP</p>
-                  <InputMask mask="99999-999" name="cep" onChange={handleChange} placeholder='Informe o CEP' />
-                </div>
-                <div className={styles.user_basic_information_grid}>
-                  <p>Cidade</p>
-                  <input type="text" name="cidade" onChange={handleChange} placeholder='Informe a cidade onde mora' />
+                  <InputMask mask="99999-999" className={isValidFields.cep?.error && styles.input_cep} name="cep" onChange={handleChange} placeholder='Informe o CEP' />
+                  {isValidFields.cep?.error ? <p style={{ color: 'red', fontSize: 12 }}>{isValidFields.cep?.error}</p> : ''}
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Estado</p>
-                  <input type="text" name="estado" onChange={handleChange} placeholder='Informe o estado onde mora' />
+                  <select name="estado" onChange={handleChange} value={dataSend?.estado ? dataSend?.estado : ''}>
+                    <option value="" key=""></option>
+                    {jsonData.estados.map((state) => (
+                      <option value={state.sigla} key={state.sigla}>{state.sigla}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className={styles.user_basic_information_grid}>
+                  <p>Cidade</p>
+                  {dataSend?.estado && <select name="cidade" onChange={handleChange} value={dataSend?.cidade}>
+                    <option value="" key=""></option>
+                    {jsonData.estados.filter((state) => (state.sigla === dataSend?.estado)).map((data) => data.cidades.map(
+                      (cidades) => {
+                        return (<option value={cidades} key={cidades}>{cidades}</option>)
+                      }
+                    ))}
+                  </select>}
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>Complemento</p>
-                  <input type="text" name="complemento" onChange={handleChange} placeholder='Complemento, Ex.: Apto Nº 240 4º Andar' />
+                  <input type="text" name="complemento" value={dataSend?.complemento ? dataSend?.complemento : ''} onChange={handleChange} placeholder='Complemento, Ex.: Apto Nº 240 4º Andar' />
                 </div>
               </div>
             </div>
@@ -248,7 +357,7 @@ const PerfilUser = () => {
             <div className={styles.user_endereco_container}>
               <div className={styles.user_basic_information_grid}>
                 <p>CPF</p>
-                <InputMask mask="999.999.999-99" name="cpf" onChange={handleChange} placeholder='Informe seu cpf' />
+                <InputMask mask="999.999.999-99" name="cpf" value={dataSend.cpf ? dataSend.cpf : ''} onChange={handleChange} placeholder='Informe seu cpf' />
               </div>
             </div>
           </div>
