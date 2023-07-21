@@ -19,10 +19,12 @@ const PerfilUser = () => {
   const [isToggle, setIsToggle] = useState(true);
   const [isEditCpf, setIsEditCpf] = useState(false);
   const [isEditContato, setIsEditContato] = useState(false);
-  const [isValidCpf, setIsValidCpf] = useState(false);
+  const [isValidCpf, setIsValidCpf] = useState();
   const [verifyData, setVerifyData] = useState({});
   const [dataSend, setDataSend] = useState({});
   const [isValidFields, setIsValidFields] = useState({});
+  const [isValidTelefone1, setIsValidTelefone1] = useState();
+  const [isValidTelefone2, setIsValidTelefone2] = useState();
 
   const api = useAxios();
 
@@ -32,13 +34,14 @@ const PerfilUser = () => {
   const handleEditEndereco = () => {
     setIsEditEndereco(!isEditEndereco);
     setIsValidFields({ "endereco": { "verify": false } })
-
   }
   const handleEditCpf = () => {
     setIsEditCpf(!isEditCpf);
   }
   const handleEditContato = () => {
     setIsEditContato(!isEditContato);
+    setIsValidTelefone1(true);
+    setIsValidTelefone2(true);
   }
 
   const handleValueChange = (value) => {
@@ -68,6 +71,11 @@ const PerfilUser = () => {
     }
     verifyFieldsEndereco(newData);
     setDataSend(newData);
+    setIsValidCpf(true);
+    if (name === "telefone1")
+      setIsValidTelefone1(true);
+    if (name === "telefone2")
+      setIsValidTelefone2(true);
   }
 
   const verifyFieldsEndereco = (data) => {
@@ -81,11 +89,40 @@ const PerfilUser = () => {
   const sendData = () => {
     verifyFieldsEndereco();
 
-    if (dataSend.cpf)
-      isValidCPF(dataSend?.cpf) ? setIsValidCpf(true) : setIsValidCpf(false);
+    if (dataSend.cep?.replace(/\D/g, '').length < 8) {
+      setIsValidFields({ "cep": { "error": "Cep incompleto!" } })
+      return;
+    }
+
+    if (dataSend.telefone1?.replace(/\D/g, '').length < 11 && dataSend.telefone2?.replace(/\D/g, '').length < 11) {
+      setIsValidTelefone1(false);
+      setIsValidTelefone2(false);
+      return;
+    }
+
+    if (dataSend.telefone1?.replace(/\D/g, '').length < 11) {
+      setIsValidTelefone1(false);
+      return;
+    }
+
+    if (dataSend.telefone2?.replace(/\D/g, '').length < 11) {
+      setIsValidTelefone2(false);
+      return;
+    }
+
+    if (dataSend.cpf) {
+      if (isValidCPF(dataSend.cpf)) {
+        setIsValidCpf(true)
+      } else {
+        setIsValidCpf(false);
+        return;
+      }
+    }
+
     if (Object.keys(dataSend).length === 0) {
       console.log("Nenhum campo preenchido!")
-    } else {
+    }
+    else {
       if (!dataSend.logradouro && !dataSend.bairro && !dataSend.cidade && !dataSend.estado && !dataSend.numero && !dataSend.cep) {
         console.log("Atualizar o resto");
       } else if (dataSend.logradouro && dataSend.bairro && dataSend.cidade && dataSend.estado && dataSend.numero && dataSend.cep) {
@@ -96,11 +133,11 @@ const PerfilUser = () => {
         setIsValidFields({ "endereco": { "verify": true } })
         console.log(dataSend);
       }
-
-
     }
 
   }
+
+
 
   const validateCEP = async (cep) => {
     cep = cep.replace(/\D/g, '');
@@ -131,7 +168,8 @@ const PerfilUser = () => {
       delete dataSend["complemento"];
       delete dataSend["cidade"];
       delete dataSend["estado"];
-      delete dataSend["numero"];
+      if (!dataSend["numero"])
+        delete dataSend["numero"];
       if (!dataSend["nome"])
         delete dataSend["numero"];
       if (!dataSend["sobrenome"])
@@ -232,6 +270,10 @@ const PerfilUser = () => {
             <div className={styles.user_endereco_container_grid}>
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
+                  <p>CEP</p>
+                  <p>{verifyData.cep ? verifyData.cep : "Não informado ainda"}</p>
+                </div>
+                <div className={styles.user_basic_information_grid}>
                   <p>Logradouro (Rua, Conjunto ou outro)</p>
                   <p>{verifyData.logradouro ? verifyData.logradouro : "Não informado ainda"}</p>
                 </div>
@@ -245,10 +287,7 @@ const PerfilUser = () => {
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
-                <div className={styles.user_basic_information_grid}>
-                  <p>CEP</p>
-                  <p>{verifyData.cep ? verifyData.cep : "Não informado ainda"}</p>
-                </div>
+
                 <div className={styles.user_basic_information_grid}>
                   <p>Estado</p>
                   <p>{verifyData.estado ? verifyData.estado : "Não informado ainda"}</p>
@@ -257,8 +296,6 @@ const PerfilUser = () => {
                   <p>Cidade</p>
                   <p>{verifyData.cidade ? verifyData.cidade : "Não informado ainda"}</p>
                 </div>
-              </div>
-              <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>Complemento</p>
                   <p>{verifyData.complemento ? verifyData.complemento : "Não informado ainda"}</p>
@@ -268,6 +305,12 @@ const PerfilUser = () => {
           ) : (
             <div className={styles.user_endereco_container_grid}>
               <div className={styles.user_endereco_container}>
+                <div className={styles.user_basic_information_grid}>
+                  <p>CEP</p>
+                  <InputMask mask="99999-999" className={isValidFields.cep?.error && styles.input_cep} value={dataSend?.cep ? dataSend?.cep : ''} name="cep" onChange={handleChange} placeholder='Informe o CEP' />
+                  {isValidFields.cep?.error ? <p style={{ color: 'red', fontSize: 12 }}>{isValidFields.cep?.error}</p> : ''}
+                  {isValidFields.endereco?.verify && !dataSend?.cep ? (<p style={{ color: 'red', fontSize: 12 }}>Campo obrigatório!</p>) : ("")}
+                </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Logradouro (Rua, Conjunto ou outro)</p>
                   <input type="text" name="logradouro" value={dataSend?.logradouro ? dataSend?.logradouro : ''} onChange={handleChange} placeholder='Informe o logradouro' />
@@ -286,12 +329,6 @@ const PerfilUser = () => {
               </div>
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
-                  <p>CEP</p>
-                  <InputMask mask="99999-999" className={isValidFields.cep?.error && styles.input_cep} name="cep" onChange={handleChange} placeholder='Informe o CEP' />
-                  {isValidFields.cep?.error ? <p style={{ color: 'red', fontSize: 12 }}>{isValidFields.cep?.error}</p> : ''}
-                  {isValidFields.endereco?.verify && !dataSend?.cep ? (<p style={{ color: 'red', fontSize: 12 }}>Campo obrigatório!</p>) : ("")}
-                </div>
-                <div className={styles.user_basic_information_grid}>
                   <p>Estado</p>
                   <select name="estado" onChange={handleChange} value={dataSend?.estado ? dataSend?.estado : ''}>
                     <option value="" key=""></option>
@@ -299,20 +336,31 @@ const PerfilUser = () => {
                       <option value={state.sigla} key={state.sigla}>{state.sigla}</option>
                     ))}
                   </select>
+                  {isValidFields.endereco?.verify && !dataSend?.estado ? (<p style={{ color: 'red', fontSize: 12 }}>Campo obrigatório!</p>) : ("")}
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Cidade</p>
-                  {dataSend?.estado && <select name="cidade" onChange={handleChange} value={dataSend?.cidade}>
-                    <option value="" key=""></option>
-                    {jsonData.estados.filter((state) => (state.sigla === dataSend?.estado)).map((data) => data.cidades.map(
-                      (cidades) => {
-                        return (<option value={cidades} key={cidades}>{cidades}</option>)
-                      }
-                    ))}
-                  </select>}
+                  {dataSend?.estado ?
+                    <>
+                      <select name="cidade" onChange={handleChange} value={dataSend?.cidade}>
+                        <option value="" key=""></option>
+                        {jsonData.estados.filter((state) => (state.sigla === dataSend?.estado)).map((data) => data.cidades.map(
+                          (cidades) => {
+                            return (<option value={cidades} key={cidades}>{cidades}</option>)
+                          }
+                        ))}
+                      </select>
+                      {isValidFields.endereco?.verify && !dataSend?.cidade ? (<p style={{ color: 'red', fontSize: 12 }}>Campo obrigatório!</p>) : ("")}
+                    </>
+                    :
+                    <>
+                      <select>
+                        <option value="" key="">Selecione um estado primeiro</option>
+                      </select>
+                      {isValidFields.endereco?.verify && !dataSend?.cidade ? (<p style={{ color: 'red', fontSize: 12 }}>Campo obrigatório!</p>) : ("")}
+                    </>
+                  }
                 </div>
-              </div>
-              <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>Complemento</p>
                   <input type="text" name="complemento" value={dataSend?.complemento ? dataSend?.complemento : ''} onChange={handleChange} placeholder='Complemento, Ex.: Apto Nº 240 4º Andar' />
@@ -347,10 +395,12 @@ const PerfilUser = () => {
               <div className={styles.user_basic_information_grid}>
                 <p>Telefone 1</p>
                 <InputMask mask="(99) 99999-9999" name="telefone1" onChange={handleChange} placeholder='Informe seu telefone' />
+                {isValidTelefone1 === false ? <p style={{ color: 'red', fontSize: 12 }}>Telefone Incompleto</p> : ''}
               </div>
               <div className={styles.user_basic_information_grid}>
                 <p>Telefone 2</p>
                 <InputMask mask="(99) 99999-9999" name="telefone2" onChange={handleChange} placeholder='Informe seu telefone' />
+                {isValidTelefone2 === false ? <p style={{ color: 'red', fontSize: 12 }}>Telefone Incompleto</p> : ''}
               </div>
             </div>
           </div>
@@ -377,7 +427,8 @@ const PerfilUser = () => {
             <div className={styles.user_endereco_container}>
               <div className={styles.user_basic_information_grid}>
                 <p>CPF</p>
-                <InputMask mask="999.999.999-99" name="cpf" value={dataSend.cpf ? dataSend.cpf : ''} onChange={handleChange} placeholder='Informe seu cpf' />
+                <InputMask mask="999.999.999-99" name="cpf" style={isValidCpf === false ? { border: '1px solid red' } : { border: '1px solid black' }} value={dataSend.cpf ? dataSend.cpf : ''} onChange={handleChange} placeholder='Informe seu cpf' />
+                {isValidCpf === false ? <p style={{ color: 'red', fontSize: 12 }}>Cpf inválido</p> : ''}
               </div>
             </div>
           </div>
