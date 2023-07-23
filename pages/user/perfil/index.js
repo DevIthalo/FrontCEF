@@ -11,6 +11,7 @@ import useAxios from '@/services/useAxios'
 import InputMask from 'react-input-mask';
 import jsonData from '@/json/estados-cidades.json'
 import { consultarCep } from 'correios-brasil/dist'
+import {BsInfoCircle} from 'react-icons/bs'
 
 const PerfilUser = () => {
   const { user } = useContext(AuthContext);
@@ -20,12 +21,15 @@ const PerfilUser = () => {
   const [isEditCpf, setIsEditCpf] = useState(false);
   const [isEditContato, setIsEditContato] = useState(false);
   const [isValidCpf, setIsValidCpf] = useState();
+  const [isCpfAlreadySet, setIsCpfAlreadySet] = useState();
   const [verifyData, setVerifyData] = useState({});
   const [dataSend, setDataSend] = useState({});
   const [isValidFields, setIsValidFields] = useState({});
-  const [isValidTelefone1, setIsValidTelefone1] = useState();
-  const [isValidTelefone2, setIsValidTelefone2] = useState();
-
+  const [isValidFixo, setIsValidFixo] = useState();
+  const [isValidCelular, setIsValidCelular] = useState();
+  const [messageOk, setMessageOk] = useState();
+  const [messageError, setMessageError] = useState();
+  const [showInfo, setShowInfo] = useState(false);
   const api = useAxios();
 
   const handleEditBasic = () => {
@@ -40,8 +44,8 @@ const PerfilUser = () => {
   }
   const handleEditContato = () => {
     setIsEditContato(!isEditContato);
-    setIsValidTelefone1(true);
-    setIsValidTelefone2(true);
+    setIsValidFixo(true);
+    setIsValidCelular(true);
   }
 
   const handleValueChange = (value) => {
@@ -50,7 +54,27 @@ const PerfilUser = () => {
 
   useEffect(() => {
     getUserByEmail()
+    
   }, [])
+  useEffect(() => {
+    
+      setDataSend({
+        "nome": verifyData?.nome,
+        "email": user?.email,
+        "sobrenome": verifyData?.sobrenome,
+        "cep": verifyData?.cep?.replace(/\D/g, ''),
+        "logradouro": verifyData?.logradouro,
+        "bairro": verifyData?.bairro,
+        "numero": verifyData?.numero,
+        "estado": verifyData?.estado,
+        "cidade": verifyData?.cidade,
+        "complemento": verifyData?.complemento,
+        "fixo": verifyData?.fixo,
+        "celular": verifyData?.celular,
+        "cpf": verifyData.cpf?.replace(/\D/g, '')
+      });
+  }, [verifyData])
+
 
   useEffect(() => {
     if (dataSend.cep) {
@@ -72,10 +96,10 @@ const PerfilUser = () => {
     verifyFieldsEndereco(newData);
     setDataSend(newData);
     setIsValidCpf(true);
-    if (name === "telefone1")
-      setIsValidTelefone1(true);
-    if (name === "telefone2")
-      setIsValidTelefone2(true);
+    if (name === "fixo")
+      setIsValidFixo(true);
+    if (name === "celular")
+      setIsValidCelular(true);
   }
 
   const verifyFieldsEndereco = (data) => {
@@ -86,7 +110,7 @@ const PerfilUser = () => {
   }
 
 
-  const sendData = () => {
+  const sendData = async () => {
     verifyFieldsEndereco();
 
     if (dataSend.cep?.replace(/\D/g, '').length < 8) {
@@ -94,20 +118,24 @@ const PerfilUser = () => {
       return;
     }
 
-    if (dataSend.telefone1?.replace(/\D/g, '').length < 11 && dataSend.telefone2?.replace(/\D/g, '').length < 11) {
-      setIsValidTelefone1(false);
-      setIsValidTelefone2(false);
+    if (dataSend.fixo?.replace(/\D/g, '').length < 10 && dataSend.celular?.replace(/\D/g, '').length < 11) {
+      setIsValidFixo(false);
+      setIsValidCelular(false);
       return;
     }
 
-    if (dataSend.telefone1?.replace(/\D/g, '').length < 11) {
-      setIsValidTelefone1(false);
+    if (dataSend.fixo?.replace(/\D/g, '').length < 10) {
+      setIsValidFixo(false);
       return;
     }
 
-    if (dataSend.telefone2?.replace(/\D/g, '').length < 11) {
-      setIsValidTelefone2(false);
+    if (dataSend.celular?.replace(/\D/g, '').length < 11) {
+      setIsValidCelular(false);
       return;
+    }
+
+    if(verifyData.cpf){
+      delete dataSend["cpf"];
     }
 
     if (dataSend.cpf) {
@@ -120,24 +148,60 @@ const PerfilUser = () => {
     }
 
     if (Object.keys(dataSend).length === 0) {
-      console.log("Nenhum campo preenchido!")
+      setMessageError("Nenhum campo preenchido!");
+      const timeOut = setTimeout(() => {
+        setMessageError('');
+      }, 3000);
+      return () => clearTimeout(timeOut);
     }
     else {
       if (!dataSend.logradouro && !dataSend.bairro && !dataSend.cidade && !dataSend.estado && !dataSend.numero && !dataSend.cep) {
-        console.log("Atualizar o resto");
+        try{
+          const response = await api.patch("/api/update_user/",dataSend);
+          console.log(response);
+          getUserByEmail();
+          setIsEditBasic(false);
+          setIsEditContato(false);
+          setIsEditEndereco(false);
+          setIsEditCpf(false);
+          setMessageOk("Informações atualizadas com sucesso!");
+          const timeOut = setTimeout(() => {
+            setMessageOk('');
+          }, 3000);
+          return () => clearTimeout(timeOut);
+        }catch(error){
+          if(error.response){
+            setIsEditCpf(true);
+            setIsCpfAlreadySet(error.response.data?.error);
+          }
+        }
       } else if (dataSend.logradouro && dataSend.bairro && dataSend.cidade && dataSend.estado && dataSend.numero && dataSend.cep) {
-        console.log("Campos de endereço preenchidos, atualizar")
+        try{
+          const response = await api.patch("/api/update_user/",dataSend);
+          console.log(response);
+          getUserByEmail();
+          setIsEditBasic(false);
+          setIsEditContato(false);
+          setIsEditEndereco(false);
+          setIsEditCpf(false);
+          setMessageOk("Informações atualizadas com sucesso!");
+          const timeOut = setTimeout(() => {
+            setMessageOk('');
+          }, 3000);
+          return () => clearTimeout(timeOut);
+        }catch(error){
+          if(error.response){
+            setIsEditCpf(true);
+            setIsCpfAlreadySet(error.response.data?.error);
+          }
+        }
       } else {
-        console.log("Erro tem algum campo de endereço preenchido e outros não!")
         setIsEditEndereco(true);
         setIsValidFields({ "endereco": { "verify": true } })
-        console.log(dataSend);
       }
     }
 
   }
-
-
 
   const validateCEP = async (cep) => {
     cep = cep.replace(/\D/g, '');
@@ -148,6 +212,7 @@ const PerfilUser = () => {
       } else {
         setDataSend({
           "logradouro": response.logradouro,
+          "email": user?.email,
           "bairro": response.bairro,
           "estado": response.uf,
           "complemento": response.complemento,
@@ -156,8 +221,8 @@ const PerfilUser = () => {
           "numero": dataSend?.numero,
           "nome": dataSend?.nome,
           "sobrenome": dataSend?.sobrenome,
-          "telefone1": dataSend?.telefone1,
-          "telefone2": dataSend?.telefone2,
+          "fixo": dataSend?.fixo,
+          "celular": dataSend?.celular,
           "cpf": dataSend?.cpf,
         });
         setIsValidFields({ "cep": { "error": "" } });
@@ -174,10 +239,10 @@ const PerfilUser = () => {
         delete dataSend["numero"];
       if (!dataSend["sobrenome"])
         delete dataSend["sobrenome"];
-      if (!dataSend["telefone1"])
-        delete dataSend["telefone1"];
-      if (!dataSend["telefone2"])
-        delete dataSend["telefone2"];
+      if (!dataSend["fixo"])
+        delete dataSend["fixo"];
+      if (!dataSend["celular"])
+        delete dataSend["celular"];
       if (!dataSend["cpf"])
         delete dataSend["cpf"];
 
@@ -215,12 +280,20 @@ const PerfilUser = () => {
     return true;
   };
 
+  const handleInfo = () => {
+    setShowInfo(true);
+  }
+  const handleInfoLeave = () => {
+    setShowInfo(false);
+  }
 
   return (
     <>
 
-      <SideBarUser onValueChange={handleValueChange} data={dataSend} sendData={sendData} />
+      <SideBarUser onValueChange={handleValueChange} isEditBasic={isEditBasic} isEditContato={isEditContato} isEditCpf={isEditCpf} isEditEndereco={isEditEndereco} data={dataSend} sendData={sendData} />
       <div className={`${styles.user_container} ${!isToggle ? styles.user_container_closed : ''}`}>
+        {messageOk ? (<p className={styles.user_message_ok}>{messageOk}</p>) : ''}
+        {messageError ? (<p className={styles.user_message_error}>{messageError}</p>) : ''}
         <div className={styles.user_container_title}>
           <h3>Informações Básicas</h3>
           <a style={{ cursor: 'pointer' }} onClick={handleEditBasic}><LuEdit className={styles.user_container_edit_icon} /></a>
@@ -254,8 +327,17 @@ const PerfilUser = () => {
               }
             </div>
             <div className={styles.user_basic_information_grid}>
-              <p>Email</p>
-              <p>{user?.email}</p>
+              <div className={styles.user_email_verification}>
+                <div className={styles.user_email_verification_grid}>
+                  <p>Email {showInfo ? <p className={styles.user_message_email_verification}>Obs.: Email ainda não verificado</p> : ''}
+                  {!verifyData.is_validated ? <BsInfoCircle style={{color:'rgb(133, 29, 29)'}} onMouseEnter={handleInfo} onMouseLeave={handleInfoLeave}/>:''}
+                  </p>
+                  <p>{user?.email}</p>
+                </div>
+                <div>
+                {!verifyData.is_validated ? <Link className={styles.user_email_verification_btn} href={'/confirmation'}>Verificar email</Link> : ''}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -372,7 +454,7 @@ const PerfilUser = () => {
         </div>
         <br /><br />
         <div className={styles.user_container_title}>
-          <h3>Contato</h3>
+          <h3>Contatos</h3>
           <a style={{ cursor: 'pointer' }} onClick={handleEditContato}><LuEdit className={styles.user_container_edit_icon} /></a>
         </div><br />
         <hr /><br />
@@ -380,12 +462,12 @@ const PerfilUser = () => {
           <div className={styles.user_endereco_container_grid}>
             <div className={styles.user_endereco_container}>
               <div className={styles.user_basic_information_grid}>
-                <p>Telefone 1</p>
-                <p>{verifyData.telefone ? verifyData.telefone : "Não informado ainda"}</p>
+                <p>Telefone Fixo</p>
+                <p>{verifyData.fixo ? verifyData.fixo : "Não informado ainda"}</p>
               </div>
               <div className={styles.user_basic_information_grid}>
-                <p>Telefone 2</p>
-                <p>{verifyData.telefone2 ? verifyData.telefone2 : "Não informado ainda"}</p>
+                <p>Telefone Celular</p>
+                <p>{verifyData.celular ? verifyData.celular : "Não informado ainda"}</p>
               </div>
             </div>
           </div>
@@ -393,14 +475,14 @@ const PerfilUser = () => {
           <div className={styles.user_endereco_container_grid}>
             <div className={styles.user_endereco_container}>
               <div className={styles.user_basic_information_grid}>
-                <p>Telefone 1</p>
-                <InputMask mask="(99) 99999-9999" name="telefone1" onChange={handleChange} placeholder='Informe seu telefone' />
-                {isValidTelefone1 === false ? <p style={{ color: 'red', fontSize: 12 }}>Telefone Incompleto</p> : ''}
+                <p>Telefone Fixo</p>
+                <InputMask mask="(99) 9999-9999" name="fixo" value={dataSend?.fixo ? dataSend?.fixo : ''} onChange={handleChange} placeholder='Informe seu telefone fixo' />
+                {isValidFixo === false ? <p style={{ color: 'red', fontSize: 12 }}>Telefone Fixo Incompleto</p> : ''}
               </div>
               <div className={styles.user_basic_information_grid}>
-                <p>Telefone 2</p>
-                <InputMask mask="(99) 99999-9999" name="telefone2" onChange={handleChange} placeholder='Informe seu telefone' />
-                {isValidTelefone2 === false ? <p style={{ color: 'red', fontSize: 12 }}>Telefone Incompleto</p> : ''}
+                <p>Telefone Celular</p>
+                <InputMask mask="(99) 99999-9999" name="celular" value={dataSend?.celular ? dataSend?.celular : ''} onChange={handleChange} placeholder='Informe seu telefone celular' />
+                {isValidCelular === false ? <p style={{ color: 'red', fontSize: 12 }}>Telefone Celular Incompleto</p> : ''}
               </div>
             </div>
           </div>
@@ -409,7 +491,7 @@ const PerfilUser = () => {
         <br /><br />
         <div className={styles.user_container_title}>
           <h3>CPF</h3>
-          <a style={{ cursor: 'pointer' }} onClick={handleEditCpf}><LuEdit className={styles.user_container_edit_icon} /></a>
+          {verifyData.cpf ?  '' : <a style={{ cursor: 'pointer' }} onClick={handleEditCpf}><LuEdit className={styles.user_container_edit_icon} /></a>}
         </div>
         <p style={{ fontSize: 12 }}>Obs.: Uma vez atualizado o CPF, você não conseguirá mais editar. Então, insira-o corretamente!</p>
         <hr /><br />
@@ -428,6 +510,7 @@ const PerfilUser = () => {
               <div className={styles.user_basic_information_grid}>
                 <p>CPF</p>
                 <InputMask mask="999.999.999-99" name="cpf" style={isValidCpf === false ? { border: '1px solid red' } : { border: '1px solid black' }} value={dataSend.cpf ? dataSend.cpf : ''} onChange={handleChange} placeholder='Informe seu cpf' />
+                {isCpfAlreadySet ? <p style={{ color: 'red', fontSize: 12 }}>{isCpfAlreadySet}</p> : ''}
                 {isValidCpf === false ? <p style={{ color: 'red', fontSize: 12 }}>Cpf inválido</p> : ''}
               </div>
             </div>

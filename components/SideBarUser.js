@@ -38,7 +38,7 @@ const SideBarUser = (props) => {
     }, []);
 
     useEffect(() => {
-        (props.data?.nome ||
+        ((props.data?.nome ||
             props.data?.sobrenome ||
             props.data?.logradouro ||
             props.data?.cep ||
@@ -47,10 +47,10 @@ const SideBarUser = (props) => {
             props.data?.estado ||
             props.data?.numero ||
             props.data?.complemento ||
-            props.data?.telefone1 ||
-            props.data?.telefone2 ||
-            props.data?.cpf) ? setIsEditable(true) : setIsEditable(false);
-    }, [props.data])
+            props.data?.fixo ||
+            props.data?.celular ||
+            props.data?.cpf) && (props.isEditCpf != false || props.isEditContato != false || props.isEditEndereco != false || props.isEditBasic != false)) ? setIsEditable(true) : setIsEditable(false);
+    }, [props.data, props.isEditBasic, props.isEditContato, props.isEditEndereco, props.isEditCpf])
 
 
     return (

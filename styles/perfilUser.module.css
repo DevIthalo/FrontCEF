@@ -7,6 +7,59 @@
     overflow: scroll;
 }
 
+.user_container .user_message_ok{
+    padding: 10px;
+    border-radius: 5px;
+    background: rgb(230, 255, 230);
+    border: 1px solid rgb(29, 133, 29);
+    color:  rgb(29, 133, 29);
+    margin-bottom: 2rem;
+}
+.user_container .user_message_error{
+    padding: 10px;
+    border-radius: 5px;
+    background: rgb(255, 230, 230);
+    border: 1px solid rgb(133, 29, 29);
+    color: rgb(133, 29, 29);
+    margin-bottom: 2rem;
+}
+
+.user_email_verification{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 0rem;
+}
+.user_email_verification_grid{
+    display: grid;
+    gap: 5px;
+}
+
+.user_message_email_verification{
+    position: absolute;
+    padding: 10px;
+    background: rgb(255, 230, 230);
+    border: 1px solid rgb(197, 44, 44);
+    color: rgb(197, 44, 44);
+    border-radius: 5px;   
+    font-weight: lighter;
+    font-size: 10px;
+}
+.user_email_verification_btn{
+    position: absolute;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 0px 5px;
+    border: 1px solid rgb(197, 44, 44);
+    color: rgb(197, 44, 44);
+    border-radius: 3px;
+}
+.user_email_verification_btn:hover{
+    background: rgb(255, 230, 230);
+    border: 1px solid rgb(197, 44, 44);
+    color: rgb(197, 44, 44);
+}
+
 .user_container.user_container_closed {
     width: calc(100% - 570px);
     left: 15%;
