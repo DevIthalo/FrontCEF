@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React, { useContext, useState, useEffect } from 'react'
@@ -36,13 +37,16 @@ const LoginPage = () => {
             {errors?.details ? <div className={styles.error_credentials}>{errors.details}</div> : ""}
             <div>
               <label>Email</label>
-              <input type={"text"} name={"email"} className={`${styles.input_email} ${errors?.email && styles.error_input}`} placeholder={"Digite seu email"} />
+              <input type={"email"} name={"email"} className={`${styles.input_email} ${errors?.email && styles.error_input}`} placeholder={"Digite seu email"} />
               {errors?.email && (<label className={styles.error_label}>{errors?.email}</label>)}
             </div>
             <div>
               <label>Senha</label>
               <input type={"password"} name={"password"} className={`${styles.input_password} ${errors?.password && styles.error_input}`} placeholder={"Digite sua senha"} />
               {errors?.password && (<label className={styles.error_label}>{errors?.password}</label>)}
+            </div>
+            <div>
+              <Link className={styles.login_forgot_password} href={'/login/reset/'}>Esqueceu sua senha?</Link>
             </div>
             <button type='submit' className={!isLoading ? styles.input_btn : styles.input_btn_none} disabled={isLoading}>Logar</button>
             {isLoading && <img src='assets/images/loading.svg' style={{ padding: '5px', margin: '0 auto' }} width={60} height={60} />}

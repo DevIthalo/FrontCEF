@@ -158,10 +158,13 @@ export function AuthProvider({ children }) {
 
 
     const logoutUser = () => {
-        setAuthTokens(null)
-        setUser(null);
-        destroyCookie(undefined, 'authTokens');
-        push('/');
+        destroyCookie(null, 'authTokens',{expires: new Date(0)});
+
+        if(window.location.reload()){
+            setAuthTokens(null)
+            setUser(null);
+            push('/');
+        }
     }
 
 

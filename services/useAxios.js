@@ -27,7 +27,8 @@ const useAxios = () => {
             refresh: authTokens.refresh
         })
         setCookie(undefined, 'authTokens', JSON.stringify(response.data), {
-            maxAge: 2 * 86400 // 2 dias
+            maxAge: 2 * 86400,
+            path: '/' // 2 dias
         });
         setAuthTokens(response.data)
         setUser(jwt_decode(response.data.access))

@@ -144,6 +144,11 @@
     border: 1px solid red;
 }
 
+.login_card .login_forgot_password{
+    text-decoration: none;
+    text-align: right;
+    color: #287bff;
+}
 
 .input_btn {
     background: #287bff;
