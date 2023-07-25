@@ -143,14 +143,18 @@ export function AuthProvider({ children }) {
             } catch (error) {
                 if (error.response) {
                     if (error.response.data) {
-                        console.log(error.response.data);
+                        errors.email_repeat = error.response.data.error;
+                        setFormErrors(errors);
+                        setIsLoading(false);
                     }
                 } else if (error.request) {
                     // A requisição foi feita, mas não houve resposta
-                    console.log(error.request);
+                    
+                    setIsLoading(false);
                 } else {
                     // Ocorreu um erro ao configurar a requisição
                     console.log('Erro', error.message);
+                    setIsLoading(false);
                 }
             }
         }

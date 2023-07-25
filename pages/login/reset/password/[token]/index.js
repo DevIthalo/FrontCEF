@@ -41,13 +41,24 @@ const ResetPasswordConfirm = () => {
                     "Content-Type": "application/json"
                 }
             });
-            setMessageOk(response.data.success);
-            const timeout = setTimeout(() => {
-                setMessageOk('');
+            
+
+            if (response.status === 204){
+                setError("Preencha os campos em branco");
                 setIsLoading(false);
-                push('/login');
-            }, 2500);
-            return () => clearTimeout(timeout);
+                const interval = setTimeout(() => {
+                    setError('');
+                }, 2500)
+                return () => clearTimeout(interval);
+            }else{
+                setMessageOk(response.data.success);
+                const timeout = setTimeout(() => {
+                    setMessageOk('');
+                    setIsLoading(false);
+                    push('/login');
+                }, 2500);
+                return () => clearTimeout(timeout);
+            }
         } catch (error) {
             setIsLoading(false);
             if (error.response) {
@@ -79,11 +90,26 @@ const ResetPasswordConfirm = () => {
 }
 
 export const getServerSideProps = async (ctx) => {
-    const { ['authTokens']: token } = parseCookies(ctx);
-    if (token) {
+    const { ['authTokens']: authToken } = parseCookies(ctx);
+    if (authToken) {
         return {
             redirect: {
                 destination: '/',
+                permanent: false
+            }
+        }
+    }
+    const { token } = ctx.params;
+    try {
+        await axios.post("http://127.0.0.1:8000/api/reset/password/confirm/",  {token} , {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    } catch (error) {
+        return {
+            redirect: {
+                destination: '/login',
                 permanent: false
             }
         }

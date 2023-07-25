@@ -36,6 +36,7 @@ const Register = () => {
               <label>Email</label>
               <input type={"text"} name={"email"} className={`${styles.input_email} ${errors?.email && styles.error_input}`} placeholder={"Digite seu email"} />
               {errors?.email && (<label className={styles.error_label}>{errors?.email}</label>)}
+              {errors?.email_repeat && (<label className={styles.error_label}>{errors?.email_repeat}</label>)}
             </div>
             <div>
               <label>Senha</label>

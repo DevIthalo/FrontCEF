@@ -18,6 +18,25 @@
     padding: 10px;
 }
 
+.new_container .new_error {
+    position: fixed;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 10px;
+    color: red;
+    right: 60px;
+    background: rgb(255, 237, 237);
+}
+.new_container .new_ok {
+    position: fixed;
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 10px;
+    color: green;
+    right: 60px;
+    background: rgb(239, 255, 239);
+}
+
 .new_container .new_title {
     display: grid;
     gap: 5px;

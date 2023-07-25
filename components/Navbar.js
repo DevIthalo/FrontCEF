@@ -6,10 +6,10 @@ import { BiMenu } from 'react-icons/bi'
 import Image from 'next/image'
 import { AiOutlineHome } from 'react-icons/ai'
 import { useRouter } from 'next/router'
-import {BiEdit} from 'react-icons/bi'
-import {CgProfile} from 'react-icons/cg'
-import {BiCommentDetail} from 'react-icons/bi'
-import {MdLogout} from 'react-icons/md'
+import { BiEdit } from 'react-icons/bi'
+import { CgProfile } from 'react-icons/cg'
+import { BiCommentDetail, BiSolidDashboard } from 'react-icons/bi'
+import { MdLogout } from 'react-icons/md'
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -53,8 +53,6 @@ const Navbar = () => {
               <li>Ainda não possui cadastro? <Link className={styles.menu_register} href={`/register`}>Registre-se</Link></li>
             </div>
           </div>
-
-
         </div>
         <div className={styles.overlay} onClick={toggleMenu}></div>
 
@@ -72,25 +70,33 @@ const Navbar = () => {
           {user ? (
             <div>
               <Image onClick={toggleDropDown} className={`${styles.profile_photo}`} src={`/assets/images/profile_photo.webp`} width={50} height={50} alt='Profile Photo' />
-              <div className={`${styles.dropdown_container} ${isDropDownOpen ? styles.toggle_dropdown_open : ''}`}>
-                <div className={styles.dropdown_info}>
-                  <br/>
+              <div className={`${styles.dropdown_container} ${isDropDownOpen ? styles.toggle_dropdown_open : ''}`} style={user.isAdmin ? {height:'220px'} : {height:'180px'}}>
+                <div className={styles.dropdown_info} >
+                  <br />
                   <div className={styles.dropdown_info_container}>
                     <Link href={`/user/perfil`}>
                       <div className={styles.dropdown_info_separated}>
-                        <CgProfile className={styles.dropdown_info_separated_icon}/>
+                        <CgProfile className={styles.dropdown_info_separated_icon} />
                         <p>Ver perfil</p>
                       </div>
                     </Link>
                     <Link href={'/user/comments'}>
                       <div className={styles.dropdown_info_separated}>
-                        <BiCommentDetail className={styles.dropdown_info_separated_icon}/>
+                        <BiCommentDetail className={styles.dropdown_info_separated_icon} />
                         <p>Seus comentários</p>
                       </div>
                     </Link>
-                    <a onClick={logoutUser} style={{cursor:'pointer'}}>
+                    {user.isAdmin && (
+                      <Link href={'/dashboard'}>
+                        <div className={styles.dropdown_info_separated}>
+                          <BiSolidDashboard className={styles.dropdown_info_separated_icon} />
+                          <p>Dashboard</p>
+                        </div>
+                      </Link>
+                    )}
+                    <a onClick={logoutUser} style={{ cursor: 'pointer' }}>
                       <div className={`${styles.dropdown_info_separated} ${styles.dropdown_info_logout}`}>
-                        <MdLogout className={styles.dropdown_info_separated_icon}/>
+                        <MdLogout className={styles.dropdown_info_separated_icon} />
                         <p>Logout</p>
                       </div>
                     </a>
