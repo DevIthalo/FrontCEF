@@ -11,7 +11,7 @@ import useAxios from '@/services/useAxios'
 import InputMask from 'react-input-mask';
 import jsonData from '@/json/estados-cidades.json'
 import { consultarCep } from 'correios-brasil/dist'
-import {BsInfoCircle} from 'react-icons/bs'
+import { BsInfoCircle } from 'react-icons/bs'
 import { parseCookies } from 'nookies'
 
 const PerfilUser = () => {
@@ -75,20 +75,20 @@ const PerfilUser = () => {
     });
   }, [verifyData])
 
-  useEffect(()=>{
-    if(!dataSend.nome) delete dataSend["nome"];
-    if(!dataSend.sobrenome) delete dataSend["sobrenome"];
-    if(!dataSend.cep) delete dataSend["cep"];
-    if(!dataSend.logradouro) delete dataSend["logradouro"];
-    if(!dataSend.cidade) delete dataSend["cidade"];
-    if(!dataSend.estado) delete dataSend["estado"];
-    if(!dataSend.complemento) delete dataSend["complemento"];
-    if(!dataSend.numero) delete dataSend["numero"];
-    if(!dataSend.fixo) delete dataSend["fixo"];
-    if(!dataSend.celular) delete dataSend["celular"];
-    if(!dataSend.cpf) delete dataSend["cpf"];
-    if(!dataSend.bairro) delete dataSend["bairro"];
-  },[dataSend])
+  useEffect(() => {
+    if (!dataSend.nome) delete dataSend["nome"];
+    if (!dataSend.sobrenome) delete dataSend["sobrenome"];
+    if (!dataSend.cep) delete dataSend["cep"];
+    if (!dataSend.logradouro) delete dataSend["logradouro"];
+    if (!dataSend.cidade) delete dataSend["cidade"];
+    if (!dataSend.estado) delete dataSend["estado"];
+    if (!dataSend.complemento) delete dataSend["complemento"];
+    if (!dataSend.numero) delete dataSend["numero"];
+    if (!dataSend.fixo) delete dataSend["fixo"];
+    if (!dataSend.celular) delete dataSend["celular"];
+    if (!dataSend.cpf) delete dataSend["cpf"];
+    if (!dataSend.bairro) delete dataSend["bairro"];
+  }, [dataSend])
 
   useEffect(() => {
     if (dataSend.cep) {
@@ -150,7 +150,7 @@ const PerfilUser = () => {
       return;
     }
 
-    if(verifyData.cpf){
+    if (verifyData.cpf) {
       delete dataSend["cpf"];
     }
     console.log(dataSend);
@@ -173,8 +173,8 @@ const PerfilUser = () => {
     }
     else {
       if (!dataSend.logradouro && !dataSend.bairro && !dataSend.cidade && !dataSend.estado && !dataSend.numero && !dataSend.cep) {
-        try{
-          const response = await api.patch("/api/update_user/",dataSend);
+        try {
+          const response = await api.patch("/api/update_user/", dataSend);
           console.log(response);
           getUserByEmail();
           setIsEditBasic(false);
@@ -186,15 +186,15 @@ const PerfilUser = () => {
             setMessageOk('');
           }, 3000);
           return () => clearTimeout(timeOut);
-        }catch(error){
-          if(error.response){
+        } catch (error) {
+          if (error.response) {
             setIsEditCpf(true);
             setIsCpfAlreadySet(error.response.data?.error);
           }
         }
       } else if (dataSend.logradouro && dataSend.bairro && dataSend.cidade && dataSend.estado && dataSend.numero && dataSend.cep) {
-        try{
-          const response = await api.patch("/api/update_user/",dataSend);
+        try {
+          const response = await api.patch("/api/update_user/", dataSend);
           console.log(response);
           getUserByEmail();
           setIsEditBasic(false);
@@ -206,8 +206,8 @@ const PerfilUser = () => {
             setMessageOk('');
           }, 3000);
           return () => clearTimeout(timeOut);
-        }catch(error){
-          if(error.response){
+        } catch (error) {
+          if (error.response) {
             setIsEditCpf(true);
             setIsCpfAlreadySet(error.response.data?.error);
           }
@@ -217,7 +217,6 @@ const PerfilUser = () => {
         setIsValidFields({ "endereco": { "verify": true } })
       }
     }
-
   }
 
   const validateCEP = async (cep) => {
@@ -323,7 +322,7 @@ const PerfilUser = () => {
               {!isEditBasic ? (<div className={styles.user_basic_information_container_name}>
                 <div className={styles.user_basic_information_grid}>
                   <p>Nome</p>
-                  <p>{isLoading === false ? verifyData.nome ? verifyData.nome : "Não informado ainda" :  'Carregando...'}</p>
+                  <p>{isLoading === false ? verifyData.nome ? verifyData.nome : "Não informado ainda" : 'Carregando...'}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Sobrenome</p>
@@ -346,13 +345,13 @@ const PerfilUser = () => {
             <div className={styles.user_basic_information_grid}>
               <div className={styles.user_email_verification}>
                 <div className={styles.user_email_verification_grid}>
-                  <p>Email {isLoading ===false && showInfo ? <p className={styles.user_message_email_verification}>Obs.: Email ainda não verificado</p> : ''}
-                  {isLoading === false && !verifyData.is_validated ? <BsInfoCircle style={{color:'rgb(133, 29, 29)'}} onMouseEnter={handleInfo} onMouseLeave={handleInfoLeave}/>:''}
+                  <p>Email {isLoading === false && showInfo ? <p className={styles.user_message_email_verification}>Obs.: Email ainda não verificado</p> : ''}
+                    {isLoading === false && !verifyData.is_validated ? <BsInfoCircle style={{ color: 'rgb(133, 29, 29)' }} onMouseEnter={handleInfo} onMouseLeave={handleInfoLeave} /> : ''}
                   </p>
                   <p>{user?.email}</p>
                 </div>
                 <div>
-                {isLoading === false && !verifyData.is_validated ? <Link className={styles.user_email_verification_btn} href={'/confirmation'}>Verificar email</Link> : ''}
+                  {isLoading === false && !verifyData.is_validated ? <Link className={styles.user_email_verification_btn} href={'/confirmation'}>Verificar email</Link> : ''}
                 </div>
               </div>
             </div>
@@ -370,34 +369,34 @@ const PerfilUser = () => {
               <div className={styles.user_endereco_container}>
                 <div className={styles.user_basic_information_grid}>
                   <p>CEP</p>
-                  <p>{isLoading === false ? verifyData.cep ? verifyData.cep : "Não informado ainda": 'Carregando...'}</p>
+                  <p>{isLoading === false ? verifyData.cep ? verifyData.cep : "Não informado ainda" : 'Carregando...'}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Logradouro (Rua, Conjunto ou outro)</p>
-                  <p>{isLoading === false ? verifyData.logradouro ? verifyData.logradouro : "Não informado ainda": 'Carregando...'}</p>
+                  <p>{isLoading === false ? verifyData.logradouro ? verifyData.logradouro : "Não informado ainda" : 'Carregando...'}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Bairro</p>
-                  <p>{isLoading === false ? verifyData.bairro ? verifyData.bairro : "Não informado ainda": 'Carregando...'}</p>
+                  <p>{isLoading === false ? verifyData.bairro ? verifyData.bairro : "Não informado ainda" : 'Carregando...'}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Número</p>
-                  <p>{isLoading === false ? verifyData.numero ? verifyData.numero : "Não informado ainda": 'Carregando...'}</p>
+                  <p>{isLoading === false ? verifyData.numero ? verifyData.numero : "Não informado ainda" : 'Carregando...'}</p>
                 </div>
               </div>
               <div className={styles.user_endereco_container}>
 
                 <div className={styles.user_basic_information_grid}>
                   <p>Estado</p>
-                  <p>{isLoading === false ? verifyData.estado ? verifyData.estado : "Não informado ainda": 'Carregando...'}</p>
+                  <p>{isLoading === false ? verifyData.estado ? verifyData.estado : "Não informado ainda" : 'Carregando...'}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Cidade</p>
-                  <p>{isLoading === false ? verifyData.cidade ? verifyData.cidade : "Não informado ainda": 'Carregando...'}</p>
+                  <p>{isLoading === false ? verifyData.cidade ? verifyData.cidade : "Não informado ainda" : 'Carregando...'}</p>
                 </div>
                 <div className={styles.user_basic_information_grid}>
                   <p>Complemento</p>
-                  <p>{isLoading === false ? verifyData.complemento ? verifyData.complemento : "Não informado ainda": 'Carregando...'}</p>
+                  <p>{isLoading === false ? verifyData.complemento ? verifyData.complemento : "Não informado ainda" : 'Carregando...'}</p>
                 </div>
               </div>
             </div>
@@ -508,7 +507,7 @@ const PerfilUser = () => {
         <br /><br />
         <div className={styles.user_container_title}>
           <h3>CPF</h3>
-          {verifyData.cpf ?  '' : <a style={{ cursor: 'pointer' }} onClick={handleEditCpf}><LuEdit className={styles.user_container_edit_icon} /></a>}
+          {verifyData.cpf ? '' : <a style={{ cursor: 'pointer' }} onClick={handleEditCpf}><LuEdit className={styles.user_container_edit_icon} /></a>}
         </div>
         <p style={{ fontSize: 12 }}>Obs.: Uma vez atualizado o CPF, você não conseguirá mais editar. Então, insira-o corretamente!</p>
         <hr /><br />
@@ -542,17 +541,17 @@ const PerfilUser = () => {
 
 export default PerfilUser
 
-export const getServerSideProps =(ctx)=>{
-  const {['authTokens']: token} = parseCookies(ctx);
-  if(!token){
+export const getServerSideProps = (ctx) => {
+  const { ['authTokens']: token } = parseCookies(ctx);
+  if (!token) {
     return {
-      redirect:{
+      redirect: {
         destination: "/",
         permanent: false
       }
     }
   }
   return {
-    props:{}
+    props: {}
   }
 }
