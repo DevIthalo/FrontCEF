@@ -1,0 +1,57 @@
+.dashboard_container {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    width: calc(100% - 300px);
+    left: 300px;
+    padding: 20px;
+    top: 75px;
+    transition: 1s ease;
+}
+
+.dashboard_container_toggle {
+    top: 75px;
+    left: 10%;
+}
+
+.dashboard_container .dashboard_card {
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #999;
+}
+
+.dashboard_container .dashboard_card:hover {
+    box-shadow: 0px 0px 3px 0px #999;
+}
+
+.dashboard_container .dashboard_card .dashboard_card_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_options {
+    display: grid;
+    gap: 1rem;
+}
+
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container .dashboard_title_container {
+    display: grid;
+    gap: 1rem;
+}
+
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container .dashboard_image {
+    padding: 5px;
+    border: 1px solid #999;
+    width: 80px;
+    border-radius: 5px;
+}

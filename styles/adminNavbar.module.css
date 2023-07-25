@@ -89,6 +89,19 @@
     cursor: pointer;
 }
 
+.admin_main .admin_main_navbar .admin_main_navbar_btn_edit {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    color: #fff;
+    border-radius: 50px;
+    border: none;
+    background: orange;
+    text-align: center;
+    cursor: pointer;
+}
+
 .admin_main .admin_main_navbar .admin_main_navbar_btn_publish:disabled {
     background: #bfd7ff;
     border: none;
