@@ -9,6 +9,33 @@
     transition: 1s ease;
 }
 
+.pagination_btn {
+    background: #287bff;
+    padding: 8px;
+    color: #fff;
+    border: 1px solid #287bff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination_btn:disabled {
+    background: #6fa6ff;
+    padding: 8px;
+    cursor: unset;
+    color: #fff;
+    border: 1px solid #6fa6ff;
+    border-radius: 5px;
+}
+
+.pagination_btn_prev_next {
+    background: #287bff;
+    padding: 8px;
+    color: #fff;
+    border: 1px solid #287bff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .dashboard_container_toggle {
     top: 75px;
     left: 10%;
@@ -54,4 +81,18 @@
     border: 1px solid #999;
     width: 80px;
     border-radius: 5px;
+}
+
+@media(max-width: 1024px) {
+    .dashboard_container {
+        width: 90%;
+        left: 5%;
+    }
+}
+
+@media(max-width: 500px) {
+    .dashboard_container {
+        left: 0%;
+        width: 100%
+    }
 }

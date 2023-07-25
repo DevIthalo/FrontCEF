@@ -70,3 +70,5 @@ comando abaixo (pode ser a partir da main)
 
 ##### React Mask 
 ``` npm install react-input-mask ```
+
+``` npm install date-fns ```
