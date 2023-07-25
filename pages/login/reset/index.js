@@ -8,6 +8,7 @@ import Link from 'next/link'
 const Reset = () => {
 
     const [error, setError] = useState();
+    const [errorEmpty, setErrorEmpty] = useState();
     const [messageOk, setMessageOk] = useState();
     const [email, setEmail] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +17,11 @@ const Reset = () => {
 
         e.preventDefault();
         const email = e.target.email.value;
+        if(!email){
+            setErrorEmpty("Campo vazio, preencha-o para prosseguir")
+            setIsLoading(false);
+            return;
+        }    
         try {
             const response = await axios.post("http://localhost:8000/api/reset/password/", { email }, {
                 headers: {
@@ -43,6 +49,7 @@ const Reset = () => {
 
     const handleChange = (e) => {
         setEmail(e.target.value);
+        setErrorEmpty('');
     }
 
 
@@ -59,7 +66,9 @@ const Reset = () => {
                     {messageOk ? <p className={styles.message_ok}>{messageOk}</p> : ''}
                     <form onSubmit={sendMail}>
                         <input type="email" name='email' onChange={handleChange} placeholder='Digite seu e-mail' />
+                        {errorEmpty ? <label style={{fontSize: 12, color: 'red', display:'flex', justifyContent:'flex-start', marginTop: 3}}>{errorEmpty}</label> : ''}
                         {!isLoading ? <button type='submit' disabled={email ? false : true}>Enviar</button> : <Image style={{ marginTop: '10px' }} src={"/assets/images/loading.svg"} height={30} width={30} alt='Loading' />}
+
                     </form>
                     <Link className={styles.reset_back_login} href={"/login"}>Voltar</Link>
                 </div>

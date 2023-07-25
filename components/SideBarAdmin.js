@@ -53,7 +53,7 @@ const SideBarAdmin = (props) => {
                     {
                         !props.isNew ?
                             <Link href="#"><img src="/assets/images/profile_photo.webp" width={50} height={50} alt="" /></Link>
-                            : <button className={stylesNavbar.admin_main_navbar_btn_publish}><BsSend />Publicar</button>
+                            : <button className={stylesNavbar.admin_main_navbar_btn_publish} onClick={props.onSubmit}><BsSend />Publicar</button>
                     }
                 </div>
             </div>

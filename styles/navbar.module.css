@@ -96,8 +96,7 @@
 
 .ul .user .toggle_dropdown_open {
     position: absolute;
-    width: 200px;
-    height: 180px;
+    width: 220px;
     padding: 10px;
     transition: height 0.3s ease-in, width 0.3s ease-in;
 }
