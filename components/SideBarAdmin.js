@@ -46,8 +46,8 @@ const SideBarAdmin = (props) => {
                 <div className={stylesNavbar.admin_main_navbar}>
                     <FiMenu className={stylesNavbar.admin_main_navbar_menu_icon} onClick={openCloseSideBar} />
                     {!props.isNew ? <div className={stylesNavbar.admin_main_search}>
-                        <input type={'text'} name={'serch'} placeholder={'Pesquisar Postagens'} />
-                        <a href=""><LiaSearchSolid className={stylesNavbar.admin_main_search_icon} /></a>
+                        <input type={'text'} onChange={props.onSearchChange} name={'serch'} placeholder={'Pesquisar Postagens'} />
+                        <a onClick={props.search}><LiaSearchSolid className={stylesNavbar.admin_main_search_icon} /></a>
                     </div>
                         : <button className={stylesNavbar.admin_main_navbar_btn_view} onClick={props.handleOpenModal}><BsEye />Visualizar</button>}
                     {

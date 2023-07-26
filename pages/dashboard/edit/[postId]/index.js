@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from 'react'
 import adminStyles from '@/styles/admin.module.css'
 import SideBarAdmin from '@/components/SideBarAdmin'
 import NavbarAdmin from '@/components/NavbarAdmin';
@@ -10,6 +11,7 @@ import { parseCookies } from 'nookies';
 import useAxios from '@/services/useAxios';
 import AuthContext from '@/context/AuthContext';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 const PostEdit = () => {
     const [title, setTitle] = useState("");
@@ -24,6 +26,22 @@ const PostEdit = () => {
     const api = useAxios();
     const { user } = useContext(AuthContext);
     const { push } = useRouter();
+    const router = useRouter();
+    const {postId} = router.query;
+
+    useEffect(()=>{
+        getPostById();
+    },[])
+
+    const getPostById = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8000/api/list_post_by_id/?id=${postId}`);
+            setTitle(response.data.title);
+            setContent(response.data.content)
+        } catch (error) {
+            console.log(error.response);
+        }
+    }
 
     const handleOnEditorChange = (content, editor) => {
         setContent(content);
@@ -59,7 +77,6 @@ const PostEdit = () => {
             setErrorContent("Campo obrigatório")
             return;
         }
-        const email = user?.email;
         if (user?.isAdmin === false) {
             setError("Você não possui permissão para realizar publicações");
             const timeOut = setTimeout(() => {
@@ -68,13 +85,13 @@ const PostEdit = () => {
             return () => clearTimeout(timeOut);
         }
         try {
-            const response = await api.post('/api/insert_post/', { email, title, content });
-            setMessageOk("Post publicado com sucesso!");
+            const response = await api.patch(`/api/update_post/${postId}`, { title, content });
+            setMessageOk("Post atualizado com sucesso!");
 
             const timeOut = setTimeout(() => {
                 setMessageOk('');
                 push('/dashboard');
-            }, 2500);
+            }, 1500);
             return () => clearTimeout(timeOut);
         } catch (error) {
             if (error.response) {
@@ -98,15 +115,14 @@ const PostEdit = () => {
                     <label>Título</label>
                     <label>Seja específico e suscinto, imagine um título de um jornal (simples, mas chamativo)</label>
                     {errorTitle && <label style={{ fontSize: 12, color: 'red' }}>{errorTitle}</label>}
-                    <input type="text" onChange={handleTitle} />
+                    <input type="text" value={title ? title : ''} onChange={handleTitle} />
                 </div>
                 <div className={styles.new_content}>
                     <label>Conteúdo</label>
                     <label>Utilize o botão de visualizar para ver como o conteúdo vai ficar quando for publicado</label>
                     {errorContent && <label style={{ fontSize: 12, color: 'red' }}>{errorContent}</label>}
-                    <CustomEditor handleOnEditorChange={handleOnEditorChange} />
+                    <CustomEditor content={content? content : ''} handleOnEditorChange={handleOnEditorChange} />
                 </div>
-                {content}
             </div>
             <Modal isOpen={modalOpen} onRequestClose={handleCloseModal}>
                 <h1>{title}</h1><br />
@@ -134,6 +150,18 @@ export const getServerSideProps = async (ctx) => {
         return {
             redirect: {
                 destination: '/',
+                permanent: false
+            }
+        }
+    }
+    const {params} = ctx;
+    const postId = params.postId;
+    try{
+        await axios.get(`http://127.0.0.1:8000/api/list_post_by_id/?id=${postId}`)
+    }catch(error){
+        return {
+            redirect: {
+                destination: '/dashboard',
                 permanent: false
             }
         }

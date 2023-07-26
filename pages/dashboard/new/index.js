@@ -74,7 +74,7 @@ const PostRegister = () => {
             const timeOut = setTimeout(() => {
                 setMessageOk('');
                 push('/dashboard');
-            }, 2500);
+            }, 1500);
             return () => clearTimeout(timeOut);
         }catch(error){
             if(error.response){
@@ -106,7 +106,6 @@ const PostRegister = () => {
                     {errorContent && <label style={{fontSize: 12, color: 'red'}}>{errorContent}</label>}
                     <CustomEditor handleOnEditorChange={handleOnEditorChange} />
                 </div>
-                {content}
             </div>
             <Modal isOpen={modalOpen} onRequestClose={handleCloseModal}>
                 <h1>{title}</h1><br />

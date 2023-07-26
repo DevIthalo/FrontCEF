@@ -46,6 +46,8 @@
 
 .admin_main .admin_main_navbar .admin_main_search .admin_main_search_icon {
     font-size: 20px;
+    color: #287bff;
+    cursor: pointer;
 }
 
 .admin_main .admin_main_navbar a {
@@ -97,7 +99,7 @@
     color: #fff;
     border-radius: 50px;
     border: none;
-    background: orange;
+    background:rgb(223, 145, 0);
     text-align: center;
     cursor: pointer;
 }
