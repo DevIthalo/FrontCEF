@@ -29,6 +29,7 @@
 .admin_main .admin_main_navbar .admin_main_search {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
 }
 
@@ -99,7 +100,7 @@
     color: #fff;
     border-radius: 50px;
     border: none;
-    background:rgb(223, 145, 0);
+    background: rgb(223, 145, 0);
     text-align: center;
     cursor: pointer;
 }

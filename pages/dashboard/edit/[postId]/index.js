@@ -27,11 +27,11 @@ const PostEdit = () => {
     const { user } = useContext(AuthContext);
     const { push } = useRouter();
     const router = useRouter();
-    const {postId} = router.query;
+    const { postId } = router.query;
 
-    useEffect(()=>{
+    useEffect(() => {
         getPostById();
-    },[])
+    }, [])
 
     const getPostById = async () => {
         try {
@@ -121,7 +121,7 @@ const PostEdit = () => {
                     <label>Conteúdo</label>
                     <label>Utilize o botão de visualizar para ver como o conteúdo vai ficar quando for publicado</label>
                     {errorContent && <label style={{ fontSize: 12, color: 'red' }}>{errorContent}</label>}
-                    <CustomEditor content={content? content : ''} handleOnEditorChange={handleOnEditorChange} />
+                    <CustomEditor content={content ? content : ''} handleOnEditorChange={handleOnEditorChange} />
                 </div>
             </div>
             <Modal isOpen={modalOpen} onRequestClose={handleCloseModal}>
@@ -154,11 +154,11 @@ export const getServerSideProps = async (ctx) => {
             }
         }
     }
-    const {params} = ctx;
+    const { params } = ctx;
     const postId = params.postId;
-    try{
+    try {
         await axios.get(`http://127.0.0.1:8000/api/list_post_by_id/?id=${postId}`)
-    }catch(error){
+    } catch (error) {
         return {
             redirect: {
                 destination: '/dashboard',

@@ -6,8 +6,8 @@ import jwtDecode from 'jwt-decode';
 import { parseCookies } from 'nookies';
 import styles from '@/styles/adminDashboard.module.css'
 import Image from 'next/image';
-import { AiFillDelete } from 'react-icons/ai'
-import { AiOutlineEye } from 'react-icons/ai'
+import { AiOutlineDelete } from 'react-icons/ai'
+import { MdRemoveRedEye } from 'react-icons/md'
 import { BiCommentDetail } from 'react-icons/bi'
 import Link from 'next/link';
 import axios from 'axios';
@@ -18,7 +18,7 @@ function Admin() {
     const [items, setItems] = useState([]);
     const [title, setTitle] = useState('');
     const [totalPages, setTotalPages] = useState(1);
-    const [pageNumber, setPageNumber] = useState(1);
+    const [options, setOptions] = useState(false);
     const { push } = useRouter();
     const router = useRouter();
     const currentPage = parseInt(router.query.page) || 1;
@@ -32,11 +32,17 @@ function Admin() {
         fetchItems();
     }, [currentPage])
 
+    useEffect(() => {
+        if (!title)
+            fetchItems();
+    }, [title])
+
+
 
 
     const fetchItems = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/list_post/?page=${currentPage}&title=${title}`,{
+            const response = await axios.get(`http://localhost:8000/api/list_post/?page=${currentPage}&title=${title}`, {
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -102,9 +108,13 @@ function Admin() {
         setTitle(e.target.value);
     }
 
+    const handleOptions = () => {
+        setOptions(!options);
+    }
+
     return (
         <>
-            <SideBarAdmin onValueChange={handleValueChange} search={fetchItems} onSearchChange={onSearchChange}/>
+            <SideBarAdmin onValueChange={handleValueChange} search={fetchItems} onSearchChange={onSearchChange} />
             <div className={`${styles.dashboard_container} ${!isToggle ? styles.dashboard_container_toggle : ''}`}>
                 {items.map((item) => {
                     return (
@@ -114,17 +124,21 @@ function Admin() {
                                     <div className={styles.dashboard_image_container}>
                                         <img src={item.image_link != null ? item.image_link : '/assets/images/profile_photo.webp'} className={styles.dashboard_image} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} width={80} height={80} alt={'Image Dashboard'} />
                                         <div className={styles.dashboard_title_container}>
-                                            <h3>{item.title}</h3>
+                                            <h3 style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.title}</h3>
                                             <p style={{ fontSize: 12 }}>{item.published_at === item.updated_at ? `Publicado • ${new Date(item.published_at).toLocaleString()}` : `Atualizado • ${new Date(item.updated_at).toLocaleString()}`}</p>
                                         </div>
                                     </div>
                                     <div className={styles.dashboard_options}>
-                                        <div style={{ display: 'flex', gap: '10px' }}>
-                                            <AiOutlineEye className={styles.icon} style={{ fontSize: '25px', color: '#333' }} />
-                                            <AiFillDelete className={styles.icon} style={{ fontSize: '25px', color: '#333' }} />
+
+                                        <div onMouseEnter={handleOptions} onMouseLeave={handleOptions} style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: "flex-end" }}>
+                                            <div style={{ display: options ? 'flex' : 'none', alignItems: 'center', gap: '10px' }}>
+                                                <MdRemoveRedEye className={styles.icon} />
+                                                <AiOutlineDelete style={{ color: 'red' }} className={styles.icon} />
+                                            </div>
+                                            <p >{item.user.nome} {item.user.sobrenome} <img src="" alt="" /></p>
                                         </div>
-                                        <div style={{ display: 'flex', gap: '10px' }}>
-                                            <p style={{ fontSize: 15, display: 'flex', alignItems: 'center', gap: '5px' }}>1 <BiCommentDetail /></p>
+                                        <div style={{ display: 'flex', gap: '10px', justifyContent: "flex-end" }}>
+                                            <p style={{ fontSize: 20, display: 'flex', alignItems: 'center', gap: '5px' }}><BiCommentDetail /></p>
                                         </div>
                                     </div>
                                 </div>

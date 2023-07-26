@@ -22,8 +22,8 @@ const PostRegister = () => {
     const [messageOk, setMessageOk] = useState('');
 
     const api = useAxios();
-    const {user} = useContext(AuthContext);
-    const {push} = useRouter();
+    const { user } = useContext(AuthContext);
+    const { push } = useRouter();
 
     const handleOnEditorChange = (content, editor) => {
         setContent(content);
@@ -41,34 +41,34 @@ const PostRegister = () => {
     const handleCloseModal = () => {
         setModalOpen(false);
     };
-    const handleValueChange = (value) =>{
+    const handleValueChange = (value) => {
         setIsToggle(value);
     }
 
-    const onSubmit = async() => {
-        if(!title && !content){
+    const onSubmit = async () => {
+        if (!title && !content) {
             setErrorTitle("Campo obrigatório")
             setErrorContent("Campo obrigatório")
             return;
         }
-        if(!title){
+        if (!title) {
             setErrorTitle("Campo obrigatório")
             return;
         }
-        if(!content){
+        if (!content) {
             setErrorContent("Campo obrigatório")
             return;
         }
         const email = user?.email;
-        if(user?.isAdmin === false){
+        if (user?.isAdmin === false) {
             setError("Você não possui permissão para realizar publicações");
             const timeOut = setTimeout(() => {
                 setError('');
             }, 3000);
             return () => clearTimeout(timeOut);
         }
-        try{
-            const response = await api.post('/api/insert_post/',{email, title, content});
+        try {
+            const response = await api.post('/api/insert_post/', { email, title, content });
             setMessageOk("Post publicado com sucesso!");
 
             const timeOut = setTimeout(() => {
@@ -76,8 +76,8 @@ const PostRegister = () => {
                 push('/dashboard');
             }, 1500);
             return () => clearTimeout(timeOut);
-        }catch(error){
-            if(error.response){
+        } catch (error) {
+            if (error.response) {
                 setError(error.response.data?.error);
                 const timeOut = setTimeout(() => {
                     setError('');
@@ -89,7 +89,7 @@ const PostRegister = () => {
 
     return (
         <>
-            <SideBarAdmin isNew={true} handleOpenModal={handleOpenModal} onSubmit={onSubmit} onValueChange={handleValueChange}/>
+            <SideBarAdmin isNew={true} handleOpenModal={handleOpenModal} onSubmit={onSubmit} onValueChange={handleValueChange} />
 
             <div className={`${styles.new_container} ${isToggle ? styles.new_container_toggle : ''}`}>
                 {error && <p className={styles.new_error}>{error}</p>}
@@ -97,13 +97,13 @@ const PostRegister = () => {
                 <div className={styles.new_title}>
                     <label>Título</label>
                     <label>Seja específico e suscinto, imagine um título de um jornal (simples, mas chamativo)</label>
-                    {errorTitle && <label style={{fontSize: 12, color: 'red'}}>{errorTitle}</label>}
+                    {errorTitle && <label style={{ fontSize: 12, color: 'red' }}>{errorTitle}</label>}
                     <input type="text" onChange={handleTitle} />
-                </div>  
+                </div>
                 <div className={styles.new_content}>
                     <label>Conteúdo</label>
                     <label>Utilize o botão de visualizar para ver como o conteúdo vai ficar quando for publicado</label>
-                    {errorContent && <label style={{fontSize: 12, color: 'red'}}>{errorContent}</label>}
+                    {errorContent && <label style={{ fontSize: 12, color: 'red' }}>{errorContent}</label>}
                     <CustomEditor handleOnEditorChange={handleOnEditorChange} />
                 </div>
             </div>
@@ -118,7 +118,7 @@ const PostRegister = () => {
 
 export const getServerSideProps = async (ctx) => {
     const { ['authTokens']: token } = parseCookies(ctx);
-    
+
     if (!token) {
         return {
             redirect: {
@@ -129,7 +129,7 @@ export const getServerSideProps = async (ctx) => {
     }
     const data = JSON?.parse(token);
     const tokenInfo = jwtDecode(data.access);
-    if(!tokenInfo.isAdmin){
+    if (!tokenInfo.isAdmin) {
         return {
             redirect: {
                 destination: '/',

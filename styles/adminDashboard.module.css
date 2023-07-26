@@ -65,6 +65,19 @@
     gap: 1rem;
 }
 
+
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_options .icon {
+    font-size: 25px;
+    color: #222;
+}
+
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_options .icon:hover {
+    background-color: #ccc;
+    padding: 4px;
+    scale: 1.5;
+    border-radius: 50%;
+}
+
 .dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container {
     display: flex;
     align-items: center;
@@ -85,14 +98,7 @@
 
 @media(max-width: 1024px) {
     .dashboard_container {
-        width: 90%;
-        left: 5%;
-    }
-}
-
-@media(max-width: 500px) {
-    .dashboard_container {
+        width: 100%;
         left: 0%;
-        width: 100%
     }
 }
