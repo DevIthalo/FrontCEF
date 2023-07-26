@@ -42,13 +42,51 @@
 }
 
 .dashboard_container .dashboard_card {
-    cursor: pointer;
     width: 100%;
     padding: 10px;
     margin: 0 auto;
     background: #fff;
     border-radius: 5px;
     border: 1px solid #999;
+}
+
+.modal {
+    width: 300px;
+    height: 200px;
+}
+
+.modal div {
+    display: grid;
+    gap: 30px;
+}
+
+.modal div .modalOptions {
+    display: flex;
+}
+
+.modal div .modalOptions button {
+    display: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 5px;
+    justify-content: center;
+    text-align: center;
+}
+
+.modal div .modalOptions button:first-child {
+    background: red;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.modal div .modalOptions button:nth-child(2) {
+    background: #999;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 5px;
 }
 
 .dashboard_container .dashboard_card:hover {
@@ -68,14 +106,12 @@
 
 .dashboard_container .dashboard_card .dashboard_card_container .dashboard_options .icon {
     font-size: 25px;
-    color: #222;
+    color: #444;
 }
 
 .dashboard_container .dashboard_card .dashboard_card_container .dashboard_options .icon:hover {
-    background-color: #ccc;
-    padding: 4px;
-    scale: 1.5;
-    border-radius: 50%;
+    color: #287bff;
+    cursor: pointer;
 }
 
 .dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container {

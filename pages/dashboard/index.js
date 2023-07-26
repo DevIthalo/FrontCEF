@@ -7,7 +7,10 @@ import { parseCookies } from 'nookies';
 import styles from '@/styles/adminDashboard.module.css'
 import Image from 'next/image';
 import { AiOutlineDelete } from 'react-icons/ai'
-import { MdRemoveRedEye } from 'react-icons/md'
+import { FiEdit } from 'react-icons/fi'
+import Modal from '@/components/Modal';
+
+import { BsEye } from 'react-icons/bs'
 import { BiCommentDetail } from 'react-icons/bi'
 import Link from 'next/link';
 import axios from 'axios';
@@ -18,7 +21,8 @@ function Admin() {
     const [items, setItems] = useState([]);
     const [title, setTitle] = useState('');
     const [totalPages, setTotalPages] = useState(1);
-    const [options, setOptions] = useState(false);
+    const [modal, setModal] = useState(false);
+    const [options, setOptions] = useState();
     const { push } = useRouter();
     const router = useRouter();
     const currentPage = parseInt(router.query.page) || 1;
@@ -32,13 +36,6 @@ function Admin() {
         fetchItems();
     }, [currentPage])
 
-    useEffect(() => {
-        if (!title)
-            fetchItems();
-    }, [title])
-
-
-
 
     const fetchItems = async () => {
         try {
@@ -48,7 +45,7 @@ function Admin() {
                 }
             });
             const data = response.data;
-            console.log(data);
+
             setItems(data.results);
             setTotalPages(data.total_pages);
         } catch (error) {
@@ -104,12 +101,23 @@ function Admin() {
         return buttons;
     }
 
+    const handleOpenModal = () => {
+        setModal(true);
+    }
+
+    const handleCloseModal = () => {
+        setModal(false);
+    }
+
     const onSearchChange = (e) => {
         setTitle(e.target.value);
     }
 
-    const handleOptions = () => {
-        setOptions(!options);
+    const handleOptions = (id) => {
+        setOptions(id);
+    }
+    const handleOptionsLeave = () => {
+        setOptions();
     }
 
     return (
@@ -118,31 +126,42 @@ function Admin() {
             <div className={`${styles.dashboard_container} ${!isToggle ? styles.dashboard_container_toggle : ''}`}>
                 {items.map((item) => {
                     return (
-                        <div key={item.id} className={styles.dashboard_card}>
-                            <Link style={{ textDecoration: 'none', color: '#222' }} href={`/dashboard/edit/${item.id}`}>
-                                <div className={styles.dashboard_card_container}>
-                                    <div className={styles.dashboard_image_container}>
-                                        <img src={item.image_link != null ? item.image_link : '/assets/images/profile_photo.webp'} className={styles.dashboard_image} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} width={80} height={80} alt={'Image Dashboard'} />
-                                        <div className={styles.dashboard_title_container}>
-                                            <h3 style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.title}</h3>
-                                            <p style={{ fontSize: 12 }}>{item.published_at === item.updated_at ? `Publicado • ${new Date(item.published_at).toLocaleString()}` : `Atualizado • ${new Date(item.updated_at).toLocaleString()}`}</p>
-                                        </div>
-                                    </div>
-                                    <div className={styles.dashboard_options}>
-
-                                        <div onMouseEnter={handleOptions} onMouseLeave={handleOptions} style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: "flex-end" }}>
-                                            <div style={{ display: options ? 'flex' : 'none', alignItems: 'center', gap: '10px' }}>
-                                                <MdRemoveRedEye className={styles.icon} />
-                                                <AiOutlineDelete style={{ color: 'red' }} className={styles.icon} />
-                                            </div>
-                                            <p >{item.user.nome} {item.user.sobrenome} <img src="" alt="" /></p>
-                                        </div>
-                                        <div style={{ display: 'flex', gap: '10px', justifyContent: "flex-end" }}>
-                                            <p style={{ fontSize: 20, display: 'flex', alignItems: 'center', gap: '5px' }}><BiCommentDetail /></p>
-                                        </div>
+                        <div key={item.id} onMouseEnter={() => handleOptions(item.id)} onMouseLeave={handleOptionsLeave} className={styles.dashboard_card}>
+                            <div className={styles.dashboard_card_container}>
+                                <div className={styles.dashboard_image_container}>
+                                    <img src={item.image_link != null ? item.image_link : '/assets/images/profile_photo.webp'} className={styles.dashboard_image} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} width={80} height={80} alt={'Image Dashboard'} />
+                                    <div className={styles.dashboard_title_container}>
+                                        <h3 style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.title}</h3>
+                                        <p style={{ fontSize: 12 }}>{item.published_at === item.updated_at ? `Publicado • ${new Date(item.published_at).toLocaleString()}` : `Atualizado • ${new Date(item.updated_at).toLocaleString()}`}</p>
                                     </div>
                                 </div>
-                            </Link>
+                                <div className={styles.dashboard_options}>
+                                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: "flex-end" }}>
+                                        <div style={{ display: options === item.id ? 'flex' : 'none', alignItems: 'center', gap: '10px' }}>
+                                            <Link style={{ textDecoration: 'none', color: '#222' }} href={`/dashboard/edit/${item.id}`}>
+                                                <FiEdit style={{ display: 'flex' }} className={styles.icon} />
+                                            </Link>
+                                            <AiOutlineDelete className={styles.icon} onClick={handleOpenModal} />
+                                            <BsEye className={styles.icon} />
+                                        </div>
+                                        <p style={{ display: options !== item.id ? 'flex' : 'none' }}>{item.user.nome} {item.user.sobrenome}</p>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '10px', justifyContent: "flex-end" }}>
+                                        <p style={{ fontSize: 15, display: 'flex', alignItems: 'center', gap: '5px' }}>{item.comments.length}<BiCommentDetail /></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <Modal isOpen={modal} modal={styles.modal} onRequestClose={handleCloseModal}>
+                                <div>
+                                    <h2>Excluir post</h2>
+                                    <p>Tem certeza que deseja excluir esse post? </p>
+                                    <div className={styles.modalOptions}>
+                                        <button>Sim</button>
+                                        <button onClick={handleCloseModal}>Não</button>
+                                    </div>
+                                </div>
+                            </Modal>
                         </div>
                     )
                 },)
