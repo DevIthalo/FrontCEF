@@ -1,9 +1,10 @@
 .carousel_container {
-    height: 500px;
+    height: 550px;
     display: flex;
     align-items: center;
     padding: 0% 5%;
     gap: 20px;
+    background: #f7f7f7;
     gap: 80px;
 }
 

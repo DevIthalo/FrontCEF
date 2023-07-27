@@ -32,7 +32,8 @@ const CarouselComponent = () => {
             fontSize: '13px', // Defina o tamanho do ícone conforme desejado
             color: isSelected ? '#888' : '#ccc', // Defina a cor do ícone selecionado e não selecionado
             cursor: 'pointer',
-            marginRight: '10px'
+            marginRight: '10px',
+            marginBottom: '40px'
         };
 
         return (
@@ -45,10 +46,10 @@ const CarouselComponent = () => {
 
     return (
         <Carousel renderIndicator={renderCustomIndicator} autoPlay={true} interval={7000} showThumbs={false} infiniteLoop={true}>
-            {isLoading ? <img src="/assets/images/loading.svg" width={50} height={50} alt="" /> :
+            {isLoading ? <img style={{ height: 500, width: 40 }} src="/assets/images/loading.svg" width={50} height={50} alt="" /> :
                 data.map((post) => {
                     return (
-                        <div className={styles.carousel_container}>
+                        <div key={post.id} className={styles.carousel_container}>
                             <div>
                                 <img src={`${post.image_link}`} alt="Image 1" />
                             </div>
