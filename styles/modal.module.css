@@ -1,9 +1,9 @@
 .modal {
-    width: 900px;
-    height: 50%;
+    width: 780px;
+    height: 90%;
 }
 
-@media(max-width: 940px) {
+@media(max-width: 810px) {
     .modal {
         width: calc(100% - 20px);
     }

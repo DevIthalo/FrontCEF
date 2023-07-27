@@ -16,10 +16,12 @@ body {
 .p-space {
     margin-bottom: 20px;
 }
+
 .a-space {
     margin-bottom: 20px;
 }
-.h-space{
+
+.h-space {
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -28,48 +30,14 @@ body {
     margin-bottom: 0px;
     margin-left: 40px;
 }
+
 .li-space:last-child {
     margin-bottom: 15px;
     margin-left: 40px;
 }
 
-@media(max-width: 680px) {
-    .img-600-responsive {
-        width: 100%;
-        height: auto;
-    }
-}
-
 @media(max-width: 780px) {
-    .img-600-700-responsive {
-        width: 100%;
-        height: auto;
-    }
-}
-
-@media(max-width: 880px) {
-    .img-700-800-responsive {
-        width: 100%;
-        height: auto;
-    }
-}
-
-@media(max-width: 980px) {
-    .img-800-900-responsive {
-        width: 100%;
-        height: auto;
-    }
-}
-
-@media(max-width: 1080px) {
-    .img-900-1000-responsive {
-        width: 100%;
-        height: auto;
-    }
-}
-
-@media(max-width: 1180px) {
-    .img-1000-1100-responsive {
+    .img-600-responsive {
         width: 100%;
         height: auto;
     }

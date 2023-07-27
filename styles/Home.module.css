@@ -1,6 +1,5 @@
-.editor {
+.home_container {
     min-height: 85vh;
     position: relative;
-    width: 80%;
     margin: 0 auto;
 }

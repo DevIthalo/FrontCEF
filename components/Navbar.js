@@ -42,7 +42,7 @@ const Navbar = () => {
     <>
       <ul onTouchMove={handleTouchMove} onTouchStart={handleTouchStart} className={`${styles.menu_lateral} ${isMenuOpen ? styles.menu_open : ''}`}>
         <div className={styles.show}>
-          <li className={styles.menu_image}><Link href={`/`}><Image src={`/assets/images/logo.png`} alt="Logo" width={186} height={72} /></Link></li>
+          <li className={styles.menu_image}><Link href={`/`}><img src="/assets/images/logo.png" alt="Logo" width="186" height="72" /></Link></li>
           <div className={styles.menu_link}>
             <div className={styles.menu_links}>
               <li><Link className={`${router.pathname === '/' ? styles.menu_links_backgroud : ''}`} href={`/`}><AiOutlineHome className={styles.iconHome} />  Página Inicial</Link></li>
@@ -60,7 +60,7 @@ const Navbar = () => {
 
       <ul className={styles.ul}>
         <div className={styles.logo}>
-          <li><Link href={`/`}><Image src={`/assets/images/logo.png`} alt="Logo" width={186} height={72} /></Link></li>
+          <li><Link href={`/`}><img src='/assets/images/logo.png' alt="Logo" width="186" height="72" /></Link></li>
         </div>
         <div className={styles.links}>
           <li className={`${router.pathname === '/' ? styles.menu_links_border_bottom : ''}`}><Link className={styles.hover} href={`/`}>Página Inicial</Link></li>
@@ -70,7 +70,7 @@ const Navbar = () => {
           {user ? (
             <div>
               <Image onClick={toggleDropDown} className={`${styles.profile_photo}`} src={`/assets/images/profile_photo.webp`} width={50} height={50} alt='Profile Photo' />
-              <div className={`${styles.dropdown_container} ${isDropDownOpen ? styles.toggle_dropdown_open : ''}`} style={user.isAdmin ? {height:'220px'} : {height:'180px'}}>
+              <div className={`${styles.dropdown_container} ${isDropDownOpen ? styles.toggle_dropdown_open : ''}`} style={user.isAdmin ? { height: '220px' } : { height: '180px' }}>
                 <div className={styles.dropdown_info} >
                   <br />
                   <div className={styles.dropdown_info_container}>
