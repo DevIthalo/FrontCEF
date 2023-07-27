@@ -1,0 +1,9 @@
+.info{
+    position: fixed;
+    margin-left: -50px;
+    background: #00235c;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 5px;
+}

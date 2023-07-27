@@ -2,8 +2,8 @@
     position: relative;
     display: grid;
     gap: 1rem;
-    width: calc(100% - 300px);
-    left: 300px;
+    width: calc(100% - 400px);
+    left: 350px;
     padding: 20px;
     top: 75px;
     transition: 1s ease;
@@ -51,7 +51,7 @@
 }
 
 .modal {
-    width: 300px;
+    width: 350px;
     height: 200px;
 }
 
@@ -74,7 +74,7 @@
 }
 
 .modal div .modalOptions button:first-child {
-    background: red;
+    background: rgb(196, 0, 0);
     border: none;
     cursor: pointer;
     color: #fff;
@@ -87,6 +87,35 @@
     cursor: pointer;
     color: #fff;
     border-radius: 5px;
+}
+
+.dashboard_container_link{
+    text-decoration: none;
+    color: black;
+    z-index: 1;
+}
+
+.dashboard_messageOk{
+    position: fixed;
+    right: 40px;
+    z-index: 9999;
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgb(235, 255, 235);
+    color: green;
+    border: 1px solid green;
+}
+
+.dashboard_messageError{
+    position: fixed;
+    right: 0;
+    left: 40px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgb(255, 237, 237);
+    color: red;
+    border: 1px solid red;
 }
 
 .dashboard_container .dashboard_card:hover {
@@ -103,14 +132,23 @@
     gap: 1rem;
 }
 
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_options .dashboard_options_top{
+    display: 'flex'; 
+    gap: '10px'; 
+    align-items: 'center';
+    justify-content: "flex-end"
+}
+
 
 .dashboard_container .dashboard_card .dashboard_card_container .dashboard_options .icon {
     font-size: 25px;
     color: #444;
+    z-index: 999;
+    position: relative;
 }
 
 .dashboard_container .dashboard_card .dashboard_card_container .dashboard_options .icon:hover {
-    color: #287bff;
+    color: #00235c;
     cursor: pointer;
 }
 
@@ -118,11 +156,22 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    display: 'flex'; 
+    align-items: 'center';
+    justify-content: 'center'
 }
 
 .dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container .dashboard_title_container {
     display: grid;
     gap: 1rem;
+}
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container .dashboard_title_container h3{
+    white-space: 'nowrap';
+    overflow: 'hidden';
+    text-overflow: 'ellipsis'
+}
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container .dashboard_title_container p{
+    font-size: 12px;
 }
 
 .dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container .dashboard_image {

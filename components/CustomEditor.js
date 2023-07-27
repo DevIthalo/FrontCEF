@@ -26,7 +26,9 @@ export function CustomEditor(props) {
     }
   })
 
-
+  function addCustomCSS(content) {
+    return content;
+  }
 
   return (
     <Editor
@@ -56,17 +58,24 @@ export function CustomEditor(props) {
           "help",
           "wordcount",
         ],
-        content_style: "@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300&display=swap'); body{font-family: Lexend Deca;};",
+        content_style: "@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300&display=swap'); body{font-family: Lexend Deca} img {max-width: 100%;height: auto;}",
         images_upload_url: "http://localhost:8000/api/upload-image/",
         images_upload_handler: uploadImage,
-        convert_newlines_to_brs: true,
         toolbar:
           "undo redo | blocks | " +
           "bold italic forecolor | alignleft aligncenter " +
           "alignright alignjustify | image | bullist numlist outdent indent | " +
           "removeformat | help",
         file_picker_types: 'image',
-        setup: function (editor) {
+        paste_as_text: false,
+        setup: function(editor) {
+          editor.on('paste', function(e) {
+            // Manipule o conteúdo colado aqui antes que seja inserido no editor
+            var clipboardContent = (e.originalEvent || e).clipboardData.getData('text/html');
+            var modifiedContent = addCustomCSS(clipboardContent);
+            e.preventDefault();
+            editor.execCommand('mceInsertContent', false, modifiedContent);
+          });
           editor.on('NodeChange', function (e) {
             if (e && e.element.nodeName === 'IMG') {
               e.element.classList.add('img-600-responsive');
@@ -97,14 +106,26 @@ export function CustomEditor(props) {
                 e.element.classList.remove('img-1000-1100-responsive');
               }
             }
-            if(e.element.nodeName.lastIndexOf('P') === 0){
+
+            if(e.element.nodeName === 'H1' 
+            || e.element.nodeName === 'H2' 
+            || e.element.nodeName === 'H3' 
+            || e.element.nodeName === 'H4' 
+            || e.element.nodeName === 'H5' 
+            || e.element.nodeName === 'H6'){
+              e.element.classList.add('h-space')
+            }
+            if(e.element.nodeName === 'A'){
+              e.element.classList.add('a-space')
+            }
+            if(e.element.nodeName === "P"){
               e.element.classList.add('p-space');
             }
-            else if(e.element.nodeName.lastIndexOf('LI') === 0){
+            if(e.element.nodeName === "LI"){
               e.element.classList.add('li-space');
             }
           });
-        }
+        },
       }}
       onEditorChange={props.handleOnEditorChange}
     />

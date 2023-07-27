@@ -153,7 +153,6 @@ const PerfilUser = () => {
     if (verifyData.cpf) {
       delete dataSend["cpf"];
     }
-    console.log(dataSend);
 
     if (dataSend.cpf) {
       if (isValidCPF(dataSend.cpf)) {
@@ -175,7 +174,6 @@ const PerfilUser = () => {
       if (!dataSend.logradouro && !dataSend.bairro && !dataSend.cidade && !dataSend.estado && !dataSend.numero && !dataSend.cep) {
         try {
           const response = await api.patch("/api/update_user/", dataSend);
-          console.log(response);
           getUserByEmail();
           setIsEditBasic(false);
           setIsEditContato(false);
@@ -195,7 +193,6 @@ const PerfilUser = () => {
       } else if (dataSend.logradouro && dataSend.bairro && dataSend.cidade && dataSend.estado && dataSend.numero && dataSend.cep) {
         try {
           const response = await api.patch("/api/update_user/", dataSend);
-          console.log(response);
           getUserByEmail();
           setIsEditBasic(false);
           setIsEditContato(false);

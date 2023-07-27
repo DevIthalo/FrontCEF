@@ -3,7 +3,7 @@ import styles from '@/styles/modal.module.css'
 // Estilos para o modal (pode ser colocado em um arquivo CSS separado)
 const modalStylesEdit = {
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
     zIndex: 9999
   },
   content: {

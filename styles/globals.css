@@ -16,13 +16,20 @@ body {
 .p-space {
     margin-bottom: 20px;
 }
-
-.li-space {
-    margin-left: 40px;
+.a-space {
+    margin-bottom: 20px;
+}
+.h-space{
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
-.p-space.li-space {
+.li-space {
     margin-bottom: 0px;
+    margin-left: 40px;
+}
+.li-space:last-child {
+    margin-bottom: 15px;
     margin-left: 40px;
 }
 

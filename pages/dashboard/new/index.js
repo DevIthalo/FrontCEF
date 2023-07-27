@@ -109,7 +109,7 @@ const PostRegister = () => {
             </div>
             <Modal isOpen={modalOpen} onRequestClose={handleCloseModal}>
                 <h1>{title}</h1><br />
-                <div dangerouslySetInnerHTML={{ __html: '<div style="line-height:1.4;word-wrap:break-word">' + content + '</div>' }} />
+                <div dangerouslySetInnerHTML={{ __html: '<div style="line-height:1.2;word-wrap:break-word">' + content + '</div>' }} />
             </Modal>
         </>
     )

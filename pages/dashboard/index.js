@@ -15,6 +15,8 @@ import { BiCommentDetail } from 'react-icons/bi'
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import IconInfo from '@/components/IconInfo';
+import useAxios from '@/services/useAxios';
 
 function Admin() {
     const [isToggle, setIsToggle] = useState(true);
@@ -22,11 +24,16 @@ function Admin() {
     const [title, setTitle] = useState('');
     const [totalPages, setTotalPages] = useState(1);
     const [modal, setModal] = useState(false);
+    const [error, setError] = useState();
+    const [messageOk, setMessageOk] = useState();
+    const [deleteId, setDeleteId] = useState();
     const [options, setOptions] = useState();
     const { push } = useRouter();
     const router = useRouter();
     const currentPage = parseInt(router.query.page) || 1;
     const PAGES_PER_INTERVAL = 5;
+
+    const api = useAxios();
 
     const handleValueChange = (value) => {
         setIsToggle(value);
@@ -101,8 +108,9 @@ function Admin() {
         return buttons;
     }
 
-    const handleOpenModal = () => {
+    const handleOpenModal = (deleteId) => {
         setModal(true);
+        setDeleteId(deleteId);
     }
 
     const handleCloseModal = () => {
@@ -120,29 +128,53 @@ function Admin() {
         setOptions();
     }
 
+    const deletePost = async (postId) => {
+        try{
+            const response = await api.delete(`http://localhost:8000/api/delete_post/${postId}`);
+            setMessageOk(response.data.message)
+            setModal(false);
+            fetchItems();
+            const interval = setTimeout(()=>{
+                setMessageOk('');
+            },2500);
+            return ()=>clearTimeout(interval);
+        }catch(error){
+            if(error.response){
+                setError(error.response.data?.error);
+                const interval = setTimeout(()=>{
+                    setError('');
+                },2500);
+                return () => clearTimeout(interval);
+            }
+        }
+    }
+
+
     return (
         <>
             <SideBarAdmin onValueChange={handleValueChange} search={fetchItems} onSearchChange={onSearchChange} />
             <div className={`${styles.dashboard_container} ${!isToggle ? styles.dashboard_container_toggle : ''}`}>
+                {messageOk ? <p className={styles.dashboard_messageOk}>{messageOk}</p> : ''}
+                {error ? <p className={styles.dashboard_messageError}>{error}</p> : ''}
                 {items.map((item) => {
                     return (
                         <div key={item.id} onMouseEnter={() => handleOptions(item.id)} onMouseLeave={handleOptionsLeave} className={styles.dashboard_card}>
                             <div className={styles.dashboard_card_container}>
                                 <div className={styles.dashboard_image_container}>
-                                    <img src={item.image_link != null ? item.image_link : '/assets/images/profile_photo.webp'} className={styles.dashboard_image} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} width={80} height={80} alt={'Image Dashboard'} />
+                                    <img src={item.image_link != null ? item.image_link : '/assets/images/profile_photo.webp'} className={styles.dashboard_image} width={80} height={80} alt={'Image Dashboard'} />
                                     <div className={styles.dashboard_title_container}>
-                                        <h3 style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.title}</h3>
-                                        <p style={{ fontSize: 12 }}>{item.published_at === item.updated_at ? `Publicado • ${new Date(item.published_at).toLocaleString()}` : `Atualizado • ${new Date(item.updated_at).toLocaleString()}`}</p>
+                                        <h3>{item.title}</h3>
+                                        <p>{item.published_at === item.updated_at ? `Publicado • ${new Date(item.published_at).toLocaleString()}` : `Atualizado • ${new Date(item.updated_at).toLocaleString()}`}</p>
                                     </div>
                                 </div>
                                 <div className={styles.dashboard_options}>
-                                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: "flex-end" }}>
+                                    <div className={styles.dashboard_options_top}>
                                         <div style={{ display: options === item.id ? 'flex' : 'none', alignItems: 'center', gap: '10px' }}>
-                                            <Link style={{ textDecoration: 'none', color: '#222' }} href={`/dashboard/edit/${item.id}`}>
-                                                <FiEdit style={{ display: 'flex' }} className={styles.icon} />
+                                            <Link href={`/dashboard/edit/${item.id}`}>
+                                                <IconInfo icon={<FiEdit className={styles.icon} />} iconText="Editar postagem" />
                                             </Link>
-                                            <AiOutlineDelete className={styles.icon} onClick={handleOpenModal} />
-                                            <BsEye className={styles.icon} />
+                                            <IconInfo icon={<AiOutlineDelete className={styles.icon} onClick={()=> handleOpenModal(item.id)} />} iconText="Apagar postagem" />
+                                            <IconInfo icon={<BsEye className={styles.icon} />} iconText="Visualizar postagem" />
                                         </div>
                                         <p style={{ display: options !== item.id ? 'flex' : 'none' }}>{item.user.nome} {item.user.sobrenome}</p>
                                     </div>
@@ -151,14 +183,13 @@ function Admin() {
                                     </div>
                                 </div>
                             </div>
-
                             <Modal isOpen={modal} modal={styles.modal} onRequestClose={handleCloseModal}>
                                 <div>
-                                    <h2>Excluir post</h2>
-                                    <p>Tem certeza que deseja excluir esse post? </p>
+                                    <h2>Excluir postagem</h2>
+                                    <p>Tem certeza que deseja excluir permanentemente essa postagem? </p>
                                     <div className={styles.modalOptions}>
-                                        <button>Sim</button>
-                                        <button onClick={handleCloseModal}>Não</button>
+                                        <button onClick={()=>deletePost(deleteId)}>Sim</button>
+                                        <button onClick={handleCloseModal}>Cancelar</button>
                                     </div>
                                 </div>
                             </Modal>
