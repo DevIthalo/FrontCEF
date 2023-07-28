@@ -18,7 +18,7 @@ const CarouselComponent = () => {
 
     const fetchPosts = async () => {
         setIsLoading(true);
-        const response = await axios.get('http://localhost:8000/api/limit_posts/', {
+        const response = await axios.get(`http://localhost:8000/api/limit_posts/10`, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -45,7 +45,7 @@ const CarouselComponent = () => {
     };
 
     return (
-        <Carousel renderIndicator={renderCustomIndicator} autoPlay={true} interval={7000} showThumbs={false} infiniteLoop={true}>
+        <Carousel renderIndicator={renderCustomIndicator} className={styles.carousel} autoPlay={true} interval={7000} showThumbs={false} infiniteLoop={true}>
             {isLoading ? <img style={{ height: 500, width: 40 }} src="/assets/images/loading.svg" width={50} height={50} alt="" /> :
                 data.map((post) => {
                     return (
@@ -56,7 +56,7 @@ const CarouselComponent = () => {
                             <div className={styles.carousel_title}>
                                 <p>{post.title}</p>
                                 <p>Veja mais informações no link abaixo</p>
-                                <Link href={`/noticias/${post.id}`}>Ver mais</Link>
+                                <Link href={`/noticias/${post.title.replace(/ /g, '-')}/${post.id}`}>Ver mais</Link>
                             </div>
                         </div>
                     )

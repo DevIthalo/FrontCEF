@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useContext, useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from '@/styles/navbar.module.css'
@@ -64,7 +65,7 @@ const Navbar = () => {
         </div>
         <div className={styles.links}>
           <li className={`${router.pathname === '/' ? styles.menu_links_border_bottom : ''}`}><Link className={styles.hover} href={`/`}>Página Inicial</Link></li>
-          <li className={`${router.pathname === '/posts' ? styles.menu_links_border_bottom : ''}`}><Link className={styles.hover} href={`/posts`}>Notícias</Link></li>
+          <li className={`${router.pathname === '/noticias' ? styles.menu_links_border_bottom : ''}`}><Link className={styles.hover} href={`/noticias`}>Notícias</Link></li>
         </div>
         <div className={styles.user}>
           {user ? (

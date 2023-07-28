@@ -1,0 +1,15 @@
+.noticias_container{
+    display: grid;
+    gap: 90px;
+}
+.noticias_title{
+    width: 100%;
+    padding: 30px 200px;
+    font-size: 35px;
+    color: #333;
+    background: #eef4ff;
+}
+.noticias_container_posts{
+    width: 1200px;
+    margin: 0 auto;
+}

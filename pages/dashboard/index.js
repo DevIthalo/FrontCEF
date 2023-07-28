@@ -17,6 +17,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import IconInfo from '@/components/IconInfo';
 import useAxios from '@/services/useAxios';
+import Pagination from '@/components/Pagination';
 
 function Admin() {
     const [isToggle, setIsToggle] = useState(true);
@@ -31,7 +32,6 @@ function Admin() {
     const { push } = useRouter();
     const router = useRouter();
     const currentPage = parseInt(router.query.page) || 1;
-    const PAGES_PER_INTERVAL = 5;
 
     const api = useAxios();
 
@@ -56,6 +56,7 @@ function Admin() {
             setItems(data.results);
             setTotalPages(data.total_pages);
         } catch (error) {
+            push('/404');
             console.error('Erro ao buscar itens:', error);
         }
     }
@@ -65,49 +66,7 @@ function Admin() {
         push(`/dashboard/?page=${pageNumber}`);
     };
 
-    const generatePageButtons = () => {
-        const buttons = [];
-        let startPage = 1;
-        let endPage = totalPages;
-
-        if (totalPages > PAGES_PER_INTERVAL) {
-            const halfInterval = Math.floor(PAGES_PER_INTERVAL / 2);
-            startPage = Math.max(currentPage - halfInterval, 1);
-            endPage = startPage + PAGES_PER_INTERVAL - 1;
-
-            if (endPage > totalPages) {
-                endPage = totalPages;
-                startPage = Math.max(endPage - PAGES_PER_INTERVAL + 1, 1);
-            }
-        }
-
-        for (let i = startPage; i <= endPage; i++) {
-            buttons.push(
-                <button key={i} onClick={() => handlePageClick(i)} className={styles.pagination_btn} disabled={i === currentPage}>
-                    {i}
-                </button>
-            );
-        }
-
-        if (startPage > 1) {
-            buttons.unshift(
-                <button key="prev" className={styles.pagination_btn_prev_next} onClick={() => handlePageClick(startPage - 1)}>
-                    &laquo;
-                </button>
-            );
-        }
-
-        if (endPage < totalPages) {
-            buttons.push(
-                <button key="next" className={styles.pagination_btn_prev_next} onClick={() => handlePageClick(endPage + 1)}>
-                    &raquo;
-                </button>
-            );
-        }
-
-        return buttons;
-    }
-
+   
     const handleOpenModal = (deleteId) => {
         setModal(true);
         setDeleteId(deleteId);
@@ -197,7 +156,7 @@ function Admin() {
                     )
                 },)
                 }
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '5px' }}>{generatePageButtons()}</div>
+                <Pagination handlePageClick={handlePageClick} currentPage={currentPage} totalPages={totalPages}/>
 
             </div>
         </>

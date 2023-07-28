@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Navbar from '@/components/Navbar'
 import styles from '../styles/Home.module.css'
 import Footer from '@/components/Footer';
@@ -19,7 +20,7 @@ function Home() {
 
   const fetchData = async () => {
     setIsLoading(true);
-    const response = await axios.get("http://localhost:8000/api/limit_posts/",
+    const response = await axios.get("http://localhost:8000/api/limit_posts/6",
       {
         headers: {
           "Content-Type": "application/json"
@@ -53,8 +54,9 @@ function Home() {
 
     <>
       <Navbar />
+      <div style={{minHeight: '200vh'}}>
+      <Carousel />
       <div className={styles.home_container}>
-        <Carousel />
         <div className={styles.home_news}>
           <div className={styles.home_news_title}>
             <p>Últimas Notícias</p>
@@ -64,13 +66,13 @@ function Home() {
 
             {isLoading ? <img src="/assets/images/loading.svg" height={50} width={50} alt="" /> :
               data.map((post, index) => {
-                return <Link key={post.id} href={`/noticias/${post.id}`} className={styles.home_news_card}>
-                  <div >
+                return <Link key={post.id} href={`/noticias/${post.title.replace(/ /g, '-')}/${post.id}`} className={styles.home_news_card}>
+                  <div className={styles.grid}>
                     <div className={styles.home_news_image}>
                       <img src={`${post.image_link}`} alt="" />
                     </div>
                     <div className={styles.home_news_content}>
-                      <p>{post.title}</p>
+                      <TextoComElipses texto={post.title} limitarCaracteres={55} />
                       <TextoComElipses texto={paragrafo[index]} limitarCaracteres={200} />
                     </div>
                     <div className={styles.home_news_bottom}>
@@ -82,11 +84,14 @@ function Home() {
               })
             }
           </div>
+          <Link className={styles.home_link} href={`/noticias`}>Mais Noticias</Link>
 
 
         </div>
       </div>
 
+        
+      </div>
       <Footer />
     </>
   )
