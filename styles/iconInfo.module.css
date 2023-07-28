@@ -1,6 +1,12 @@
-.info{
+.iconContainer {
+    display: flex;
+
+}
+
+.info {
     position: fixed;
-    margin-left: -50px;
+    margin-left: -40px;
+    margin-top: 25px;
     background: #00235c;
     padding: 5px 10px;
     font-size: 12px;

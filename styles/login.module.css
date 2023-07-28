@@ -144,7 +144,7 @@
     border: 1px solid red;
 }
 
-.login_card .login_forgot_password{
+.login_card .login_forgot_password {
     text-decoration: none;
     text-align: right;
     color: #287bff;
@@ -182,13 +182,28 @@
     color: #287bff;
 }
 
+.login_card .login_form .login_name {
+    display: flex;
+    flex-direction: row;
+}
 
+.login_card .login_form .login_name .input_nome {
+    padding: 10px 0px 10px 10px;
+}
+
+.login_card .login_form .login_name .input_sobrenome {
+    padding: 10px 0px 10px 10px;
+}
 
 
 @media(max-width: 530px) {
     .login_card .login_form {
         width: 80%;
         margin-top: 30px;
+    }
+
+    .login_card .login_form .login_name {
+        display: grid;
     }
 }
 

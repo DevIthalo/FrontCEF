@@ -3,7 +3,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styles from '@/styles/login.module.css'
 import Image from 'next/image'
-import Input from '@/components/Input'
 import { IoIosArrowBack } from 'react-icons/io'
 import Link from 'next/link'
 import { parseCookies } from 'nookies'
@@ -32,6 +31,18 @@ const Register = () => {
         <div className={styles.login_card}>
           <form className={styles.login_form} onSubmit={registerUser}>
             <Image className={styles.login_logo} src={"/assets/images/logo.png"} width={186} height={72} alt='Logo' />
+            <div className={styles.login_name}>
+              <div style={{ width: '100%' }}>
+                <label>Nome</label>
+                <input type={"text"} name={"nome"} className={`${styles.input_nome} ${errors?.nome && styles.error_input}`} placeholder={"Nome: Ex.: João"} />
+                {errors?.nome && (<label className={styles.error_label}>{errors?.nome}</label>)}
+              </div>
+              <div style={{ width: '100%' }}>
+                <label>Sobrenome</label>
+                <input type={"text"} name={"sobrenome"} className={`${styles.input_sobrenome} ${errors?.sobrenome && styles.error_input}`} placeholder={"Sobrenome: Ex.: Mendes"} />
+                {errors?.sobrenome && (<label className={styles.error_label}>{errors?.sobrenome}</label>)}
+              </div>
+            </div>
             <div>
               <label>Email</label>
               <input type={"text"} name={"email"} className={`${styles.input_email} ${errors?.email && styles.error_input}`} placeholder={"Digite seu email"} />

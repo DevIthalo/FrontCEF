@@ -5,14 +5,22 @@ import styles from '@/styles/noticiaById.module.css'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { FaRegComments } from 'react-icons/fa'
+import { GrClose } from 'react-icons/gr'
+import IconInfo from '@/components/IconInfo'
 const NoticiaById = () => {
   const [post, setPost] = useState();
   const router = useRouter();
   const { postId } = router.query;
+  const [isToggle, setIsToggle] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, [])
+
+  const handleComments = () => {
+    setIsToggle(!isToggle);
+  }
 
   const fetchData = async () => {
     try {
@@ -37,11 +45,29 @@ const NoticiaById = () => {
             <img src="/assets/images/profile_photo.webp" height={50} width={50} alt="" />
             <div>
               <p>{post?.user.nome} {post?.user.sobrenome} </p>
-              <p>{post.published_at === post.updated_at ? `Publicado • ${new Date(post.published_at).toLocaleString()}` : `Atualizado • ${new Date(post.updated_at).toLocaleString()}`}</p>
+              <p>{post?.published_at === post?.updated_at ? `Publicado • ${new Date(post?.published_at).toLocaleString()}` : `Atualizado • ${new Date(post?.updated_at).toLocaleString()}`}</p>
             </div>
           </div>
-          <div style={{ display: 'inline-block' }} className={styles.noticia_content}>
+          <div className={styles.noticia_comments}>
+            <div onClick={handleComments}>
+              <FaRegComments style={{ fontSize: 20 }} />
+              <p>0 Comentários</p>
+            </div>
+          </div>
+          <div className={styles.noticia_content}>
             <div dangerouslySetInnerHTML={{ __html: '<div style="line-height:1.2;word-wrap:break-word">' + post?.content + '</div>' }} />
+          </div>
+        </div>
+      </div>
+      <div className={styles.noticia_sidebar_comments}>
+        <div onClick={handleComments} className={`${styles.overlay} ${isToggle ? styles.overlay_toggle : ''}`}></div>
+        <div className={`${styles.content} ${isToggle ? styles.content_toggle : ''}`}>
+          <div className={styles.grid}>
+            <div className={styles.close}>
+              <p>Comentários</p>
+              <GrClose onClick={handleComments} style={{ fontSize: '25px' }} />
+            </div>
+            <textarea type="text" placeholder='Digite um comentário' />
           </div>
         </div>
       </div>

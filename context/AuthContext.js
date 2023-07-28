@@ -110,11 +110,19 @@ export function AuthProvider({ children }) {
         const errors = {}
 
         const registerData = {
+            'nome': e.target.nome.value,
+            'sobrenome': e.target.sobrenome.value,
             'email': e.target.email.value,
             'password': e.target.password.value,
             'confirm_password': e.target.confirm_password.value
         }
 
+        if (e.target.nome.value === '' || e.target.nome.value === undefined) {
+            errors.nome = "O campo nome não pode estar em branco!"
+        }
+        if (e.target.sobrenome.value === '' || e.target.sobrenome.value === undefined) {
+            errors.sobrenome = "O campo sobrenome não pode estar em branco!"
+        }
         if (e.target.email.value === '' || e.target.email.value === undefined) {
             errors.email = "O campo e-mail não pode estar em branco!"
         }
@@ -149,7 +157,7 @@ export function AuthProvider({ children }) {
                     }
                 } else if (error.request) {
                     // A requisição foi feita, mas não houve resposta
-                    
+
                     setIsLoading(false);
                 } else {
                     // Ocorreu um erro ao configurar a requisição
@@ -162,9 +170,10 @@ export function AuthProvider({ children }) {
 
 
     const logoutUser = () => {
-        destroyCookie(null, 'authTokens',{expires: new Date(0)});
+        destroyCookie(undefined, 'authTokens');
 
-        if(window.location.reload()){
+        if (window.location.reload()) {
+
             setAuthTokens(null)
             setUser(null);
             push('/');

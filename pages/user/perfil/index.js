@@ -26,6 +26,8 @@ const PerfilUser = () => {
   const [verifyData, setVerifyData] = useState({});
   const [dataSend, setDataSend] = useState({});
   const [isValidFields, setIsValidFields] = useState({});
+  const [isValidNome, setIsValidNome] = useState();
+  const [isValidSobrenome, setIsValidSobrenome] = useState();
   const [isValidFixo, setIsValidFixo] = useState();
   const [isValidCelular, setIsValidCelular] = useState();
   const [messageOk, setMessageOk] = useState();
@@ -36,6 +38,8 @@ const PerfilUser = () => {
 
   const handleEditBasic = () => {
     setIsEditBasic(!isEditBasic);
+    setIsValidNome(true);
+    setIsValidSobrenome(true);
   }
   const handleEditEndereco = () => {
     setIsEditEndereco(!isEditEndereco);
@@ -116,6 +120,10 @@ const PerfilUser = () => {
       setIsValidFixo(true);
     if (name === "celular")
       setIsValidCelular(true);
+    if (name === "nome")
+      setIsValidNome(true)
+    if (name === "sobrenome")
+      setIsValidSobrenome(true)
   }
 
   const verifyFieldsEndereco = (data) => {
@@ -147,6 +155,22 @@ const PerfilUser = () => {
 
     if (dataSend.celular?.replace(/\D/g, '').length < 11) {
       setIsValidCelular(false);
+      return;
+    }
+
+    if (!dataSend.nome && !dataSend.sobrenome) {
+      setIsValidNome(false);
+      setIsValidSobrenome(false);
+      return;
+    }
+
+    if (!dataSend.nome) {
+      setIsValidNome(false);
+      return;
+    }
+
+    if (!dataSend.sobrenome) {
+      setIsValidSobrenome(false);
       return;
     }
 
@@ -187,7 +211,12 @@ const PerfilUser = () => {
         } catch (error) {
           if (error.response) {
             setIsEditCpf(true);
+            // setMessageError(error.response.data?.error);
+            // const timeOut = setTimeout(() => {
+            //   setMessageError('');
+            // }, 3000);
             setIsCpfAlreadySet(error.response.data?.error);
+            return () => clearTimeout(timeOut);
           }
         }
       } else if (dataSend.logradouro && dataSend.bairro && dataSend.cidade && dataSend.estado && dataSend.numero && dataSend.cep) {
@@ -206,7 +235,12 @@ const PerfilUser = () => {
         } catch (error) {
           if (error.response) {
             setIsEditCpf(true);
+            // setMessageError(error.response.data?.error);
+            // const timeOut = setTimeout(() => {
+            //   setMessageError('');
+            // }, 3000);
             setIsCpfAlreadySet(error.response.data?.error);
+            return () => clearTimeout(timeOut);
           }
         }
       } else {
@@ -331,10 +365,12 @@ const PerfilUser = () => {
                   <div className={styles.user_basic_information_grid}>
                     <p>Nome</p>
                     <input type="text" value={dataSend?.nome ? dataSend?.nome : ''} name="nome" onChange={handleChange} placeholder='Digite seu nome' />
+                    {isValidNome === false ? <p style={{ color: 'red', fontSize: 12 }}>Campo nome é obrigatório</p> : ''}
                   </div>
                   <div className={styles.user_basic_information_grid}>
                     <p>Sobrenome</p>
                     <input type="text" value={dataSend?.sobrenome ? dataSend?.sobrenome : ''} name="sobrenome" onChange={handleChange} placeholder='Digite seu sobrenome' />
+                    {isValidSobrenome === false ? <p style={{ color: 'red', fontSize: 12 }}>Campo sobrenome é obrigatório</p> : ''}
                   </div>
                 </div>
               }
