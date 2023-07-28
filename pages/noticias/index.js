@@ -78,7 +78,6 @@ const Noticias = () => {
                 <div className={styles.noticias_container}>
                     <div className={styles.noticias_title}>Listagem de notícias</div>
                     <div className={`${stylesHome.home_news_container} ${styles.noticias_container_posts}`}>
-
                         {isLoading ? <img src="/assets/images/loading.svg" height={50} width={50} alt="" /> :
                             data.map((post, index) => {
                                 return <Link key={post.id} href={`/noticias/${post.title.replace(/ /g, '-')}/${post.id}`} className={stylesHome.home_news_card}>
@@ -105,6 +104,24 @@ const Noticias = () => {
             <Footer />
         </>
     )
+}
+
+export const getServerSideProps = async (ctx) => {
+    const { page } = ctx.query;
+    const title = '';
+    try {
+        await axios.get(`http://127.0.0.1:8000/api/list_post/?page=${page || 1}&title=${title}`)
+    } catch (error) {
+        return {
+            redirect: {
+                destination: '/404',
+                permanent: false
+            }
+        }
+    }
+    return {
+        props: {}
+    }
 }
 
 export default Noticias

@@ -1,15 +1,25 @@
-.noticias_container{
+.noticias_container {
     display: grid;
     gap: 90px;
 }
-.noticias_title{
+
+.noticias_title {
     width: 100%;
-    padding: 30px 200px;
+    padding: 30px 10%;
     font-size: 35px;
     color: #333;
     background: #eef4ff;
 }
-.noticias_container_posts{
-    width: 1200px;
+
+.noticias_container_posts {
+    position: relative;
+    max-width: 1200px;
+    padding: 20px;
     margin: 0 auto;
+}
+
+@media(max-width: 1024px) {
+    .noticias_title {
+        text-align: center;
+    }
 }
