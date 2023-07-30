@@ -130,10 +130,10 @@ function Admin() {
                                     <div className={styles.dashboard_options_top}>
                                         <div style={{ display: options === item.id ? 'flex' : 'none', alignItems: 'center', gap: '10px' }}>
                                             <Link href={`/dashboard/edit/${item.id}`}>
-                                                <IconInfo icon={<FiEdit className={styles.icon} />} iconText="Editar postagem" />
+                                                <IconInfo icon={<FiEdit className={styles.icon} />} iconText="Editar" />
                                             </Link>
-                                            <IconInfo icon={<AiOutlineDelete className={styles.icon} onClick={()=> handleOpenModal(item.id)} />} iconText="Apagar postagem" />
-                                            <IconInfo icon={<BsEye className={styles.icon} />} iconText="Visualizar postagem" />
+                                            <IconInfo icon={<AiOutlineDelete className={styles.icon} onClick={()=> handleOpenModal(item.id)} />} iconText="Apagar" />
+                                            <IconInfo icon={<BsEye className={styles.icon} />} iconText="Visualizar" />
                                         </div>
                                         <p style={{ display: options !== item.id ? 'flex' : 'none' }}>{item.user.nome} {item.user.sobrenome}</p>
                                     </div>

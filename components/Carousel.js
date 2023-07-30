@@ -56,7 +56,7 @@ const CarouselComponent = () => {
                             <div className={styles.carousel_title}>
                                 <p>{post.title}</p>
                                 <p>Veja mais informações no link abaixo</p>
-                                <Link href={`/noticias/${post.title.replace(/ /g, '-')}/${post.id}`}>Ver mais</Link>
+                                <Link href={`/noticias/${post.title.replace(/ /g, '-').replace('?','')}/${post.id}`}>Ver mais</Link>
                             </div>
                         </div>
                     )

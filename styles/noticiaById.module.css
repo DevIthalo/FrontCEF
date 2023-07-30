@@ -7,7 +7,6 @@
 
 .noticia_container {
     padding: 20px;
-    display: grid;
     max-width: 740px;
     margin: 0 auto;
 }
@@ -101,6 +100,7 @@
     padding: 40px 40px;
     z-index: 999999;
     cursor: pointer;
+    overflow: auto;
 }
 
 .noticia_sidebar_comments .content_toggle {
@@ -109,7 +109,7 @@
 
 .noticia_sidebar_comments .content .grid {
     display: grid;
-    gap: 40px;
+    gap: 10px;
 }
 
 .noticia_sidebar_comments .content .grid .close {
@@ -128,8 +128,82 @@
     border-radius: 5px;
 }
 
+.noticia_sidebar_comments .content .grid .grid_comments {
+    display: grid;
+    gap: 5px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.noticia_sidebar_comments .content .grid .grid_comments .flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.noticia_sidebar_comments .content .grid .grid_comments .flex img{
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.noticia_sidebar_comments .content .grid .grid_comments .flex div{
+    display: grid;
+}
+.noticia_sidebar_comments .content .grid .grid_comments .flex div p:first-child{
+    font-size: 14px;
+}
+.noticia_sidebar_comments .content .grid .grid_comments .flex div p:nth-child(2){
+    font-size: 12px;
+    color: #999;
+}
+
+.info_user{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.info_user .info_user_name{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.info_user .info_user_name img{
+    border-radius: 50%;
+}
+.info_btn{
+    padding: 5px 10px;
+    text-decoration: none;
+    background: #287bff;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    border: 1px solid #287bff;
+}
+
+.info_btn:disabled{
+    background: #c9deff;
+    border: 1px solid #c9deff;
+    color: #fff;
+    cursor:auto;
+}
+
+.icon:hover{
+    color: #00235c;
+}
+
+
 @media(max-width: 1024px) {
     .noticias_title {
         text-align: center;
+    }
+}
+
+@media(max-width: 445px) {
+    .noticia_sidebar_comments .content{
+        width: 100%;
+        padding: 30px 30px;
+    }
+    .noticia_sidebar_comments .overlay {
+        display: none;
     }
 }

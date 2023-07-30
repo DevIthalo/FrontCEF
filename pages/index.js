@@ -66,7 +66,7 @@ function Home() {
 
             {isLoading ? <img src="/assets/images/loading.svg" height={50} width={50} alt="" /> :
               data.map((post, index) => {
-                return <Link key={post.id} href={`/noticias/${post.title.replace(/ /g, '-')}/${post.id}`} className={styles.home_news_card}>
+                return <Link key={post.id} href={`/noticias/${post.title.replace(/ /g, '-').replace('?','')}/${post.id}`} className={styles.home_news_card}>
                   <div className={styles.grid}>
                     <div className={styles.home_news_image}>
                       <img src={`${post.image_link}`} alt="" />

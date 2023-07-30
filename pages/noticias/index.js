@@ -80,7 +80,7 @@ const Noticias = () => {
                     <div className={`${stylesHome.home_news_container} ${styles.noticias_container_posts}`}>
                         {isLoading ? <img src="/assets/images/loading.svg" height={50} width={50} alt="" /> :
                             data.map((post, index) => {
-                                return <Link key={post.id} href={`/noticias/${post.title.replace(/ /g, '-')}/${post.id}`} className={stylesHome.home_news_card}>
+                                return <Link key={post.id} href={`/noticias/${post.title.replace(/ /g, '-').replace('?','')}/${post.id}`} className={stylesHome.home_news_card}>
                                     <div className={stylesHome.grid}>
                                         <div className={stylesHome.home_news_image}>
                                             <img src={`${post.image_link}`} alt="" />

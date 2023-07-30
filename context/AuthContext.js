@@ -66,7 +66,8 @@ export function AuthProvider({ children }) {
                     setAuthTokens(data);
                     setUser(jwt_decode(data.access));
                     setCookie(undefined, 'authTokens', JSON.stringify(data), {
-                        maxAge: 2 * 86400// 5 minutes
+                        maxAge: 2 * 86400,
+                        path: '/'// 5 minutes
                     });
                     if (isRegister) push('/confirmation');
                     else push('/')
@@ -170,14 +171,17 @@ export function AuthProvider({ children }) {
 
 
     const logoutUser = () => {
-        destroyCookie(undefined, 'authTokens');
 
-        if (window.location.reload()) {
+        destroyCookie(null, 'authTokens', {
+            path: '/'
+        })
+        destroyCookie(null, 'authTokens', {
+            path: '/*'
+        })
+        setUser(null),
+        setAuthTokens(null),
+        push("/")
 
-            setAuthTokens(null)
-            setUser(null);
-            push('/');
-        }
     }
 
 

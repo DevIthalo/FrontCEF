@@ -77,9 +77,8 @@ export function CustomEditor(props) {
             editor.execCommand('mceInsertContent', false, modifiedContent);
           });
           editor.on('NodeChange', function (e) {
-            if (e && e.element.nodeName === 'IMG') {
-              e.element.classList.add('img-600-responsive');
-            }
+            e.element.classList.add('img-600-responsive');
+            
 
             if (e.element.nodeName === 'H1'
               || e.element.nodeName === 'H2'
