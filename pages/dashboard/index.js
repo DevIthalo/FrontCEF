@@ -8,7 +8,7 @@ import styles from '@/styles/adminDashboard.module.css'
 import Image from 'next/image';
 import { AiOutlineDelete } from 'react-icons/ai'
 import { FiEdit } from 'react-icons/fi'
-import Modal from '@/components/Modal';
+import ModalDelete from '@/components/ModalDelete';
 
 import { BsEye } from 'react-icons/bs'
 import { BiCommentDetail } from 'react-icons/bi'
@@ -66,7 +66,7 @@ function Admin() {
         push(`/dashboard/?page=${pageNumber}`);
     };
 
-   
+
     const handleOpenModal = (deleteId) => {
         setModal(true);
         setDeleteId(deleteId);
@@ -88,21 +88,21 @@ function Admin() {
     }
 
     const deletePost = async (postId) => {
-        try{
+        try {
             const response = await api.delete(`http://localhost:8000/api/delete_post/${postId}`);
             setMessageOk(response.data.message)
             setModal(false);
             fetchItems();
-            const interval = setTimeout(()=>{
+            const interval = setTimeout(() => {
                 setMessageOk('');
-            },2500);
-            return ()=>clearTimeout(interval);
-        }catch(error){
-            if(error.response){
+            }, 2500);
+            return () => clearTimeout(interval);
+        } catch (error) {
+            if (error.response) {
                 setError(error.response.data?.error);
-                const interval = setTimeout(()=>{
+                const interval = setTimeout(() => {
                     setError('');
-                },2500);
+                }, 2500);
                 return () => clearTimeout(interval);
             }
         }
@@ -112,7 +112,9 @@ function Admin() {
     return (
         <>
             <SideBarAdmin onValueChange={handleValueChange} search={fetchItems} onSearchChange={onSearchChange} />
+
             <div className={`${styles.dashboard_container} ${!isToggle ? styles.dashboard_container_toggle : ''}`}>
+
                 {messageOk ? <p className={styles.dashboard_messageOk}>{messageOk}</p> : ''}
                 {error ? <p className={styles.dashboard_messageError}>{error}</p> : ''}
                 {items.map((item) => {
@@ -132,7 +134,7 @@ function Admin() {
                                             <Link href={`/dashboard/edit/${item.id}`}>
                                                 <IconInfo icon={<FiEdit className={styles.icon} />} iconText="Editar" />
                                             </Link>
-                                            <IconInfo icon={<AiOutlineDelete className={styles.icon} onClick={()=> handleOpenModal(item.id)} />} iconText="Apagar" />
+                                            <IconInfo icon={<AiOutlineDelete className={styles.icon} onClick={() => handleOpenModal(item.id)} />} iconText="Apagar" />
                                             <IconInfo icon={<BsEye className={styles.icon} />} iconText="Visualizar" />
                                         </div>
                                         <p style={{ display: options !== item.id ? 'flex' : 'none' }}>{item.user.nome} {item.user.sobrenome}</p>
@@ -142,23 +144,18 @@ function Admin() {
                                     </div>
                                 </div>
                             </div>
-                            <Modal isOpen={modal} modal={styles.modal} onRequestClose={handleCloseModal}>
-                                <div>
-                                    <h2>Excluir postagem</h2>
-                                    <p>Tem certeza que deseja excluir permanentemente essa postagem? </p>
-                                    <div className={styles.modalOptions}>
-                                        <button onClick={()=>deletePost(deleteId)}>Sim</button>
-                                        <button onClick={handleCloseModal}>Cancelar</button>
-                                    </div>
-                                </div>
-                            </Modal>
+
                         </div>
                     )
                 },)
                 }
-                <Pagination handlePageClick={handlePageClick} currentPage={currentPage} totalPages={totalPages}/>
-
+                <ModalDelete isOpen={modal} handleCloseModal={handleCloseModal} deletePost={() => deletePost(deleteId)}>
+                    <h2>Excluir postagem</h2>
+                    <p>Tem certeza que deseja excluir essa postagem? </p>
+                </ModalDelete>
+                <Pagination handlePageClick={handlePageClick} currentPage={currentPage} totalPages={totalPages} />
             </div>
+
         </>
     )
 }

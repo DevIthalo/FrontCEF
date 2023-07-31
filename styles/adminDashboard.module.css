@@ -50,52 +50,13 @@
     border: 1px solid #999;
 }
 
-.modal {
-    width: 350px;
-    height: 200px;
-}
-
-.modal div {
-    display: grid;
-    gap: 30px;
-}
-
-.modal div .modalOptions {
-    display: flex;
-}
-
-.modal div .modalOptions button {
-    display: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 5px;
-    justify-content: center;
-    text-align: center;
-}
-
-.modal div .modalOptions button:first-child {
-    background: rgb(196, 0, 0);
-    border: none;
-    cursor: pointer;
-    color: #fff;
-    border-radius: 5px;
-}
-
-.modal div .modalOptions button:nth-child(2) {
-    background: #999;
-    border: none;
-    cursor: pointer;
-    color: #fff;
-    border-radius: 5px;
-}
-
-.dashboard_container_link{
+.dashboard_container_link {
     text-decoration: none;
     color: black;
     z-index: 1;
 }
 
-.dashboard_messageOk{
+.dashboard_messageOk {
     position: fixed;
     right: 40px;
     z-index: 9999;
@@ -107,7 +68,7 @@
     border: 1px solid green;
 }
 
-.dashboard_messageError{
+.dashboard_messageError {
     position: fixed;
     right: 0;
     left: 40px;
@@ -132,9 +93,9 @@
     gap: 1rem;
 }
 
-.dashboard_container .dashboard_card .dashboard_card_container .dashboard_options .dashboard_options_top{
-    display: 'flex'; 
-    gap: '10px'; 
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_options .dashboard_options_top {
+    display: 'flex';
+    gap: '10px';
     align-items: 'center';
     justify-content: "flex-end"
 }
@@ -156,7 +117,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    display: 'flex'; 
+    display: 'flex';
     align-items: 'center';
     justify-content: 'center'
 }
@@ -165,12 +126,14 @@
     display: grid;
     gap: 1rem;
 }
-.dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container .dashboard_title_container h3{
+
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container .dashboard_title_container h3 {
     white-space: 'nowrap';
     overflow: 'hidden';
     text-overflow: 'ellipsis'
 }
-.dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container .dashboard_title_container p{
+
+.dashboard_container .dashboard_card .dashboard_card_container .dashboard_image_container .dashboard_title_container p {
     font-size: 12px;
 }
 

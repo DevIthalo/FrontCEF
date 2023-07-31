@@ -42,10 +42,10 @@ const NoticiaById = () => {
   }
 
   const fetchComments = async () => {
-    try{
+    try {
       const response = await axios.get(`http://localhost:8000/api/list_comments_by_post/${postId}`);
       setComments(response.data);
-    }catch(error){
+    } catch (error) {
       console.log(error.response.data?.error)
     }
   }
@@ -87,8 +87,8 @@ const NoticiaById = () => {
       "post": post?.id,
       "description": commentData
     }
-    try{
-      const response = await api.post(`http://localhost:8000/api/insert_comment/`,data, {
+    try {
+      const response = await api.post(`http://localhost:8000/api/insert_comment/`, data, {
         headers: {
           "Content-Type": "application/json"
         }
@@ -96,41 +96,41 @@ const NoticiaById = () => {
       setCommentOk(response.data.message);
       fetchComments();
       setCommentData('');
-      const timeout = setTimeout(()=> {
+      const timeout = setTimeout(() => {
         setCommentOk('');
-      },2500)
-      return ()=> clearTimeout(timeout);
-    }catch(error){
-      if(error.response){
+      }, 2500)
+      return () => clearTimeout(timeout);
+    } catch (error) {
+      if (error.response) {
         setCommentError(error.response.data?.error);
       }
     }
 
   }
 
-  const deleteComment = async () =>{
-    try{
+  const deleteComment = async () => {
+    try {
       await api.delete(`http://localhost:8000/api/delete_comment/${idCommentDelete}`);
       setCommentOk("Comentário excluído com sucesso!");
-      const timeout = setTimeout(()=> {
+      const timeout = setTimeout(() => {
         setCommentOk('');
-      },2500)
+      }, 2500)
       fetchComments();
       setIsToggleDelete(false);
       setIdCommentDelete('');
-      return ()=> clearTimeout(timeout);
-    }catch(error){
+      return () => clearTimeout(timeout);
+    } catch (error) {
       console.log(error.response.data?.error);
     }
   }
 
   const handleShowMessage = (value) => {
     setCommentOk(value);
-    const timeout = setTimeout(()=> {
+    const timeout = setTimeout(() => {
       setCommentOk('');
-    },2500)
+    }, 2500)
     fetchComments();
-    return ()=> clearTimeout(timeout);
+    return () => clearTimeout(timeout);
   }
 
   const handleDelete = async (value) => {
@@ -145,39 +145,39 @@ const NoticiaById = () => {
   return (
     <>
       <Navbar />
-      
+
       <div style={{ minHeight: '120vh' }}>
-      
+
         {
           !isLoading ? <div className={styles.noticia_container}>
-          <div className={styles.noticia_title}>
-            <h1>{post?.title}</h1>
-          </div>
-          <br />
-          <div className={styles.noticia_autor}>
-            <img src="/assets/images/profile_photo.webp" height={50} width={50} alt="" />
-            <div>
-              <p>{post?.user.nome} {post?.user.sobrenome} </p>
-              <p>{post?.published_at === post?.updated_at ?
-                `Publicado • ${new Date(post?.published_at).toLocaleString()}` :
-                `Atualizado • ${new Date(post?.updated_at).toLocaleString()}`}</p>
+            <div className={styles.noticia_title}>
+              <h1>{post?.title}</h1>
             </div>
-          </div>
-          <div className={styles.noticia_comments}>
-            <div onClick={handleComments}>
-              <FaRegComments style={{ fontSize: 20 }} />
-              <p>{comments?.length != 1 ? comments?.length + " Comentários" : comments?.length + " Comentário"} </p>
+            <br />
+            <div className={styles.noticia_autor}>
+              <img src="/assets/images/profile_photo.webp" height={50} width={50} alt="" />
+              <div>
+                <p>{post?.user.nome} {post?.user.sobrenome} </p>
+                <p>{post?.published_at === post?.updated_at ?
+                  `Publicado • ${new Date(post?.published_at).toLocaleString()}` :
+                  `Atualizado • ${new Date(post?.updated_at).toLocaleString()}`}</p>
+              </div>
             </div>
-          </div>
-          <div className={styles.noticia_content}>
-            <div dangerouslySetInnerHTML={{ __html: '<div style="line-height:1.2;word-wrap:break-word">' + post?.content + '</div>' }} />
-          </div>
-        </div> : 
-        <div style={{display:'flex',alignItems:'center',height:'80vh', justifyContent:'center'}}>
-          <img src="/assets/images/loading.svg"  width={50} height={50} alt="" />
-        </div>
+            <div className={styles.noticia_comments}>
+              <div onClick={handleComments}>
+                <FaRegComments style={{ fontSize: 20 }} />
+                <p>{comments?.length != 1 ? comments?.length + " Comentários" : comments?.length + " Comentário"} </p>
+              </div>
+            </div>
+            <div className={styles.noticia_content}>
+              <div dangerouslySetInnerHTML={{ __html: '<div style="line-height:1.2;word-wrap:break-word">' + post?.content + '</div>' }} />
+            </div>
+          </div> :
+            <div style={{ display: 'flex', alignItems: 'center', height: '80vh', justifyContent: 'center' }}>
+              <img src="/assets/images/loading.svg" width={50} height={50} alt="" />
+            </div>
         }
-        
+
       </div>
       <div className={styles.noticia_sidebar_comments}>
         <div onClick={handleComments} className={`${styles.overlay} ${isToggle ? styles.overlay_toggle : ''}`}></div>
@@ -217,8 +217,8 @@ const NoticiaById = () => {
             <br />
             {
               comments?.length > 0 ?
-              comments.map((comment,index) => {
-                  return <Comment id={index} key={comment.id} handleDelete={handleDelete} commentUdpated={handleShowMessage} comment={comment}/>
+                comments.map((comment, index) => {
+                  return <Comment id={index} key={comment.id} handleDelete={handleDelete} commentUdpated={handleShowMessage} comment={comment} />
                 })
                 : <div className={styles.grid_comments}>
                   <p style={{ fontSize: 12, textAlign: 'center', fontWeight: 'lighter' }}>Sem comentários!</p>
@@ -227,17 +227,16 @@ const NoticiaById = () => {
           </div>
         </div>
       </div>
-      <div className={`${styles.delete_comment_container} ${isToggleDelete ? styles.delete_comment_container_toggle: ''}`}>
-            <div className={styles.delete_card}> 
-              <h2>Excluir Comentário</h2>
-              <p>Tem certeza que você quer excluir esse comentário?</p>
-              <div>
-                <a onClick={()=>setIsToggleDelete(false)}>Cancelar</a>
-                <a onClick={deleteComment}>Apagar Comentário</a>
-              </div>
-            </div>
-            <div className={styles.delete_overlay} onClick={handleDeleteClose}></div>
-
+      <div className={`${styles.delete_comment_container} ${isToggleDelete ? styles.delete_comment_container_toggle : ''}`}>
+        <div className={styles.delete_card}>
+          <h2>Excluir Comentário</h2>
+          <p>Tem certeza que você quer excluir esse comentário?</p>
+          <div>
+            <a onClick={() => setIsToggleDelete(false)}>Cancelar</a>
+            <a onClick={deleteComment}>Apagar Comentário</a>
+          </div>
+        </div>
+        <div className={styles.delete_overlay} onClick={handleDeleteClose}></div>
       </div>
       <Footer />
     </>
