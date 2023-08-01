@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
 import SideBarUser from '@/components/SideBarUser'
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
@@ -7,17 +9,14 @@ import AuthContext from '@/context/AuthContext'
 import { parseCookies } from 'nookies'
 import jwtDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
-
-
+import CommentUser from '@/components/CommentUser'
 const Comments = () => {
-    const [isToggle, setIsToggle] = useState(false);
+    const [isToggle, setIsToggle] = useState(true);
     const router = useRouter();
     const currentPage = parseInt(router.query.page) || 1;
     const [results, setResults] = useState();
-    const [options, setOptions] = useState();
-    const [totalPages, setTotalPages] = useState();
-    const { push } = useRouter();
-
+    const [messageOk, setMessageOk] = useState('');
+    const [messageError, setMessageError] = useState('');
     useEffect(() => {
         fetchComments();
     }, []);
@@ -28,12 +27,23 @@ const Comments = () => {
         setIsToggle(value);
     };
 
-    const handleOptions = (id) => {
-        setOptions(id);
+    const sendMessageOk = (data) => {
+        setMessageOk(data);
+        fetchComments();
+        const timeout = setTimeout(()=> {
+            setMessageOk('');
+        },2500)
+        return ()=> clearTimeout(timeout);
     }
-    const handleOptionsLeave = () => {
-        setOptions();
+
+    const sendMessageError = (data) => {
+        setMessageError(data);
+        const timeout = setTimeout(()=> {
+            setMessageError('');
+        },2500)
+        return ()=> clearTimeout(timeout);
     }
+
 
     const fetchComments = async () => {
         try {
@@ -42,30 +52,21 @@ const Comments = () => {
             setResults(data.results);
             setTotalPages(data.total_pages);
         } catch (error) {
-            push('404');
             console.log(error.response);
         }
     }
 
+
     return (
         <>
             <SideBarUser onValueChange={handleValueChange} />
-            {results?.map((comment) => {
-                return <div key={comment.id} onMouseEnter={() => handleOptions(comment.id)} onMouseLeave={handleOptionsLeave} className={styles.dashboard_card}>
-                    <div className={styles.comment_card_container}>
-                        <div className={styles.comment_card_title}>
-                            <img src="/assets/images/profile_photo.webp" width={70} height={70} alt="" />
-                            <div>
-                                <p><strong>Você</strong> comentou em <strong>"{comment.post.title}"</strong></p>
-                                <p>{comment.description}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            {messageError ? <p className={styles.messageError}>{messageError}</p>: ''}
+            {messageOk ? <p className={styles.messageOk}>{messageOk}</p>: ''}
+            {results?.map((comment, index) => {
+                return <CommentUser key={index} index={index} isToggle={isToggle} sendMessageError={sendMessageError} sendMessageOk={sendMessageOk} comment={comment}/>
             })
             }
-            <br /><br />
+            <br/><br/><br/><br/><br/><br/>
         </>
     )
 }

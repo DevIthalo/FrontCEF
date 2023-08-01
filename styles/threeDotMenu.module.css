@@ -1,0 +1,26 @@
+.menu{
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: #287bff;
+    border-radius: 10px;
+    color: #fff;
+    padding: 10px 0px;
+    box-shadow: 0px 0px 20px 0px #999;
+    z-index: 9999;
+}
+
+.menu li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;    
+    padding: 10px 70px;
+    padding-left: 50px;
+    list-style: none;
+}
+.menu li:hover{
+    cursor: pointer;
+    background: #0062ff;
+}
+
