@@ -1,80 +1,87 @@
 .comment_card_container {
     position: relative;
-    width: calc(100% - 800px);
     top: 80px;
-    background: #fff;
-    border: 1px solid #999;
-    border-radius: 10px;
-    padding: 10px 20px;
-    margin: 0 550px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
+    padding-bottom: 40px;
+    display: grid;
+    gap: 10px;
     transition: 1s ease;
     margin-bottom: 10px;
 }
-.comment_card_container:hover {
-    box-shadow: 0px 0px 20px 0px #ccc;
-}
+
 
 .comment_card_container.comment_card_container_toggle {
     position: relative;
-    margin: 0 400px;
     transition: 1s ease;
     margin-bottom: 10px;
 }
 
-.comment_card_container .comment_card_title {
+.comment_card {
+    position: relative;
+    border: 1px solid #999;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+}
+
+.comment_card:hover {
+    box-shadow: 0px 0px 20px 0px #ccc;
+}
+
+
+.comment_card_title {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.comment_card_container .comment_card_title img {
+.comment_card_title img {
     border-radius: 50%;
 }
 
-.comment_card_container .comment_card_title .comment_link_post a {
+.comment_card_title .comment_link_post a {
     text-decoration: none;
     color: #287bff;
 }
-.comment_card_container .comment_card_title .comment_link_post a:hover {
+
+.comment_card_title .comment_link_post a:hover {
     text-decoration: none;
     color: #003fa5;
 }
 
-.comment_data{
+.comment_data {
     display: flex;
     gap: 10px;
     justify-content: center;
     align-items: center;
 }
-.comment_data p{
+
+.comment_data p {
     margin-top: 10px;
     font-size: 15px;
 }
 
-.icon{
+.icon {
     font-size: 25px;
 }
-.icon:hover{
+
+.icon:hover {
     cursor: pointer;
     color: #003fa5;
 }
 
-.textarea{
+.textarea {
     padding: 10px;
     border-radius: 10px;
     width: 100%;
 }
 
-.comment_options{
+.comment_options {
     margin-top: 10px;
     display: flex;
     gap: 10px;
 }
-.comment_options button:nth-child(1){
+
+.comment_options button:nth-child(1) {
     padding: 5px 20px;
     border: none;
     background: grey;
@@ -83,10 +90,12 @@
     width: 100%;
     color: #fff;
 }
-.comment_options button:nth-child(1):hover{
+
+.comment_options button:nth-child(1):hover {
     background: rgb(82, 82, 82);
 }
-.comment_options button:nth-child(2){
+
+.comment_options button:nth-child(2) {
     padding: 5px 20px;
     border: none;
     cursor: pointer;
@@ -95,14 +104,15 @@
     width: 100%;
     color: #fff;
 }
-.comment_options button:nth-child(2):disabled{
+
+.comment_options button:nth-child(2):disabled {
     background: #cadbfa;
     color: #fff;
     cursor: unset;
 }
 
 
-.messageError{
+.messageError {
     position: fixed;
     right: 60px;
     top: 70px;
@@ -115,7 +125,7 @@
 
 }
 
-.messageOk{
+.messageOk {
     position: fixed;
     right: 60px;
     top: 70px;
@@ -127,34 +137,59 @@
     z-index: 9999;
 }
 
-@media (max-width: 1600px){
+.without_comments {
+    position: relative;
+    width: calc(100% - 300px);
+    text-align: center;
+    margin: 0 300px;
+    top: 55px;
+    background: #e3eeff;
+    padding: 20px;
+    height: 100%;
+    font-size: 15px;
+}
+
+.without_comments_toggle {
+    position: relative;
+    margin: 0 auto;
+}
+
+
+@media (max-width: 1600px) {
     .comment_card_container {
         width: calc(100% - 400px);
         margin: 0 350px;
         margin-bottom: 10px;
     }
+
     .comment_card_container.comment_card_container_toggle {
         margin: 0 200px;
         margin-bottom: 10px;
     }
 }
-@media (max-width: 1040px){
+
+
+
+@media (max-width: 1040px) {
     .comment_card_container {
         width: calc(100% - 100px);
         margin: 0 50px;
         margin-bottom: 10px;
     }
+
     .comment_card_container.comment_card_container_toggle {
         margin: 0 50px;
         margin-bottom: 10px;
     }
 }
-@media (max-width: 459px){
+
+@media (max-width: 520px) {
     .comment_card_container {
         width: calc(100% - 10px);
         margin: 0 5px;
         margin-bottom: 10px;
     }
+
     .comment_card_container.comment_card_container_toggle {
         margin: 0 5px;
         margin-bottom: 10px;

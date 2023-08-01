@@ -1,12 +1,16 @@
 .dashboard_container {
     position: relative;
     display: grid;
-    gap: 1rem;
-    width: calc(100% - 400px);
-    left: 350px;
-    padding: 20px;
-    top: 75px;
+    width: calc(100% - 350px);
+    gap: 15px;
+    top: 70px;
+    padding-bottom: 20px;
+    margin: 0 325px;
     transition: 1s ease;
+}
+
+.dashboard_container_toggle {
+    margin: 0 175px;
 }
 
 .pagination_btn {
@@ -36,10 +40,6 @@
     cursor: pointer;
 }
 
-.dashboard_container_toggle {
-    top: 75px;
-    left: 10%;
-}
 
 .dashboard_container .dashboard_card {
     width: 100%;
@@ -142,11 +142,4 @@
     border: 1px solid #999;
     width: 80px;
     border-radius: 5px;
-}
-
-@media(max-width: 1024px) {
-    .dashboard_container {
-        width: 100%;
-        left: 0%;
-    }
 }

@@ -8,18 +8,18 @@ import useAxios from '@/services/useAxios'
 import styles from '@/styles/userComments.module.css'
 import AuthContext from '@/context/AuthContext'
 import { useEffect } from 'react'
-import {BsThreeDotsVertical} from 'react-icons/bs'
+import { BsThreeDotsVertical } from 'react-icons/bs'
 import ThreeDotMenu from './ThreeDotMenu'
-const CommentUser = ({comment, isToggle, index, sendMessageOk, sendMessageError}) => {
-    
+const CommentUser = ({ comment, isToggle, index, sendMessageOk, sendMessageError, openModalDelete }) => {
+
     const [editing, setEditing] = useState([]);
     const [messageError, setMessageError] = useState();
     const [commentData, setCommentData] = useState(comment.description);
     const [options, setOptions] = useState();
     const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
-    const [isVisible,setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const api = useAxios();
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     const handleOptions = (id) => {
         setOptions(id);
@@ -41,7 +41,7 @@ const CommentUser = ({comment, isToggle, index, sendMessageOk, sendMessageError}
         setMessageError('');
         setIsVisible(false);
     }
-    
+
     const handleEditingCancel = (id) => {
         const updateEditing = [...editing];
         updateEditing[id] = false;
@@ -55,16 +55,16 @@ const CommentUser = ({comment, isToggle, index, sendMessageOk, sendMessageError}
     const handleVisibleMenu = () => {
         setIsVisible(!isVisible);
     }
-    
+
     const editComment = async (id, index) => {
-        if(commentData === ''){
+        if (commentData === '') {
             setMessageError("Campo obrigatório")
             return;
         }
         const data = {
             "description": commentData
         }
-        try{    
+        try {
             const response = await api.patch(`http://localhost:8000/api/update_comment/${id}`, data, {
                 headers: {
                     "Content-Type": "application/json"
@@ -78,32 +78,32 @@ const CommentUser = ({comment, isToggle, index, sendMessageOk, sendMessageError}
             setOptions();
             setCommentData(comment.description);
 
-            return ()=> clearTimeout(timeout);
-        }catch(error){
+            return () => clearTimeout(timeout);
+        } catch (error) {
             sendMessageError(error.response?.data?.error);
         }
     }
 
     useEffect(() => {
         function handleResize() {
-          setScreenSize({
-            width: window.innerWidth,
-            height: window.innerHeight,
-          });
+            setScreenSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
         }
-    
+        handleResize();
+
         window.addEventListener('resize', handleResize);
-    
+
         return () => {
-          window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', handleResize);
         };
-      }, []);
+    }, []);
 
 
     return (
         <div key={comment.id} onMouseEnter={() => handleOptions(comment.id)}
-            onMouseLeave={handleOptionsLeave} className={`${styles.comment_card_container} ´
-                ${!isToggle ? styles.comment_card_container_toggle : ''}`}>
+            onMouseLeave={handleOptionsLeave} className={styles.comment_card}>
             <div className={styles.comment_card_title}>
                 <img src="/assets/images/profile_photo.webp" width={70} height={70} alt="" />
                 <div>
@@ -120,7 +120,7 @@ const CommentUser = ({comment, isToggle, index, sendMessageOk, sendMessageError}
                     {!editing[index] ? <p>{comment.description}</p>
                         : <div>
                             <textarea value={commentData ? commentData : ''} onChange={handleChangeComment} className={styles.textarea} rows={3} placeholder='Editar Comentário'></textarea>
-                            {messageError ? <p style={{fontSize: 12, color: 'red'}}>{messageError}</p> : ''}
+                            {messageError ? <p style={{ fontSize: 12, color: 'red' }}>{messageError}</p> : ''}
                             <div className={styles.comment_options}>
                                 <button onClick={() => handleEditingCancel(index)}>Cancelar</button>
                                 <button onClick={() => editComment(comment.id, index)} disabled={commentData ? false : true}>Editar</button>
@@ -136,15 +136,15 @@ const CommentUser = ({comment, isToggle, index, sendMessageOk, sendMessageError}
                     </div>
                     <div style={options === comment.id ? { display: 'flex', color: '#444' } : { display: 'none' }} className={styles.comment_data}>
                         <FaRegEdit className={styles.icon} onClick={() => handleEditing(index)} />
-                        <AiOutlineDelete className={styles.icon} />
+                        <AiOutlineDelete className={styles.icon} onClick={() => openModalDelete(comment.id)} />
                     </div>
                 </>
-                : 
+                :
                 <>
-                    <div style={{width:10, height: 10}}>
-                        <BsThreeDotsVertical width={5} height={5} style={{fontSize: 20}} onClick={handleVisibleMenu}/>
+                    <div style={{ width: 10, height: 10 }}>
+                        <BsThreeDotsVertical width={5} height={5} style={{ fontSize: 20 }} onClick={handleVisibleMenu} />
                     </div>
-                    <ThreeDotMenu isVisible={isVisible} onEdit={()=>handleEditing(index)}/>
+                    <ThreeDotMenu isVisible={isVisible} onEdit={() => handleEditing(index)} />
                 </>
                 : ''
             }

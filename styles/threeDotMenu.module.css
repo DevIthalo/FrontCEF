@@ -1,4 +1,4 @@
-.menu{
+.menu {
     position: absolute;
     right: 0;
     top: 40px;
@@ -10,17 +10,17 @@
     z-index: 9999;
 }
 
-.menu li{
+.menu li {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;    
+    gap: 10px;
     padding: 10px 70px;
     padding-left: 50px;
     list-style: none;
 }
-.menu li:hover{
+
+.menu li:hover {
     cursor: pointer;
     background: #0062ff;
 }
-

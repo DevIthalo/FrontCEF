@@ -59,8 +59,9 @@ const SideBarUser = (props) => {
                 <div className={`${stylesNavbar.admin_main} ${!isSideBarOpen ? stylesNavbar.admin_main_toggle : ''}`}>
                     <div className={stylesNavbar.admin_main_navbar}>
                         <FiMenu className={stylesNavbar.admin_main_navbar_menu_icon} onClick={openCloseSideBar} />
-                        <p>Olá, Seja Bem-Vindo!</p>
-                        <button className={stylesNavbar.admin_main_navbar_btn_publish} onClick={props.sendData} disabled={!isEditable}><BsSend />Atualizar</button>
+                        {!props.isComment ? <p>Olá, Seja Bem-Vindo!</p> : <p>Seus comentários</p>}
+                        {!props.isComment ? <button className={stylesNavbar.admin_main_navbar_btn_publish} onClick={props.sendData} disabled={!isEditable}><BsSend />Atualizar</button>
+                            : <div style={{ padding: '18px' }}></div>}
                     </div>
                 </div>
             </div>
