@@ -10,7 +10,7 @@ import AuthContext from '@/context/AuthContext'
 import { useEffect } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import ThreeDotMenu from './ThreeDotMenu'
-const CommentUser = ({ comment, isToggle, index, sendMessageOk, sendMessageError, openModalDelete }) => {
+const CommentUser = ({ comment, isToggle, index, sendMessageOk, sendMessageError, openModalDelete, isAdmin }) => {
 
     const [editing, setEditing] = useState([]);
     const [messageError, setMessageError] = useState();
@@ -119,7 +119,7 @@ const CommentUser = ({ comment, isToggle, index, sendMessageOk, sendMessageError
                     <div style={{ margin: 10 }}></div>
                     {!editing[index] ? <p>{comment.description}</p>
                         : <div>
-                            <textarea value={commentData ? commentData : ''} onChange={handleChangeComment} className={styles.textarea} rows={3} placeholder='Editar Comentário'></textarea>
+                            <textarea value={commentData ? commentData : ''} onChange={handleChangeComment} className={styles.textarea} rows={3} cols={60} placeholder='Editar Comentário'></textarea>
                             {messageError ? <p style={{ fontSize: 12, color: 'red' }}>{messageError}</p> : ''}
                             <div className={styles.comment_options}>
                                 <button onClick={() => handleEditingCancel(index)}>Cancelar</button>
@@ -135,7 +135,7 @@ const CommentUser = ({ comment, isToggle, index, sendMessageOk, sendMessageError
                         <p>{comment.published_at === comment.updated_at ? `Publicado • ${new Date(comment.published_at).toLocaleString()}` : `Atualizado • ${new Date(comment.updated_at).toLocaleString()}`}</p>
                     </div>
                     <div style={options === comment.id ? { display: 'flex', color: '#444' } : { display: 'none' }} className={styles.comment_data}>
-                        <FaRegEdit className={styles.icon} onClick={() => handleEditing(index)} />
+                        {!isAdmin ? <FaRegEdit className={styles.icon} onClick={() => handleEditing(index)} /> : ''}
                         <AiOutlineDelete className={styles.icon} onClick={() => openModalDelete(comment.id)} />
                     </div>
                 </>
@@ -144,7 +144,7 @@ const CommentUser = ({ comment, isToggle, index, sendMessageOk, sendMessageError
                     <div style={{ width: 10, height: 10 }}>
                         <BsThreeDotsVertical width={5} height={5} style={{ fontSize: 20 }} onClick={handleVisibleMenu} />
                     </div>
-                    <ThreeDotMenu isVisible={isVisible} onEdit={() => handleEditing(index)} />
+                    <ThreeDotMenu isVisible={isVisible} isAdmin={isAdmin} onEdit={() => handleEditing(index)} onDelete={()=> {openModalDelete(comment.id); handleVisibleMenu()}}/>
                 </>
                 : ''
             }

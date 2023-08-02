@@ -33,7 +33,7 @@
     margin-bottom: -5px;
     width: 0;
     height: 3px;
-    background-color: #287bff;
+    background-color: #013F7C;
     transition: width 0.3s ease;
 }
 
@@ -47,10 +47,10 @@
 }
 
 .ul .links .menu_links_border_bottom a {
-    color: #287bff;
+    color: #013F7C;
     padding-bottom: 6px;
 
-    border-bottom: 3px solid #287bff;
+    border-bottom: 3px solid #013F7C;
     pointer-events: none;
 }
 
@@ -91,7 +91,7 @@
     transition: height 0.3s ease-out, width 0.3s ease-out;
     overflow: hidden;
     border-radius: 10px;
-    background: #287bff;
+    background: #013F7C;
 }
 
 .ul .user .toggle_dropdown_open {
@@ -156,12 +156,12 @@
 
 
 .ul .user div .login a {
-    color: #287bff;
+    color: #013F7C;
 }
 
 .ul .user div .register a {
     padding: 10px 20px;
-    background: #287bff;
+    background: #013F7C;
     color: #fff;
 
     border-radius: 50px;
@@ -226,7 +226,7 @@
 }
 
 .menu_lateral .menu_link .menu_links .menu_links_backgroud {
-    background: #287bff;
+    background: #013F7C;
     color: #fff;
     padding: 10px 20px;
     border-radius: 10px;
@@ -240,7 +240,7 @@
 }
 
 .menu_lateral .menu_link div:first-child li a {
-    color: #287bff;
+    color: #013F7C;
     text-decoration: none;
     font-weight: bold;
     display: flex;
@@ -264,7 +264,7 @@
 
 .menu_lateral .menu_link .menu_login {
     text-decoration: none;
-    color: #287bff;
+    color: #013F7C;
     cursor: pointer;
 }
 
@@ -275,13 +275,13 @@
     margin: 0 auto;
     font-weight: bold;
     text-align: center;
-    border: 1px solid #287bff;
+    border: 1px solid #013F7C;
     border-radius: 5px;
 }
 
 .menu_lateral .menu_link .menu_register {
     text-decoration: none;
-    color: #287bff;
+    color: #013F7C;
     font-weight: bold;
     width: 100%;
     cursor: pointer;
@@ -299,7 +299,7 @@
     bottom: 0;
     left: 400px;
     /* Define a parte direita que será clicável */
-    background-color: transparent;
+    z-index: 99999;
     /* Deixe transparente ou adicione uma cor de sobreposição */
     cursor: pointer;
 }
@@ -309,7 +309,7 @@
     width: 400px;
     position: relative;
     height: 100vh;
-    z-index: 999;
+    z-index: 999999;
     overflow-y: auto;
 }
 

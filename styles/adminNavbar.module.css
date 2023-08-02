@@ -47,7 +47,7 @@
 
 .admin_main .admin_main_navbar .admin_main_search .admin_main_search_icon {
     font-size: 20px;
-    color: #287bff;
+    color: #013F7C;
     cursor: pointer;
 }
 
@@ -74,9 +74,9 @@
 }
 
 .admin_main .admin_main_navbar .admin_main_navbar_btn_view:hover {
-    color: #287bff;
+    color: #013F7C;
     background: transparent;
-    border: 1px solid #287bff;
+    border: 1px solid #013F7C;
 }
 
 .admin_main .admin_main_navbar .admin_main_navbar_btn_publish {
@@ -87,7 +87,7 @@
     color: #fff;
     border-radius: 50px;
     border: none;
-    background: #287bff;
+    background: #013F7C;
     text-align: center;
     cursor: pointer;
 }
@@ -106,8 +106,8 @@
 }
 
 .admin_main .admin_main_navbar .admin_main_navbar_btn_publish:disabled {
-    background: #bfd7ff;
+    background: #013e7c34;
     border: none;
     cursor: unset;
-    color: #0040ad;
+    color: #fff;
 }

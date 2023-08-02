@@ -172,17 +172,16 @@
 .info_btn{
     padding: 5px 10px;
     text-decoration: none;
-    background: #287bff;
+    background: #013F7C;
     border-radius: 20px;
     color: #fff;
     cursor: pointer;
     font-size: 14px;
-    border: 1px solid #287bff;
+    border: 1px solid #013F7C;
 }
 
 .info_btn:disabled{
-    background: #c9deff;
-    border: 1px solid #c9deff;
+    background: #013e7c34;
     color: #fff;
     cursor:auto;
 }
@@ -215,7 +214,7 @@
 }
 .edit_comment button:nth-child(2){
     font-size: 12px;
-    background: #287bff;
+    background: #013F7C;
     text-align: center;
     color: #fff;
     border-radius: 5px;
@@ -225,7 +224,7 @@
     cursor: pointer;
 }
 .edit_comment button:nth-child(2):disabled{
-    background: #cee1ff;
+    background: #013e7c34;
     color: #fff;
 }
 .edit_comment button:nth-child(1){

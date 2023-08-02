@@ -68,7 +68,7 @@
 .confirmation_card .confirmation_title .confirmation_btn {
     padding: 10px;
     width: 70%;
-    background: #287bff;
+    background: #013F7C;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -79,7 +79,7 @@
 .confirmation_card .confirmation_title .confirmation_btn:disabled {
     padding: 10px;
     width: 70%;
-    background: #b0ceff;
+    background: #013e7c34;
     color: #fff;
     border: none;
     cursor: unset;
@@ -102,7 +102,7 @@
 }
 
 .confirmation_card .confirmation_title .confirmation_resend .confirmation_resend_count {
-    color: #287bff;
+    color: #013F7C;
 }
 
 .confirmation_card .confirmation_title .confirmation_resend .confirmation_resend_none {
@@ -112,7 +112,7 @@
 .confirmation_card .confirmation_title .confirmation_btn_resend {
 
     text-decoration: none;
-    color: #287bff;
+    color: #013F7C;
     border: none;
     cursor: pointer;
     background: transparent;

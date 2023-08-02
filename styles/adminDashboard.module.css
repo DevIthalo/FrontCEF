@@ -14,28 +14,28 @@
 }
 
 .pagination_btn {
-    background: #287bff;
+    background: #013F7C;
     padding: 8px;
     color: #fff;
-    border: 1px solid #287bff;
+    border: 1px solid #013F7C;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .pagination_btn:disabled {
-    background: #6fa6ff;
+    background: #013e7c34;
     padding: 8px;
     cursor: unset;
     color: #fff;
-    border: 1px solid #6fa6ff;
+    border: none;
     border-radius: 5px;
 }
 
 .pagination_btn_prev_next {
-    background: #287bff;
+    background: #013F7C;
     padding: 8px;
     color: #fff;
-    border: 1px solid #287bff;
+    border: 1px solid #013F7C;
     border-radius: 5px;
     cursor: pointer;
 }

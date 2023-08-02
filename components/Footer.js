@@ -10,7 +10,7 @@ const Footer = () => {
         <div className={styles.footer}>
             <ul className={styles.ul}>
                 <div className={styles.logo}>
-                    <li><Link href={`/`}><Image src={`/assets/images/logo.png`} alt="Logo" width={186} height={72} /></Link></li>
+                    <li><Link href={`/`}><Image src={`/assets/images/logo2.jpg`} alt="Logo" width="240" height="86" /></Link></li>
                 </div>
                 <div className={styles.novidades}>
                     <li><BsSend className={styles.icon} /> Receba Novidades</li>

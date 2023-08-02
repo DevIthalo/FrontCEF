@@ -29,19 +29,19 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: #287bff;
+    color: #013F7C;
     font-weight: bold;
 }
 
 .footer .ul .novidades div a {
-    background: #287bff;
+    background: #013F7C;
     padding: 10px 10px;
     width: 70%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    border-bottom: 2px solid #287bff;
+    border-bottom: 2px solid #013F7C;
     text-decoration: none;
     color: #fff;
 }
@@ -70,7 +70,7 @@
     gap: 1rem;
     display: flex;
     align-items: center;
-    color: #287bff;
+    color: #013F7C;
 }
 
 .footer .links .title .icon {

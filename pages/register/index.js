@@ -30,7 +30,7 @@ const Register = () => {
         </div>
         <div className={styles.login_card}>
           <form className={styles.login_form} onSubmit={registerUser}>
-            <Image className={styles.login_logo} src={"/assets/images/logo.png"} width={186} height={72} alt='Logo' />
+            <Image className={styles.login_logo} src={"/assets/images/logo2.jpg"} width="240" height="86" alt='Logo' />
             <div className={styles.login_name}>
               <div style={{ width: '100%' }}>
                 <label>Nome</label>

@@ -13,6 +13,7 @@ import CommentUser from '@/components/CommentUser'
 import Pagination from '@/components/Pagination'
 import ModalDelete from '@/components/ModalDelete'
 import useAxios from '@/services/useAxios'
+import SideBarAdmin from '@/components/SideBarAdmin'
 
 const Comments = () => {
     const [isToggle, setIsToggle] = useState(true);
@@ -39,7 +40,7 @@ const Comments = () => {
     };
 
     const handlePageClick = (pageNumber) => {
-        push(`/user/comments/?page=${pageNumber}`);
+        push(`/dashboard/comments/?page=${pageNumber}`);
     };
 
     const sendMessageOk = (data) => {
@@ -63,7 +64,7 @@ const Comments = () => {
     const fetchComments = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(`http://localhost:8000/api/list_comments_by_user/${user?.user_id}?page=${currentPage}`)
+            const response = await axios.get(`http://localhost:8000/api/list_all_comments/?page=${currentPage}`)
             const data = response.data;
             setIsLoading(false);
             setResults(data.results);
@@ -101,13 +102,15 @@ const Comments = () => {
 
     return (
         <>
-            <SideBarUser onValueChange={handleValueChange} isComment={true} />
+            <SideBarAdmin onValueChange={handleValueChange} isComment={true} />
             {messageError ? <p className={styles.messageError}>{messageError}</p> : ''}
             {messageOk ? <p className={styles.messageOk}>{messageOk}</p> : ''}
             {!isLoading ? results?.length > 0 ? <div className={`${styles.comment_card_container} ´
                 ${!isToggle ? styles.comment_card_container_toggle : ''}`}>
                 {results?.map((comment, index) => {
-                    return <CommentUser key={index} index={index} isToggle={isToggle} openModalDelete={openModalDelete} sendMessageError={sendMessageError} sendMessageOk={sendMessageOk} comment={comment} />
+                    return <CommentUser key={index} index={index} isToggle={isToggle} 
+                    openModalDelete={openModalDelete} isAdmin={true} sendMessageError={sendMessageError} 
+                    sendMessageOk={sendMessageOk} comment={comment} />
                 })}
                 <ModalDelete isOpen={isOpen} handleCloseModal={handleCloseModal} deletePost={deleteComment}>
                     <h2>Excluir comentário</h2>
@@ -140,7 +143,7 @@ export const getServerSideProps = async (ctx) => {
     const tokenInfo = jwtDecode(data.access);
     if (tokenInfo.user_id) {
         try {
-            await axios.get(`http://127.0.0.1:8000/api/list_comments_by_user/${tokenInfo?.user_id}?page=${page || 1}`)
+            await axios.get(`http://127.0.0.1:8000/api/list_all_comments/?page=${page || 1}`)
         } catch (error) {
             return {
                 redirect: {

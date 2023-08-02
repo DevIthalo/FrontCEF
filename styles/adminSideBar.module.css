@@ -14,7 +14,7 @@
 }
 
 .admin_sidebar {
-    background: #287bff;
+    background: #013F7C;
     color: #fff;
     height: 100vh;
     width: 300px;
@@ -88,10 +88,10 @@
 
 .admin_sidebar .admin_sidebar_selected {
     background: #fff;
-    color: #287bff;
+    color: #013F7C;
     padding: 10px;
     width: 100%;
-    border: 1px solid #287bff;
+    border: 1px solid #013F7C;
     border-radius: 10px;
 }
 
@@ -118,7 +118,7 @@
     }
 
     .admin_sidebar {
-        background: #287bff;
+        background: #013F7C;
         border-right: none;
         box-shadow: 0px 0px 20px 0px black;
 
@@ -144,7 +144,7 @@
 
     .admin_sidebar .admin_sidebar_selected {
         background: #fff;
-        color: #287bff;
+        color: #013F7C;
         padding: 10px;
         width: 100%;
         border: none;

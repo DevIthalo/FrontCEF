@@ -11,6 +11,7 @@ import { BiEdit } from 'react-icons/bi'
 import { CgProfile } from 'react-icons/cg'
 import { BiCommentDetail, BiSolidDashboard } from 'react-icons/bi'
 import { MdLogout } from 'react-icons/md'
+import SideBar from './SideBar'
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -41,27 +42,11 @@ const Navbar = () => {
 
   return (
     <>
-      <ul onTouchMove={handleTouchMove} onTouchStart={handleTouchStart} className={`${styles.menu_lateral} ${isMenuOpen ? styles.menu_open : ''}`}>
-        <div className={styles.show}>
-          <li className={styles.menu_image}><Link href={`/`}><img src="/assets/images/logo.png" alt="Logo" width="186" height="72" /></Link></li>
-          <div className={styles.menu_link}>
-            <div className={styles.menu_links}>
-              <li><Link className={`${router.pathname === '/' ? styles.menu_links_backgroud : ''}`} href={`/`}><AiOutlineHome className={styles.iconHome} />  Página Inicial</Link></li>
-            </div>
-            <div className={styles.menu_container}>
-              <Link className={styles.menu_login} href={`/login`}>Login</Link>
-              <br />
-              <li>Ainda não possui cadastro? <Link className={styles.menu_register} href={`/register`}>Registre-se</Link></li>
-            </div>
-          </div>
-        </div>
-        <div className={styles.overlay} onClick={toggleMenu}></div>
-
-      </ul>
-
+      
+      <SideBar isOpen={isMenuOpen} handleCloseSideBar={toggleMenu}/>
       <ul className={styles.ul}>
         <div className={styles.logo}>
-          <li><Link href={`/`}><img src='/assets/images/logo.png' alt="Logo" width="186" height="72" /></Link></li>
+          <li><Link href={`/`}><img src='/assets/images/logo2.jpg' alt="Logo" width="240" height="86" /></Link></li>
         </div>
         <div className={styles.links}>
           <li className={`${router.pathname === '/' ? styles.menu_links_border_bottom : ''}`}><Link className={styles.hover} href={`/`}>Página Inicial</Link></li>

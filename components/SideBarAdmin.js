@@ -74,7 +74,7 @@ const SideBarAdmin = (props) => {
                         <Link className={router.pathname === "/dashboard" ? styles.admin_sidebar_selected : ""} href={"/dashboard"}><RxDashboard className={styles.admin_sidebar_icon} />Dashboard</Link>
                     </div>
                     <div>
-                        <Link href={"#"}><BsChatLeftText className={styles.admin_sidebar_icon} />Comentários</Link>
+                        <Link className={router.pathname === "/dashboard/comments" ? styles.admin_sidebar_selected : ""} href={"/dashboard/comments"}><BsChatLeftText className={styles.admin_sidebar_icon} />Comentários</Link>
                     </div>
                 </div>
                 <div className={styles.overlay} onClick={openCloseSideBar}></div>

@@ -34,9 +34,9 @@
 .reset_container .reset_card .reset_grid button{
    margin: 0 auto;
    padding: 6px;
-   background: #287bff;
+   background: #013F7C;
    color: #fff;
-   border: 1px solid #287bff;
+   border: 1px solid #013F7C;
    border-radius: 5px;
    cursor: pointer;   
    margin-top: 5px;
@@ -44,9 +44,9 @@
 }
 .reset_container .reset_card .reset_grid button:disabled{
    
-   background: #ddeaff;
+   background: #013e7c34;
    color: #fff;
-   border: 1px solid #ddeaff;
+   border: none;
    border-radius: 5px;
    cursor: unset;
 }
@@ -66,7 +66,7 @@
 }
 .reset_container .reset_card .reset_back_login{
    text-decoration: none;
-   color: #287bff;
+   color: #013F7C;
    margin-top: 1rem;
 }
 

@@ -1,6 +1,8 @@
 .comment_card_container {
     position: relative;
     top: 80px;
+    width: calc(100% - 400px);
+    margin: 0 350px;
     padding-bottom: 40px;
     display: grid;
     gap: 10px;
@@ -12,6 +14,7 @@
 .comment_card_container.comment_card_container_toggle {
     position: relative;
     transition: 1s ease;
+    margin: 0 200px;
     margin-bottom: 10px;
 }
 
@@ -40,7 +43,7 @@
 
 .comment_card_title .comment_link_post a {
     text-decoration: none;
-    color: #287bff;
+    color: #013F7C;
 }
 
 .comment_card_title .comment_link_post a:hover {
@@ -87,7 +90,6 @@
     background: grey;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%;
     color: #fff;
 }
 
@@ -99,14 +101,13 @@
     padding: 5px 20px;
     border: none;
     cursor: pointer;
-    background: #287bff;
+    background: #013F7C;
     border-radius: 5px;
-    width: 100%;
     color: #fff;
 }
 
 .comment_options button:nth-child(2):disabled {
-    background: #cadbfa;
+    background: #013e7c34;
     color: #fff;
     cursor: unset;
 }

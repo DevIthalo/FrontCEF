@@ -33,7 +33,7 @@ const LoginPage = () => {
         </div>
         <div className={styles.login_card}>
           <form className={styles.login_form} onSubmit={loginUser}>
-            <Image className={styles.login_logo} src={"/assets/images/logo.png"} width={186} height={72} alt='Logo' />
+            <Image className={styles.login_logo} src={"/assets/images/logo2.jpg"} width="240" height="86" alt='Logo' />
             {errors?.details ? <div className={styles.error_credentials}>{errors.details}</div> : ""}
             <div>
               <label>Email</label>
