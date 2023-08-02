@@ -140,36 +140,42 @@
     justify-content: space-between;
     gap: 10px;
 }
-.noticia_sidebar_comments .content .grid .grid_comments .flex img{
+
+.noticia_sidebar_comments .content .grid .grid_comments .flex img {
     border-radius: 50%;
     margin-right: 10px;
 }
 
-.noticia_sidebar_comments .content .grid .grid_comments .flex div{
+.noticia_sidebar_comments .content .grid .grid_comments .flex div {
     display: grid;
 }
-.noticia_sidebar_comments .content .grid .grid_comments .flex div p:first-child{
+
+.noticia_sidebar_comments .content .grid .grid_comments .flex div p:first-child {
     font-size: 14px;
 }
-.noticia_sidebar_comments .content .grid .grid_comments .flex div p:nth-child(2){
+
+.noticia_sidebar_comments .content .grid .grid_comments .flex div p:nth-child(2) {
     font-size: 12px;
     color: #999;
 }
 
-.info_user{
+.info_user {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.info_user .info_user_name{
+
+.info_user .info_user_name {
     display: flex;
     gap: 10px;
     align-items: center;
 }
-.info_user .info_user_name img{
+
+.info_user .info_user_name img {
     border-radius: 50%;
 }
-.info_btn{
+
+.info_btn {
     padding: 5px 10px;
     text-decoration: none;
     background: #013F7C;
@@ -180,17 +186,18 @@
     border: 1px solid #013F7C;
 }
 
-.info_btn:disabled{
+.info_btn:disabled {
     background: #013e7c34;
     color: #fff;
-    cursor:auto;
+    border: none;
+    cursor: auto;
 }
 
-.icon:hover{
+.icon:hover {
     color: #00235c;
 }
 
-.messageOk{
+.messageOk {
     padding: 10px;
     border: 1px solid green;
     background: rgb(247, 255, 247);
@@ -199,7 +206,8 @@
     border-radius: 10px;
     position: fixed;
 }
-.messageError{
+
+.messageError {
     padding: 10px;
     border: 1px solid red;
     background: rgb(255, 245, 245);
@@ -209,10 +217,11 @@
     position: fixed;
 }
 
-.edit_comment{
+.edit_comment {
     display: flex;
 }
-.edit_comment button:nth-child(2){
+
+.edit_comment button:nth-child(2) {
     font-size: 12px;
     background: #013F7C;
     text-align: center;
@@ -223,11 +232,13 @@
     width: 100%;
     cursor: pointer;
 }
-.edit_comment button:nth-child(2):disabled{
+
+.edit_comment button:nth-child(2):disabled {
     background: #013e7c34;
     color: #fff;
 }
-.edit_comment button:nth-child(1){
+
+.edit_comment button:nth-child(1) {
     font-size: 12px;
     text-align: center;
     background: #999;
@@ -239,7 +250,7 @@
     cursor: pointer;
 }
 
-.delete_comment_container{
+.delete_comment_container {
     position: fixed;
     width: 420px;
     top: 0;
@@ -251,14 +262,14 @@
 }
 
 
-.delete_comment_container .delete_overlay{
+.delete_comment_container .delete_overlay {
     position: fixed;
     width: 100%;
     height: 100vh;
     background: rgba(255, 255, 255, 0.9);
 }
 
-.delete_card{
+.delete_card {
     padding: 40px;
     position: absolute;
     width: 100%;
@@ -271,27 +282,31 @@
     text-align: center;
     z-index: 9999;
 }
-.delete_card div{
+
+.delete_card div {
     display: flex;
     gap: 10px;
 }
-.delete_card div a{
+
+.delete_card div a {
     text-decoration: none;
     color: black;
     padding: 10px;
     cursor: pointer;
 }
-.delete_card div a:nth-child(2){
+
+.delete_card div a:nth-child(2) {
     padding: 10px;
     background: rgb(182, 1, 1);
     border-radius: 10px;
     color: #fff;
 }
-.delete_card div a:nth-child(2):hover{
+
+.delete_card div a:nth-child(2):hover {
     background: rgb(153, 0, 0);
 }
 
-.delete_comment_container_toggle{
+.delete_comment_container_toggle {
     scale: 1;
 }
 
@@ -302,13 +317,15 @@
 }
 
 @media(max-width: 445px) {
-    .noticia_sidebar_comments .content{
+    .noticia_sidebar_comments .content {
         width: 100%;
         padding: 30px 30px;
     }
-    .delete_comment_container{
+
+    .delete_comment_container {
         width: 100%;
     }
+
     .noticia_sidebar_comments .overlay {
         display: none;
     }
