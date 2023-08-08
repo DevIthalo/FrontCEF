@@ -15,6 +15,7 @@ const ResetPasswordConfirm = () => {
     const [error, setError] = useState();
     const [messageOk, setMessageOk] = useState();
     const [isLoading, setIsLoading] = useState();
+    const URL = "https://backcef.up.railway.app"
 
     const handlePassword = (e) => {
         setPassword(e.target.value);
@@ -36,7 +37,7 @@ const ResetPasswordConfirm = () => {
 
         try {
             setIsLoading(true);
-            const response = await axios.post("http://localhost:8000/api/reset/password/confirm/", { token, password, confirmPassword }, {
+            const response = await axios.post(`${URL}/api/reset/password/confirm/`, { token, password, confirmPassword }, {
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -91,6 +92,8 @@ const ResetPasswordConfirm = () => {
 
 export const getServerSideProps = async (ctx) => {
     const { ['authTokens']: authToken } = parseCookies(ctx);
+    const URL = "https://backcef.up.railway.app"
+
     if (authToken) {
         return {
             redirect: {
@@ -101,7 +104,7 @@ export const getServerSideProps = async (ctx) => {
     }
     const { token } = ctx.params;
     try {
-        await axios.post("http://127.0.0.1:8000/api/reset/password/confirm/",  {token} , {
+        await axios.post(`${URL}/api/reset/password/confirm/`,  {token} , {
             headers: {
                 "Content-Type": "application/json"
             }

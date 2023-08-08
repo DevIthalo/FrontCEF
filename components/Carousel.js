@@ -12,13 +12,15 @@ import { FaCircle } from 'react-icons/fa';
 const CarouselComponent = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState([]);
+    const URL = "https://backcef.up.railway.app"
+
     useEffect(() => {
         fetchPosts();
     }, [])
 
     const fetchPosts = async () => {
         setIsLoading(true);
-        const response = await axios.get(`http://localhost:8000/api/limit_posts/10`, {
+        const response = await axios.get(`${URL}/api/limit_posts/10`, {
             headers: {
                 "Content-Type": "application/json"
             }

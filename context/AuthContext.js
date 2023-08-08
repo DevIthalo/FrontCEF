@@ -9,7 +9,7 @@ const AuthContext = createContext();
 
 export default AuthContext;
 
-const baseUrl = "http://localhost:8000"
+const baseUrl = "https://backcef.up.railway.app"
 
 const api = axios.create({
     baseURL: baseUrl,

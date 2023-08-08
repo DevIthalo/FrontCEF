@@ -17,6 +17,8 @@ const EmailConfirmation = () => {
     const [isDisabled, setIsDisabled] = useState(true);
     const [invalidCodeMsg, setInvalidCodeMsg] = useState();
     const { push } = useRouter();
+    const URL = "https://backcef.up.railway.app"
+
 
 
     const inputRef1 = useRef(null);
@@ -148,7 +150,7 @@ const EmailConfirmation = () => {
             "code": numbers
         }
         try {
-            const response = await axios.post('http://localhost:8000/api/verify_email/', data, {
+            const response = await axios.post(`${URL}/api/verify_email/`, data, {
                 headers: {
                     "Content-Type": "application.json"
                 }
@@ -172,7 +174,7 @@ const EmailConfirmation = () => {
             "email": user?.email,
             "random_number": generateRandomNumber()
         }
-        const response = await axios.post('http://localhost:8000/api/send_verification_code/', data, {
+        const response = await axios.post(`${URL}/api/send_verification_code/`, data, {
             headers: {
                 "Content-Type": "application.json"
             }
@@ -236,6 +238,8 @@ export default EmailConfirmation
 
 export const getServerSideProps = async (ctx) => {
     const { ['authTokens']: token } = parseCookies(ctx);
+    const URL = "https://backcef.up.railway.app"
+
     if (!token) {
         return {
             redirect: {
@@ -245,7 +249,7 @@ export const getServerSideProps = async (ctx) => {
         }
     }
     const user = jwtDecode(token);
-    const response = await axios.get(`http://127.0.0.1:8000/api/get_isValidated/?email=${user?.email}`, {
+    const response = await axios.get(`${URL}/api/get_isValidated/?email=${user?.email}`, {
         headers: {
             "Content-Type": "application/json"
         }

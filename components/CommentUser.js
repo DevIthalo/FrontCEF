@@ -20,6 +20,7 @@ const CommentUser = ({ comment, isToggle, index, sendMessageOk, sendMessageError
     const [isVisible, setIsVisible] = useState(false);
     const api = useAxios();
     const { user } = useContext(AuthContext);
+    const URL = "https://backcef.up.railway.app"
 
     const handleOptions = (id) => {
         setOptions(id);
@@ -65,7 +66,7 @@ const CommentUser = ({ comment, isToggle, index, sendMessageOk, sendMessageError
             "description": commentData
         }
         try {
-            const response = await api.patch(`http://localhost:8000/api/update_comment/${id}`, data, {
+            const response = await api.patch(`${URL}/api/update_comment/${id}`, data, {
                 headers: {
                     "Content-Type": "application/json"
                 }

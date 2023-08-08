@@ -12,6 +12,8 @@ const Reset = () => {
     const [messageOk, setMessageOk] = useState();
     const [email, setEmail] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const URL = "https://backcef.up.railway.app"
+
     const sendMail = async (e) => {
         setIsLoading(true);
 
@@ -23,7 +25,7 @@ const Reset = () => {
             return;
         }
         try {
-            const response = await axios.post("http://localhost:8000/api/reset/password/", { email }, {
+            const response = await axios.post(`${URL}/api/reset/password/`, { email }, {
                 headers: {
                     "Content-Type": "application/json"
                 }

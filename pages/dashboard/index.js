@@ -34,6 +34,8 @@ function Admin() {
     const currentPage = parseInt(router.query.page) || 1;
 
     const api = useAxios();
+    const URL = "https://backcef.up.railway.app"
+
 
     const handleValueChange = (value) => {
         setIsToggle(value);
@@ -46,7 +48,7 @@ function Admin() {
 
     const fetchItems = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/list_post/?page=${currentPage}&title=${title}`, {
+            const response = await axios.get(`${URL}/api/list_post/?page=${currentPage}&title=${title}`, {
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -89,7 +91,7 @@ function Admin() {
 
     const deletePost = async (postId) => {
         try {
-            const response = await api.delete(`http://localhost:8000/api/delete_post/${postId}`);
+            const response = await api.delete(`${URL}/api/delete_post/${postId}`);
             setMessageOk(response.data.message)
             setModal(false);
             fetchItems();

@@ -28,6 +28,8 @@ const PostEdit = () => {
     const { push } = useRouter();
     const router = useRouter();
     const { postId } = router.query;
+    const URL = "https://backcef.up.railway.app"
+
 
     useEffect(() => {
         getPostById();
@@ -35,7 +37,7 @@ const PostEdit = () => {
 
     const getPostById = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/list_post_by_id/?id=${postId}`);
+            const response = await axios.get(`${URL}/api/list_post_by_id/?id=${postId}`);
             setTitle(response.data.title);
             setContent(response.data.content)
         } catch (error) {
@@ -135,6 +137,7 @@ const PostEdit = () => {
 
 export const getServerSideProps = async (ctx) => {
     const { ['authTokens']: token } = parseCookies(ctx);
+    const URL = "https://backcef.up.railway.app"
 
     if (!token) {
         return {
@@ -157,7 +160,7 @@ export const getServerSideProps = async (ctx) => {
     const { params } = ctx;
     const postId = params.postId;
     try {
-        await axios.get(`http://127.0.0.1:8000/api/list_post_by_id/?id=${postId}`)
+        await axios.get(`${URL}/api/list_post_by_id/?id=${postId}`)
     } catch (error) {
         return {
             redirect: {

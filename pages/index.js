@@ -13,7 +13,7 @@ function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [paragrafo, setParagrafo] = useState([]);
-  const URL = "https://backcef.up.railway.app/api"
+  const URL = "https://backcef.up.railway.app"
 
   useEffect(() => {
     fetchData();

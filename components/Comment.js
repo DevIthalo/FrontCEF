@@ -14,6 +14,8 @@ const Comment = ({ comment, id, commentUdpated, handleDelete }) => {
     const [commentEditOk, setCommentEditOk] = useState();
     const { user } = useContext(AuthContext);
     const api = useAxios();
+    const URL = "https://backcef.up.railway.app"
+
 
     const handleInputEditComment = (event) => {
         setCommentEditData(event.target.value);
@@ -44,7 +46,7 @@ const Comment = ({ comment, id, commentUdpated, handleDelete }) => {
         }
 
         try{
-            const response = await api.patch(`http://localhost:8000/api/update_comment/${comment.id}`, data, {
+            const response = await api.patch(`${URL}/api/update_comment/${comment.id}`, data, {
                 headers: {
                     "Content-Type": "application/json"
                 }

@@ -22,6 +22,7 @@ const Noticias = () => {
     const currentPage = parseInt(router.query.page) || 1;
     const [totalPages, setTotalPages] = useState();
     const { push } = useRouter();
+    const URL = "https://backcef.up.railway.app"
 
     useEffect(() => {
         fetchData();
@@ -31,7 +32,7 @@ const Noticias = () => {
         setIsLoading(true);
         try {
 
-            const response = await axios.get(`http://localhost:8000/api/list_post/?page=${currentPage}&title=${title}`,
+            const response = await axios.get(`${URL}/api/list_post/?page=${currentPage}&title=${title}`,
                 {
                     headers: {
                         "Content-Type": "application/json"
@@ -109,8 +110,10 @@ const Noticias = () => {
 export const getServerSideProps = async (ctx) => {
     const { page } = ctx.query;
     const title = '';
+    const URL = "https://backcef.up.railway.app"
+
     try {
-        await axios.get(`http://127.0.0.1:8000/api/list_post/?page=${page || 1}&title=${title}`)
+        await axios.get(`${URL}/api/list_post/?page=${page || 1}&title=${title}`)
     } catch (error) {
         return {
             redirect: {

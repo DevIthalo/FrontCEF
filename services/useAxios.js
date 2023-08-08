@@ -5,7 +5,8 @@ import { useContext } from 'react';
 import AuthContext from '@/context/AuthContext';
 import { setCookie, destroyCookie, parseCookies } from 'nookies';
 
-const baseUrl = "http://localhost:8000";
+
+const baseUrl = "https://backcef.up.railway.app"
 
 const useAxios = () => {
     const { authTokens, setUser, setAuthTokens, logoutUser } = useContext(AuthContext)

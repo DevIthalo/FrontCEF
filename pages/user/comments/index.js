@@ -27,6 +27,7 @@ const Comments = () => {
     const [deleteId, setDeleteId] = useState(false);
     const { push } = useRouter();
     const api = useAxios();
+    const URL = "https://backcef.up.railway.app"
 
     useEffect(() => {
         fetchComments();
@@ -63,7 +64,7 @@ const Comments = () => {
     const fetchComments = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get(`http://localhost:8000/api/list_comments_by_user/${user?.user_id}?page=${currentPage}`)
+            const response = await axios.get(`${URL}/api/list_comments_by_user/${user?.user_id}?page=${currentPage}`)
             const data = response.data;
             setIsLoading(false);
             setResults(data.results);
@@ -76,7 +77,7 @@ const Comments = () => {
 
     const deleteComment = async () => {
         try {
-            await api.delete(`http://localhost:8000/api/delete_comment/${deleteId}`);
+            await api.delete(`${URL}/api/delete_comment/${deleteId}`);
             setMessageOk("Comentário excluído com sucesso!");
             const timeout = setTimeout(() => {
                 setMessageOk('');
@@ -125,6 +126,7 @@ const Comments = () => {
 
 export const getServerSideProps = async (ctx) => {
     const { ['authTokens']: token } = parseCookies(ctx);
+    const URL = "https://backcef.up.railway.app"
 
     const { page } = ctx.query;
 
@@ -140,7 +142,7 @@ export const getServerSideProps = async (ctx) => {
     const tokenInfo = jwtDecode(data.access);
     if (tokenInfo.user_id) {
         try {
-            await axios.get(`http://127.0.0.1:8000/api/list_comments_by_user/${tokenInfo?.user_id}?page=${page || 1}`)
+            await axios.get(`${URL}/api/list_comments_by_user/${tokenInfo?.user_id}?page=${page || 1}`)
         } catch (error) {
             return {
                 redirect: {

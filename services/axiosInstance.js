@@ -3,7 +3,8 @@ import jwt_decode from "jwt-decode";
 import dayjs from 'dayjs';
 import { parseCookies, setCookie } from 'nookies';
 
-const baseUrl = "http://localhost:8000";
+const baseUrl = "https://backcef.up.railway.app"
+
 
 const { ['authTokens']: token } = parseCookies();
 const authTokens = token ? JSON.parse(token) : null;

@@ -28,6 +28,8 @@ const NoticiaById = () => {
   const [isToggleDelete, setIsToggleDelete] = useState(false);
   const { user } = useContext(AuthContext);
   const api = useAxios();
+  const URL = "https://backcef.up.railway.app"
+
 
   useEffect(() => {
     fetchData();
@@ -43,7 +45,7 @@ const NoticiaById = () => {
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/list_comments_by_post/${postId}`);
+      const response = await axios.get(`${URL}/api/list_comments_by_post/${postId}`);
       setComments(response.data);
     } catch (error) {
       console.log(error.response.data?.error)
@@ -53,7 +55,7 @@ const NoticiaById = () => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`http://localhost:8000/api/list_post_by_id/?id=${postId}`);
+      const response = await axios.get(`${URL}/api/list_post_by_id/?id=${postId}`);
       setIsLoading(false);
       setPost(response.data);
     } catch (error) {
@@ -64,7 +66,7 @@ const NoticiaById = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await api.get(`http://localhost:8000/api/user/?email=${user?.email}`);
+      const response = await api.get(`${URL}/api/user/?email=${user?.email}`);
       setUserData(response.data);
     } catch (error) {
       console.log(error);
@@ -88,7 +90,7 @@ const NoticiaById = () => {
       "description": commentData
     }
     try {
-      const response = await api.post(`http://localhost:8000/api/insert_comment/`, data, {
+      const response = await api.post(`${URL}/api/insert_comment/`, data, {
         headers: {
           "Content-Type": "application/json"
         }
@@ -110,7 +112,7 @@ const NoticiaById = () => {
 
   const deleteComment = async () => {
     try {
-      await api.delete(`http://localhost:8000/api/delete_comment/${idCommentDelete}`);
+      await api.delete(`${URL}/api/delete_comment/${idCommentDelete}`);
       setCommentOk("Comentário excluído com sucesso!");
       const timeout = setTimeout(() => {
         setCommentOk('');
@@ -245,8 +247,10 @@ const NoticiaById = () => {
 export const getServerSideProps = async (ctx) => {
   const { params } = ctx;
   const postId = params.postId;
+  const URL = "https://backcef.up.railway.app"
+
   try {
-    await axios.get(`http://127.0.0.1:8000/api/list_post_by_id/?id=${postId}`)
+    await axios.get(`${URL}/api/list_post_by_id/?id=${postId}`)
   } catch (error) {
     return {
       redirect: {
