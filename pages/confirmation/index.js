@@ -206,11 +206,11 @@ const EmailConfirmation = () => {
         <div className={styles.confirmation_container}>
             <div className={styles.confirmation_card}>
                 <div className={styles.confirmation_title}>
-                    <Image src={`/assets/images/logo.png`} width={100} height={40} alt='Logo' />
+                    <Image src={`/assets/images/logo2.jpg`} width={100} height={40} alt='Logo' />
                     <h3>Confirmação de e-mail</h3>
-                    <p>Para realizar algumas ações na plataforma você irá precisar confirmar seu e-mail antes</p>
-                    <Image src={`/assets/images/confirmation.svg`} width={200} height={200} alt={`Confirmation SVG`} />
                     <p>Enviamos um código para o e-mail cadastrado, acesse-o e digite o código nos campos abaixo</p>
+                    <Image src={`/assets/images/confirmation.svg`} width={200} height={200} alt={`Confirmation SVG`} />
+                    <p>Obs.: Caso você não veja o código na caixa de entrada, verifique na caixa de spam</p>
                     {invalidCodeMsg && <p className={styles.confirmation_msg}>{invalidCodeMsg}</p>}
                     <div className={styles.confirmation_inputs}>
                         <input type="text" ref={inputRef1} onChange={handleInputChange1} onPaste={handleInput} maxLength={1} />

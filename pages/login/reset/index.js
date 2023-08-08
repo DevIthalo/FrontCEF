@@ -17,11 +17,11 @@ const Reset = () => {
 
         e.preventDefault();
         const email = e.target.email.value;
-        if(!email){
+        if (!email) {
             setErrorEmpty("Campo vazio, preencha-o para prosseguir")
             setIsLoading(false);
             return;
-        }    
+        }
         try {
             const response = await axios.post("http://localhost:8000/api/reset/password/", { email }, {
                 headers: {
@@ -57,18 +57,17 @@ const Reset = () => {
         <div className={styles.reset_container}>
             <div className={styles.reset_card}>
                 <div className={styles.reset_grid}>
-                    <Image src={'/assets/images/logo.png'} width={90} height={35} alt='Logo' />
+                    <Image src={'/assets/images/logo2.jpg'} width={90} height={35} alt='Logo' />
                     <h3>Redefinição de Senha</h3>
                     <p>Para recuperar a senha digite o e-mail que você utilizou no cadastro</p>
                     <Image src={'/assets/images/password.svg'} width={200} height={200} alt='Password Image' />
-                    <p>Vamos mandar um e-mail contendo um link para redefinição da senha</p>
+                    <p>Vamos mandar um e-mail contendo um link para redefinição da senha. <strong>Verifique na caixa de spam do seu e-mail, caso não veja o link na caixa de entrada</strong></p>
                     {error ? <p className={styles.message_error}>{error}</p> : ''}
                     {messageOk ? <p className={styles.message_ok}>{messageOk}</p> : ''}
                     <form onSubmit={sendMail}>
                         <input type="email" name='email' onChange={handleChange} placeholder='Digite seu e-mail' />
-                        {errorEmpty ? <label style={{fontSize: 12, color: 'red', display:'flex', justifyContent:'flex-start', marginTop: 3}}>{errorEmpty}</label> : ''}
+                        {errorEmpty ? <label style={{ fontSize: 12, color: 'red', display: 'flex', justifyContent: 'flex-start', marginTop: 3 }}>{errorEmpty}</label> : ''}
                         {!isLoading ? <button type='submit' disabled={email ? false : true}>Enviar</button> : <Image style={{ marginTop: '10px' }} src={"/assets/images/loading.svg"} height={30} width={30} alt='Loading' />}
-
                     </form>
                     <Link className={styles.reset_back_login} href={"/login"}>Voltar</Link>
                 </div>
