@@ -119,7 +119,7 @@ const Comments = () => {
                 </ModalDelete>
                 <Pagination handlePageClick={handlePageClick} currentPage={currentPage} totalPages={totalPages} />
             </div> : <div className={`${styles.without_comments} ´
-                ${!isToggle ? styles.without_comments_toggle : ''}`}>Você ainda não comentou em nenhuma postagem</div>
+                ${!isToggle ? styles.without_comments_toggle : ''}`}>Não há nenhum comentário ainda!</div>
                 : ''
             }
 

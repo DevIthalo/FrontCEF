@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import axios from "axios";
 export function CustomEditor(props) {
   const editorRef = useRef(null);
+  const URL = "https://backcef.up.railway.app"
 
   const log = () => {
     if (editorRef.current) {
@@ -15,12 +16,12 @@ export function CustomEditor(props) {
     const formData = new FormData();
     formData.append('file', blobInfo.blob());
     try {
-      const response = await axios.post('http://localhost:8000/api/upload-image/', formData, {
+      const response = await axios.post(`${URL}/api/upload-image/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      resolve("http://localhost:8000" + response.data)
+      resolve(response.data)
     } catch (error) {
       reject("Erro ao enviar, certifique-se de que você está mandando uma imagem!")
     }

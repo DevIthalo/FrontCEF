@@ -12,12 +12,14 @@ import ModalDelete from '@/components/ModalDelete';
 
 import { BsEye } from 'react-icons/bs'
 import { BiCommentDetail } from 'react-icons/bi'
+import { BsThreeDotsVertical } from 'react-icons/bs'
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import IconInfo from '@/components/IconInfo';
 import useAxios from '@/services/useAxios';
 import Pagination from '@/components/Pagination';
+import ThreeDotMenuDashboard from '@/components/ThreeDotMenuDashboard';
 
 function Admin() {
     const [isToggle, setIsToggle] = useState(true);
@@ -29,6 +31,9 @@ function Admin() {
     const [messageOk, setMessageOk] = useState();
     const [deleteId, setDeleteId] = useState();
     const [options, setOptions] = useState();
+    const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
+    const [isVisible, setIsVisible] = useState(false);
+
     const { push } = useRouter();
     const router = useRouter();
     const currentPage = parseInt(router.query.page) || 1;
@@ -89,6 +94,10 @@ function Admin() {
         setOptions();
     }
 
+    const handleVisibleMenu = () => {
+        setIsVisible(!isVisible);
+    }
+
     const deletePost = async (postId) => {
         try {
             const response = await api.delete(`${URL}/api/delete_post/${postId}`);
@@ -109,6 +118,22 @@ function Admin() {
             }
         }
     }
+
+    useEffect(() => {
+        function handleResize() {
+            setScreenSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
 
     return (
@@ -131,16 +156,25 @@ function Admin() {
                                     </div>
                                 </div>
                                 <div className={styles.dashboard_options}>
-                                    <div className={styles.dashboard_options_top}>
+                                    {screenSize.width > 1040 ? <div className={styles.dashboard_options_top}>
+                                        
                                         <div style={{ display: options === item.id ? 'flex' : 'none', alignItems: 'center', gap: '10px' }}>
                                             <Link href={`/dashboard/edit/${item.id}`}>
                                                 <IconInfo icon={<FiEdit className={styles.icon} />} iconText="Editar" />
                                             </Link>
                                             <IconInfo icon={<AiOutlineDelete className={styles.icon} onClick={() => handleOpenModal(item.id)} />} iconText="Apagar" />
-                                            <IconInfo icon={<BsEye className={styles.icon} />} iconText="Visualizar" />
+                                            <Link href={`/noticias/${item.title.replace(/ /g, '-').replace('?', '')}/${item.id}`}><IconInfo icon={<BsEye className={styles.icon} />} iconText="Visualizar" /></Link>
                                         </div>
                                         <p style={{ display: options !== item.id ? 'flex' : 'none' }}>{item.user.nome} {item.user.sobrenome}</p>
+                                    </div> : 
+                                    <>
+                                    <div style={{ width: 10, height: 10 }}>
+                                        <BsThreeDotsVertical width={5} height={5} style={{ fontSize: 20 }} onClick={handleVisibleMenu} />
                                     </div>
+                                    <ThreeDotMenuDashboard isVisible={isVisible} onEdit={() => push(`/dashboard/edit/${item.id}`)} onView={()=> push(`/noticias/${item.title.replace(/ /g, '-').replace('?', '')}/${item.id}`)} onDelete={()=> {handleOpenModal(item.id); handleVisibleMenu()}}/>
+                                </>
+                                }
+                                    
                                     <div style={{ display: 'flex', gap: '10px', justifyContent: "flex-end" }}>
                                         <p style={{ fontSize: 15, display: 'flex', alignItems: 'center', gap: '5px' }}>{item.comments.length}<BiCommentDetail /></p>
                                     </div>
