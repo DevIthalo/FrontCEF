@@ -1,1 +1,344 @@
-!function(){"use strict";var e=tinymce.util.Tools.resolve("tinymce.PluginManager");let t=(e,t,r)=>{var s;return!!r(e,t.prototype)||(null===(s=e.constructor)||void 0===s?void 0:s.name)===t.name},r=e=>{let r=typeof e;return null===e?"null":"object"===r&&Array.isArray(e)?"array":"object"===r&&t(e,String,(e,t)=>t.isPrototypeOf(e))?"string":r},s=e=>t=>r(t)===e,o=s("string"),l=s("object"),i=s("array"),n=e=>"function"==typeof e;var c=tinymce.util.Tools.resolve("tinymce.dom.DOMUtils"),a=tinymce.util.Tools.resolve("tinymce.EditorManager"),p=tinymce.util.Tools.resolve("tinymce.Env"),u=tinymce.util.Tools.resolve("tinymce.util.Tools");let m=e=>t=>t.options.get(e),f=e=>{let t=e.options.register,r=e=>o(e)||n(e)||l(e);t("importcss_merge_classes",{processor:"boolean",default:!0}),t("importcss_exclusive",{processor:"boolean",default:!0}),t("importcss_selector_converter",{processor:"function"}),t("importcss_selector_filter",{processor:r}),t("importcss_file_filter",{processor:r}),t("importcss_groups",{processor:"object[]"}),t("importcss_append",{processor:"boolean",default:!1})},y=m("importcss_merge_classes"),d=m("importcss_exclusive"),h=m("importcss_selector_converter"),_=m("importcss_selector_filter"),g=m("importcss_groups"),v=m("importcss_append"),b=m("importcss_file_filter"),x=m("skin"),T=m("skin_url"),S=Array.prototype.push,k=(e,t)=>{let r=e.length,s=Array(r);for(let o=0;o<r;o++){let r=e[o];s[o]=t(r,o)}return s},A=e=>{let t=[];for(let r=0,s=e.length;r<s;++r){if(!i(e[r]))throw Error("Arr.flatten item "+r+" was not an array, input: "+e);S.apply(t,e[r])}return t},E=(e,t)=>A(k(e,t)),I=()=>{let e=[],t=[],r={};return{addItemToGroup:(e,s)=>{r[e]?r[e].push(s):(t.push(e),r[e]=[s])},addItem:t=>{e.push(t)},toFormats:()=>{let s=E(t,e=>{let t=r[e];return 0===t.length?[]:[{title:e,items:t}]});return s.concat(e)}}},M=/^\.(?:ephox|tiny-pageembed|mce)(?:[.-]+\w+)+$/,j=e=>{let t=p.cacheSuffix;return o(e)&&(e=e.replace("?"+t,"").replace("&"+t,"")),e},O=(e,t)=>{let r=x(e);if(r){let s=T(e),o=s?e.documentBaseURI.toAbsolute(s):a.baseURL+"/skins/ui/"+r,l=a.baseURL+"/skins/content/";return t===o+"/content"+(e.inline?".inline":"")+".min.css"||-1!==t.indexOf(l)}return!1},R=e=>o(e)?t=>-1!==t.indexOf(e):e instanceof RegExp?t=>e.test(t):e,w=e=>e.styleSheet,U=e=>e.selectorText,B=(e,t,r)=>{let s=[],o={},l=(t,o)=>{let i,n=t.href;if(!(!(n=j(n))||r&&!r(n,o)||O(e,n))){u.each(t.imports,e=>{l(e,!0)});try{i=t.cssRules||t.rules}catch(e){}u.each(i,e=>{w(e)?l(e.styleSheet,!0):U(e)&&u.each(e.selectorText.split(","),e=>{s.push(u.trim(e))})})}};u.each(e.contentCSS,e=>{o[e]=!0}),r||(r=(e,t)=>t||o[e]);try{u.each(t.styleSheets,e=>{l(e)})}catch(e){}return s},D=(e,t)=>{let r={},s=/^(?:([a-z0-9\-_]+))?(\.[a-z0-9_\-\.]+)$/i.exec(t);if(!s)return;let o=s[1],l=s[2].substr(1).split(".").join(" "),i=u.makeMap("a,img");return s[1]?(r={title:t},e.schema.getTextBlockElements()[o]?r.block=o:e.schema.getBlockElements()[o]||i[o.toLowerCase()]?r.selector=o:r.inline=o):s[2]&&(r={inline:"span",title:t.substr(1),classes:l}),y(e)?r.classes=l:r.attributes={class:l},r},F=(e,t)=>u.grep(e,e=>!e.filter||e.filter(t)),L=e=>u.map(e,e=>u.extend({},e,{original:e,selectors:{},filter:R(e.filter)})),z=(e,t)=>null===t||d(e),C=(e,t,r,s)=>!(z(e,r)?t in s:t in r.selectors),G=(e,t,r,s)=>{z(e,r)?s[t]=!0:r.selectors[t]=!0},P=(e,t,r,s)=>{let o=h(e);return(s&&s.selector_converter?s.selector_converter:o||(()=>D(e,r))).call(t,r,s)},$=e=>{e.on("init",()=>{let t=I(),r={},s=R(_(e)),o=L(g(e)),l=(t,s)=>{if(C(e,t,s,r)){G(e,t,s,r);let o=P(e,e.plugins.importcss,t,s);if(o){let t=o.name||c.DOM.uniqueId();return e.formatter.register(t,o),{title:o.title,format:t}}}return null};u.each(B(e,e.getDoc(),R(b(e))),e=>{if(!M.test(e)&&(!s||s(e))){let r=F(o,e);if(r.length>0)u.each(r,r=>{let s=l(e,r);s&&t.addItemToGroup(r.title,s)});else{let r=l(e,null);r&&t.addItem(r)}}});let i=t.toFormats();e.dispatch("addStyleModifications",{items:i,replace:!v(e)})})},q=e=>({convertSelectorToFormat:t=>D(e,t)});e.add("importcss",e=>(f(e),$(e),q(e)))}();
+/**
+ * TinyMCE version 6.6.0 (2023-07-12)
+ */
+
+(function () {
+    'use strict';
+
+    var global$4 = tinymce.util.Tools.resolve('tinymce.PluginManager');
+
+    const hasProto = (v, constructor, predicate) => {
+      var _a;
+      if (predicate(v, constructor.prototype)) {
+        return true;
+      } else {
+        return ((_a = v.constructor) === null || _a === void 0 ? void 0 : _a.name) === constructor.name;
+      }
+    };
+    const typeOf = x => {
+      const t = typeof x;
+      if (x === null) {
+        return 'null';
+      } else if (t === 'object' && Array.isArray(x)) {
+        return 'array';
+      } else if (t === 'object' && hasProto(x, String, (o, proto) => proto.isPrototypeOf(o))) {
+        return 'string';
+      } else {
+        return t;
+      }
+    };
+    const isType = type => value => typeOf(value) === type;
+    const isSimpleType = type => value => typeof value === type;
+    const isString = isType('string');
+    const isObject = isType('object');
+    const isArray = isType('array');
+    const isFunction = isSimpleType('function');
+
+    var global$3 = tinymce.util.Tools.resolve('tinymce.dom.DOMUtils');
+
+    var global$2 = tinymce.util.Tools.resolve('tinymce.EditorManager');
+
+    var global$1 = tinymce.util.Tools.resolve('tinymce.Env');
+
+    var global = tinymce.util.Tools.resolve('tinymce.util.Tools');
+
+    const option = name => editor => editor.options.get(name);
+    const register = editor => {
+      const registerOption = editor.options.register;
+      const filterProcessor = value => isString(value) || isFunction(value) || isObject(value);
+      registerOption('importcss_merge_classes', {
+        processor: 'boolean',
+        default: true
+      });
+      registerOption('importcss_exclusive', {
+        processor: 'boolean',
+        default: true
+      });
+      registerOption('importcss_selector_converter', { processor: 'function' });
+      registerOption('importcss_selector_filter', { processor: filterProcessor });
+      registerOption('importcss_file_filter', { processor: filterProcessor });
+      registerOption('importcss_groups', { processor: 'object[]' });
+      registerOption('importcss_append', {
+        processor: 'boolean',
+        default: false
+      });
+    };
+    const shouldMergeClasses = option('importcss_merge_classes');
+    const shouldImportExclusive = option('importcss_exclusive');
+    const getSelectorConverter = option('importcss_selector_converter');
+    const getSelectorFilter = option('importcss_selector_filter');
+    const getCssGroups = option('importcss_groups');
+    const shouldAppend = option('importcss_append');
+    const getFileFilter = option('importcss_file_filter');
+    const getSkin = option('skin');
+    const getSkinUrl = option('skin_url');
+
+    const nativePush = Array.prototype.push;
+    const map = (xs, f) => {
+      const len = xs.length;
+      const r = new Array(len);
+      for (let i = 0; i < len; i++) {
+        const x = xs[i];
+        r[i] = f(x, i);
+      }
+      return r;
+    };
+    const flatten = xs => {
+      const r = [];
+      for (let i = 0, len = xs.length; i < len; ++i) {
+        if (!isArray(xs[i])) {
+          throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
+        }
+        nativePush.apply(r, xs[i]);
+      }
+      return r;
+    };
+    const bind = (xs, f) => flatten(map(xs, f));
+
+    const generate = () => {
+      const ungroupedOrder = [];
+      const groupOrder = [];
+      const groups = {};
+      const addItemToGroup = (groupTitle, itemInfo) => {
+        if (groups[groupTitle]) {
+          groups[groupTitle].push(itemInfo);
+        } else {
+          groupOrder.push(groupTitle);
+          groups[groupTitle] = [itemInfo];
+        }
+      };
+      const addItem = itemInfo => {
+        ungroupedOrder.push(itemInfo);
+      };
+      const toFormats = () => {
+        const groupItems = bind(groupOrder, g => {
+          const items = groups[g];
+          return items.length === 0 ? [] : [{
+              title: g,
+              items
+            }];
+        });
+        return groupItems.concat(ungroupedOrder);
+      };
+      return {
+        addItemToGroup,
+        addItem,
+        toFormats
+      };
+    };
+
+    const internalEditorStyle = /^\.(?:ephox|tiny-pageembed|mce)(?:[.-]+\w+)+$/;
+    const removeCacheSuffix = url => {
+      const cacheSuffix = global$1.cacheSuffix;
+      if (isString(url)) {
+        url = url.replace('?' + cacheSuffix, '').replace('&' + cacheSuffix, '');
+      }
+      return url;
+    };
+    const isSkinContentCss = (editor, href) => {
+      const skin = getSkin(editor);
+      if (skin) {
+        const skinUrlBase = getSkinUrl(editor);
+        const skinUrl = skinUrlBase ? editor.documentBaseURI.toAbsolute(skinUrlBase) : global$2.baseURL + '/skins/ui/' + skin;
+        const contentSkinUrlPart = global$2.baseURL + '/skins/content/';
+        return href === skinUrl + '/content' + (editor.inline ? '.inline' : '') + '.min.css' || href.indexOf(contentSkinUrlPart) !== -1;
+      }
+      return false;
+    };
+    const compileFilter = filter => {
+      if (isString(filter)) {
+        return value => {
+          return value.indexOf(filter) !== -1;
+        };
+      } else if (filter instanceof RegExp) {
+        return value => {
+          return filter.test(value);
+        };
+      }
+      return filter;
+    };
+    const isCssImportRule = rule => rule.styleSheet;
+    const isCssPageRule = rule => rule.selectorText;
+    const getSelectors = (editor, doc, fileFilter) => {
+      const selectors = [];
+      const contentCSSUrls = {};
+      const append = (styleSheet, imported) => {
+        let href = styleSheet.href;
+        let rules;
+        href = removeCacheSuffix(href);
+        if (!href || fileFilter && !fileFilter(href, imported) || isSkinContentCss(editor, href)) {
+          return;
+        }
+        global.each(styleSheet.imports, styleSheet => {
+          append(styleSheet, true);
+        });
+        try {
+          rules = styleSheet.cssRules || styleSheet.rules;
+        } catch (e) {
+        }
+        global.each(rules, cssRule => {
+          if (isCssImportRule(cssRule)) {
+            append(cssRule.styleSheet, true);
+          } else if (isCssPageRule(cssRule)) {
+            global.each(cssRule.selectorText.split(','), selector => {
+              selectors.push(global.trim(selector));
+            });
+          }
+        });
+      };
+      global.each(editor.contentCSS, url => {
+        contentCSSUrls[url] = true;
+      });
+      if (!fileFilter) {
+        fileFilter = (href, imported) => {
+          return imported || contentCSSUrls[href];
+        };
+      }
+      try {
+        global.each(doc.styleSheets, styleSheet => {
+          append(styleSheet);
+        });
+      } catch (e) {
+      }
+      return selectors;
+    };
+    const defaultConvertSelectorToFormat = (editor, selectorText) => {
+      let format = {};
+      const selector = /^(?:([a-z0-9\-_]+))?(\.[a-z0-9_\-\.]+)$/i.exec(selectorText);
+      if (!selector) {
+        return;
+      }
+      const elementName = selector[1];
+      const classes = selector[2].substr(1).split('.').join(' ');
+      const inlineSelectorElements = global.makeMap('a,img');
+      if (selector[1]) {
+        format = { title: selectorText };
+        if (editor.schema.getTextBlockElements()[elementName]) {
+          format.block = elementName;
+        } else if (editor.schema.getBlockElements()[elementName] || inlineSelectorElements[elementName.toLowerCase()]) {
+          format.selector = elementName;
+        } else {
+          format.inline = elementName;
+        }
+      } else if (selector[2]) {
+        format = {
+          inline: 'span',
+          title: selectorText.substr(1),
+          classes
+        };
+      }
+      if (shouldMergeClasses(editor)) {
+        format.classes = classes;
+      } else {
+        format.attributes = { class: classes };
+      }
+      return format;
+    };
+    const getGroupsBySelector = (groups, selector) => {
+      return global.grep(groups, group => {
+        return !group.filter || group.filter(selector);
+      });
+    };
+    const compileUserDefinedGroups = groups => {
+      return global.map(groups, group => {
+        return global.extend({}, group, {
+          original: group,
+          selectors: {},
+          filter: compileFilter(group.filter)
+        });
+      });
+    };
+    const isExclusiveMode = (editor, group) => {
+      return group === null || shouldImportExclusive(editor);
+    };
+    const isUniqueSelector = (editor, selector, group, globallyUniqueSelectors) => {
+      return !(isExclusiveMode(editor, group) ? selector in globallyUniqueSelectors : selector in group.selectors);
+    };
+    const markUniqueSelector = (editor, selector, group, globallyUniqueSelectors) => {
+      if (isExclusiveMode(editor, group)) {
+        globallyUniqueSelectors[selector] = true;
+      } else {
+        group.selectors[selector] = true;
+      }
+    };
+    const convertSelectorToFormat = (editor, plugin, selector, group) => {
+      let selectorConverter;
+      const converter = getSelectorConverter(editor);
+      if (group && group.selector_converter) {
+        selectorConverter = group.selector_converter;
+      } else if (converter) {
+        selectorConverter = converter;
+      } else {
+        selectorConverter = () => {
+          return defaultConvertSelectorToFormat(editor, selector);
+        };
+      }
+      return selectorConverter.call(plugin, selector, group);
+    };
+    const setup = editor => {
+      editor.on('init', () => {
+        const model = generate();
+        const globallyUniqueSelectors = {};
+        const selectorFilter = compileFilter(getSelectorFilter(editor));
+        const groups = compileUserDefinedGroups(getCssGroups(editor));
+        const processSelector = (selector, group) => {
+          if (isUniqueSelector(editor, selector, group, globallyUniqueSelectors)) {
+            markUniqueSelector(editor, selector, group, globallyUniqueSelectors);
+            const format = convertSelectorToFormat(editor, editor.plugins.importcss, selector, group);
+            if (format) {
+              const formatName = format.name || global$3.DOM.uniqueId();
+              editor.formatter.register(formatName, format);
+              return {
+                title: format.title,
+                format: formatName
+              };
+            }
+          }
+          return null;
+        };
+        global.each(getSelectors(editor, editor.getDoc(), compileFilter(getFileFilter(editor))), selector => {
+          if (!internalEditorStyle.test(selector)) {
+            if (!selectorFilter || selectorFilter(selector)) {
+              const selectorGroups = getGroupsBySelector(groups, selector);
+              if (selectorGroups.length > 0) {
+                global.each(selectorGroups, group => {
+                  const menuItem = processSelector(selector, group);
+                  if (menuItem) {
+                    model.addItemToGroup(group.title, menuItem);
+                  }
+                });
+              } else {
+                const menuItem = processSelector(selector, null);
+                if (menuItem) {
+                  model.addItem(menuItem);
+                }
+              }
+            }
+          }
+        });
+        const items = model.toFormats();
+        editor.dispatch('addStyleModifications', {
+          items,
+          replace: !shouldAppend(editor)
+        });
+      });
+    };
+
+    const get = editor => {
+      const convertSelectorToFormat = selectorText => {
+        return defaultConvertSelectorToFormat(editor, selectorText);
+      };
+      return { convertSelectorToFormat };
+    };
+
+    var Plugin = () => {
+      global$4.add('importcss', editor => {
+        register(editor);
+        setup(editor);
+        return get(editor);
+      });
+    };
+
+    Plugin();
+
+})();

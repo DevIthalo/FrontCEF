@@ -6,7 +6,7 @@ import { CiHome, CiViewList, CiUser, CiChat1, CiGrid42 } from 'react-icons/ci'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 const SideBar = ({ isOpen, isAdmin, handleCloseSideBar }) => {
-    const { user } = useContext(AuthContext);
+    const { user, logoutUser } = useContext(AuthContext);
     const router = useRouter();
 
     return (
@@ -22,6 +22,20 @@ const SideBar = ({ isOpen, isAdmin, handleCloseSideBar }) => {
                             <p>Página Inicial</p>
                         </div>
                     </Link>
+                    <Link href={'/noticias'}>
+                        <div className={`${router.pathname === '/noticias' ? styles.selected : ''}`}>
+                            <CiViewList style={{ fontSize: 40 }} />
+                            <p>Notícias</p>
+                        </div>
+                    </Link>
+                    {user?.isAdmin ?
+                        <Link href={'/dashboard'}>
+                            <div className={`${router.pathname === '/dashboard' ? styles.selected : ''}`}>
+                                <CiGrid42 style={{ fontSize: 40 }} />
+                                <p>Dashboard</p>
+                            </div>
+                        </Link> : ''
+                    }
                     {user?.email ?
                         <>
                             <Link href={'/user/perfil'}>
@@ -36,22 +50,20 @@ const SideBar = ({ isOpen, isAdmin, handleCloseSideBar }) => {
                                     <p>Seus Comentários</p>
                                 </div>
                             </Link>
-                        </> : ''}
-                    {user?.isAdmin ?
-
-                        <Link href={'/dashboard'}>
-                            <div className={`${router.pathname === '/dashboard' ? styles.selected : ''}`}>
-                                <CiGrid42 style={{ fontSize: 40 }} />
-                                <p>Dashboard</p>
-                            </div>
-                        </Link> : ''}
-                    <Link href={'/noticias'}>
-                        <div className={`${router.pathname === '/noticias' ? styles.selected : ''}`}>
-                            <CiViewList style={{ fontSize: 40 }} />
-                            <p>Notícias</p>
-                        </div>
-                    </Link>
-
+                            <a className={styles.button} onClick={logoutUser}>
+                                <p>Logout</p>
+                            </a>
+                        </> :
+                        <>
+                            <Link className={styles.button} href={'/login'}>
+                                <p>Login</p>
+                            </Link>
+                            <p style={{ textAlign: 'center' }}>Ainda sem cadastro? <Link style={{ color: '#013F7C' }} href={'/register'}>
+                                Registre-se
+                            </Link>
+                            </p>
+                        </>
+                    }
                 </div>
             </div>
             <div className={`${styles.overlay} ${isOpen ? styles.overlay_toggle : ''}`} onClick={handleCloseSideBar}></div>

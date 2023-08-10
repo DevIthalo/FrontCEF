@@ -1,1 +1,90 @@
-tinymce.Resource.add("tinymce.html-i18n.help-keynav.cs","<h1>Zač\xedn\xe1me navigovat pomoc\xed kl\xe1vesnice</h1>\n\n<dl>\n  <dt>Přej\xedt na ř\xe1dek nab\xeddek</dt>\n  <dd>Windows nebo Linux: Alt+F9</dd>\n  <dd>macOS: &#x2325;F9</dd>\n  <dt>Přej\xedt na panel n\xe1strojů</dt>\n  <dd>Windows nebo Linux: Alt+F10</dd>\n  <dd>macOS: &#x2325;F10</dd>\n  <dt>Přej\xedt na z\xe1pat\xed</dt>\n  <dd>Windows nebo Linux: Alt+F11</dd>\n  <dd>macOS: &#x2325;F11</dd>\n  <dt>Přej\xedt na kontextov\xfd panel n\xe1strojů</dt>\n  <dd>Windows, Linux nebo macOS: Ctrl+F9\n</dl>\n\n<p>Navigace začne u\xa0prvn\xed položky uživatelsk\xe9ho rozhran\xed, kter\xe1 bude zv\xfdrazněna nebo v\xa0př\xedpadě prvn\xed položky\n  cesty k\xa0prvku z\xe1pat\xed podtržena.</p>\n\n<h1>Navigace mezi odd\xedly uživatelsk\xe9ho rozhran\xed</h1>\n\n<p>Stisknut\xedm kl\xe1vesy <strong>Tab</strong> se posunete z\xa0jednoho odd\xedlu uživatelsk\xe9ho rozhran\xed na dalš\xed.</p>\n\n<p>Stisknut\xedm kl\xe1ves <strong>Shift+Tab</strong> se posunete z\xa0jednoho odd\xedlu uživatelsk\xe9ho rozhran\xed na předchoz\xed.</p>\n\n<p>Pořad\xed přep\xedn\xe1n\xed mezi odd\xedly uživatelsk\xe9ho rozhran\xed pomoc\xed kl\xe1vesy <strong>Tab</strong>:\n\n<ol>\n  <li>Ř\xe1dek nab\xeddek</li>\n  <li>Každ\xe1 skupina panelu n\xe1strojů</li>\n  <li>Bočn\xed panel</li>\n  <li>Cesta k\xa0prvku v\xa0z\xe1pat\xed.</li>\n  <li>Tlač\xedtko přep\xednače počtu slov v\xa0z\xe1pat\xed</li>\n  <li>Odkaz na informace o\xa0značce v\xa0z\xe1pat\xed</li>\n  <li>\xdachyt pro změnu velikosti editoru v\xa0z\xe1pat\xed</li>\n</ol>\n\n<p>Pokud nějak\xfd odd\xedl uživatelsk\xe9ho rozhran\xed nen\xed př\xedtomen, je přeskočen.</p>\n\n<p>Pokud je z\xe1pat\xed vybran\xe9 pro navigaci pomoc\xed kl\xe1vesnice a\xa0nen\xed zobrazen ž\xe1dn\xfd bočn\xed panel, stisknut\xedm kl\xe1ves <strong>Shift+Tab</strong>\n  přejdete na prvn\xed skupinu panelu n\xe1strojů, nikoli na posledn\xed.\n\n<h1>Navigace v\xa0r\xe1mci odd\xedlů uživatelsk\xe9ho rozhran\xed</h1>\n\n<p>Chcete-li se přesunout z\xa0jednoho prvku uživatelsk\xe9ho rozhran\xed na dalš\xed, stiskněte př\xedslušnou kl\xe1vesu s\xa0<strong>šipkou</strong>.</p>\n\n<p>Kl\xe1vesy s\xa0šipkou <strong>vlevo</strong> a\xa0<strong>vpravo</strong></p>\n\n<ul>\n  <li>umožňuj\xed přesun mezi nab\xeddkami na ř\xe1dku nab\xeddek;</li>\n  <li>otev\xedraj\xed podnab\xeddku nab\xeddky;</li>\n  <li>umožňuj\xed přesun mezi tlač\xedtky ve skupině panelu n\xe1strojů;</li>\n  <li>umožňuj\xed přesun mezi položkami cesty prvku v\xa0z\xe1pat\xed.</li>\n</ul>\n\n<p>Kl\xe1vesy se šipkou <strong>dolů</strong> a\xa0<strong>nahoru</strong>\n\n<ul>\n  <li>umožňuj\xed přesun mezi položkami nab\xeddky;</li>\n  <li>umožňuj\xed přesun mezi položkami m\xedstn\xed nab\xeddky panelu n\xe1strojů.</li>\n</ul>\n\n<p><strong>Šipky</strong> prov\xe1d\xed přep\xedn\xe1n\xed v\xa0r\xe1mci vybran\xe9ho odd\xedlu uživatelsk\xe9ho rozhran\xed.</p>\n\n<p>Chcete-li zavř\xedt otevřenou nab\xeddku, podnab\xeddku nebo m\xedstn\xed nab\xeddku, stiskněte kl\xe1vesu <strong>Esc</strong>.\n\n<p>Pokud je aktu\xe1lně vybr\xe1na horn\xed č\xe1st odd\xedlu uživatelsk\xe9ho rozhran\xed, stisknut\xedm kl\xe1vesy <strong>Esc</strong> zcela ukonč\xedte tak\xe9\n  navigaci pomoc\xed kl\xe1vesnice.</p>\n\n<h1>Proveden\xed př\xedkazu položky nab\xeddky nebo tlač\xedtka panelu n\xe1strojů</h1>\n\n<p>Pokud je zv\xfdrazněna požadovan\xe1 položka nab\xeddky nebo tlač\xedtko panelu n\xe1strojů, stisknut\xedm kl\xe1vesy <strong>Return</strong>, <strong>Enter</strong>\n  nebo <strong>mezern\xedku</strong> provedete př\xedslušn\xfd př\xedkaz.\n\n<h1>Navigace v\xa0dialogov\xfdch oknech bez z\xe1ložek</h1>\n\n<p>Při otevřen\xed dialogov\xfdch oken bez z\xe1ložek přejdete na prvn\xed interaktivn\xed komponentu.</p>\n\n<p>Přech\xe1zet mezi interaktivn\xedmi komponentami dialogov\xe9ho okna můžete stisknut\xedm kl\xe1vesy <strong>Tab</strong> nebo kombinace <strong>Shift+Tab</strong>.</p>\n\n<h1>Navigace v\xa0dialogov\xfdch oknech se z\xe1ložkami</h1>\n\n<p>Při otevřen\xed dialogov\xfdch oken se z\xe1ložkami přejdete na prvn\xed tlač\xedtko v\xa0nab\xeddce z\xe1ložek.</p>\n\n<p>Přech\xe1zet mezi interaktivn\xedmi komponentami t\xe9to z\xe1ložky dialogov\xe9ho okna můžete stisknut\xedm kl\xe1vesy <strong>Tab</strong> nebo\n  kombinace <strong>Shift+Tab</strong>.</p>\n\n<p>Chcete-li přepnout na dalš\xed z\xe1ložku dialogov\xe9ho okna, přejděte na nab\xeddku z\xe1ložek a\xa0pot\xe9 můžete stisknut\xedm požadovan\xe9 <strong>šipky</strong>\n  přep\xednat mezi dostupn\xfdmi z\xe1ložkami.</p>\n");
+tinymce.Resource.add('tinymce.html-i18n.help-keynav.cs',
+'<h1>Začínáme navigovat pomocí klávesnice</h1>\n' +
+  '\n' +
+  '<dl>\n' +
+  '  <dt>Přejít na řádek nabídek</dt>\n' +
+  '  <dd>Windows nebo Linux: Alt+F9</dd>\n' +
+  '  <dd>macOS: &#x2325;F9</dd>\n' +
+  '  <dt>Přejít na panel nástrojů</dt>\n' +
+  '  <dd>Windows nebo Linux: Alt+F10</dd>\n' +
+  '  <dd>macOS: &#x2325;F10</dd>\n' +
+  '  <dt>Přejít na zápatí</dt>\n' +
+  '  <dd>Windows nebo Linux: Alt+F11</dd>\n' +
+  '  <dd>macOS: &#x2325;F11</dd>\n' +
+  '  <dt>Přejít na kontextový panel nástrojů</dt>\n' +
+  '  <dd>Windows, Linux nebo macOS: Ctrl+F9\n' +
+  '</dl>\n' +
+  '\n' +
+  '<p>Navigace začne u první položky uživatelského rozhraní, která bude zvýrazněna nebo v případě první položky\n' +
+  '  cesty k prvku zápatí podtržena.</p>\n' +
+  '\n' +
+  '<h1>Navigace mezi oddíly uživatelského rozhraní</h1>\n' +
+  '\n' +
+  '<p>Stisknutím klávesy <strong>Tab</strong> se posunete z jednoho oddílu uživatelského rozhraní na další.</p>\n' +
+  '\n' +
+  '<p>Stisknutím kláves <strong>Shift+Tab</strong> se posunete z jednoho oddílu uživatelského rozhraní na předchozí.</p>\n' +
+  '\n' +
+  '<p>Pořadí přepínání mezi oddíly uživatelského rozhraní pomocí klávesy <strong>Tab</strong>:\n' +
+  '\n' +
+  '<ol>\n' +
+  '  <li>Řádek nabídek</li>\n' +
+  '  <li>Každá skupina panelu nástrojů</li>\n' +
+  '  <li>Boční panel</li>\n' +
+  '  <li>Cesta k prvku v zápatí.</li>\n' +
+  '  <li>Tlačítko přepínače počtu slov v zápatí</li>\n' +
+  '  <li>Odkaz na informace o značce v zápatí</li>\n' +
+  '  <li>Úchyt pro změnu velikosti editoru v zápatí</li>\n' +
+  '</ol>\n' +
+  '\n' +
+  '<p>Pokud nějaký oddíl uživatelského rozhraní není přítomen, je přeskočen.</p>\n' +
+  '\n' +
+  '<p>Pokud je zápatí vybrané pro navigaci pomocí klávesnice a není zobrazen žádný boční panel, stisknutím kláves <strong>Shift+Tab</strong>\n' +
+  '  přejdete na první skupinu panelu nástrojů, nikoli na poslední.\n' +
+  '\n' +
+  '<h1>Navigace v rámci oddílů uživatelského rozhraní</h1>\n' +
+  '\n' +
+  '<p>Chcete-li se přesunout z jednoho prvku uživatelského rozhraní na další, stiskněte příslušnou klávesu s <strong>šipkou</strong>.</p>\n' +
+  '\n' +
+  '<p>Klávesy s šipkou <strong>vlevo</strong> a <strong>vpravo</strong></p>\n' +
+  '\n' +
+  '<ul>\n' +
+  '  <li>umožňují přesun mezi nabídkami na řádku nabídek;</li>\n' +
+  '  <li>otevírají podnabídku nabídky;</li>\n' +
+  '  <li>umožňují přesun mezi tlačítky ve skupině panelu nástrojů;</li>\n' +
+  '  <li>umožňují přesun mezi položkami cesty prvku v zápatí.</li>\n' +
+  '</ul>\n' +
+  '\n' +
+  '<p>Klávesy se šipkou <strong>dolů</strong> a <strong>nahoru</strong>\n' +
+  '\n' +
+  '<ul>\n' +
+  '  <li>umožňují přesun mezi položkami nabídky;</li>\n' +
+  '  <li>umožňují přesun mezi položkami místní nabídky panelu nástrojů.</li>\n' +
+  '</ul>\n' +
+  '\n' +
+  '<p><strong>Šipky</strong> provádí přepínání v rámci vybraného oddílu uživatelského rozhraní.</p>\n' +
+  '\n' +
+  '<p>Chcete-li zavřít otevřenou nabídku, podnabídku nebo místní nabídku, stiskněte klávesu <strong>Esc</strong>.\n' +
+  '\n' +
+  '<p>Pokud je aktuálně vybrána horní část oddílu uživatelského rozhraní, stisknutím klávesy <strong>Esc</strong> zcela ukončíte také\n' +
+  '  navigaci pomocí klávesnice.</p>\n' +
+  '\n' +
+  '<h1>Provedení příkazu položky nabídky nebo tlačítka panelu nástrojů</h1>\n' +
+  '\n' +
+  '<p>Pokud je zvýrazněna požadovaná položka nabídky nebo tlačítko panelu nástrojů, stisknutím klávesy <strong>Return</strong>, <strong>Enter</strong>\n' +
+  '  nebo <strong>mezerníku</strong> provedete příslušný příkaz.\n' +
+  '\n' +
+  '<h1>Navigace v dialogových oknech bez záložek</h1>\n' +
+  '\n' +
+  '<p>Při otevření dialogových oken bez záložek přejdete na první interaktivní komponentu.</p>\n' +
+  '\n' +
+  '<p>Přecházet mezi interaktivními komponentami dialogového okna můžete stisknutím klávesy <strong>Tab</strong> nebo kombinace <strong>Shift+Tab</strong>.</p>\n' +
+  '\n' +
+  '<h1>Navigace v dialogových oknech se záložkami</h1>\n' +
+  '\n' +
+  '<p>Při otevření dialogových oken se záložkami přejdete na první tlačítko v nabídce záložek.</p>\n' +
+  '\n' +
+  '<p>Přecházet mezi interaktivními komponentami této záložky dialogového okna můžete stisknutím klávesy <strong>Tab</strong> nebo\n' +
+  '  kombinace <strong>Shift+Tab</strong>.</p>\n' +
+  '\n' +
+  '<p>Chcete-li přepnout na další záložku dialogového okna, přejděte na nabídku záložek a poté můžete stisknutím požadované <strong>šipky</strong>\n' +
+  '  přepínat mezi dostupnými záložkami.</p>\n');

@@ -1,1 +1,90 @@
-tinymce.Resource.add("tinymce.html-i18n.help-keynav.tr",'<h1>Klavyeyle gezintiyi başlatma</h1>\n\n<dl>\n  <dt>Men\xfc \xe7ubuğuna odaklan</dt>\n  <dd>Windows veya Linux: Alt+F9</dd>\n  <dd>macOS: &#x2325;F9</dd>\n  <dt>Ara\xe7 \xe7ubuğuna odaklan</dt>\n  <dd>Windows veya Linux: Alt+F10</dd>\n  <dd>macOS: &#x2325;F10</dd>\n  <dt>Alt bilgiye odaklan</dt>\n  <dd>Windows veya Linux: Alt+F11</dd>\n  <dd>macOS: &#x2325;F11</dd>\n  <dt>Bağlamsal ara\xe7 \xe7ubuğuna odaklan</dt>\n  <dd>Windows, Linux veya macOS: Ctrl+F9\n</dl>\n\n<p>Gezinti ilk kullanıcı arabirimi \xf6ğesinden başlar, bu \xf6ğe vurgulanır ya da ilk \xf6ğe, Alt bilgi elemanı\n  yolundaysa altı \xe7izilir.</p>\n\n<h1>Kullanıcı arabirimi b\xf6l\xfcmleri arasında gezinme</h1>\n\n<p>Sonraki kullanıcı arabirimi b\xf6l\xfcm\xfcne gitmek i\xe7in <strong>Sekme</strong> tuşuna basın.</p>\n\n<p>\xd6nceki kullanıcı arabirimi b\xf6l\xfcm\xfcne gitmek i\xe7in <strong>Shift+Sekme</strong> tuşlarına basın.</p>\n\n<p>Bu kullanıcı arabirimi b\xf6l\xfcmlerinin <strong>Sekme</strong> sırası:\n\n<ol>\n  <li>Men\xfc \xe7ubuğu</li>\n  <li>Her ara\xe7 \xe7ubuğu grubu</li>\n  <li>Kenar \xe7ubuğu</li>\n  <li>Alt bilgide \xf6ğe yolu</li>\n  <li>Alt bilgide s\xf6zc\xfck sayısı ge\xe7iş d\xfcğmesi</li>\n  <li>Alt bilgide marka bağlantısı</li>\n  <li>Alt bilgide d\xfczenleyiciyi yeniden boyutlandırma tutamacı</li>\n</ol>\n\n<p>Kullanıcı arabirimi b\xf6l\xfcm\xfc yoksa atlanır.</p>\n\n<p>Alt bilgide klavyeyle gezinti odağı yoksa ve g\xf6r\xfcn\xfcr bir kenar \xe7ubuğu mevcut değilse <strong>Shift+Sekme</strong> tuşlarına basıldığında\n  odak son ara\xe7 \xe7ubuğu yerine ilk ara\xe7 \xe7ubuğu grubuna taşınır.\n\n<h1>Kullanıcı arabirimi b\xf6l\xfcmleri i\xe7inde gezinme</h1>\n\n<p>Sonraki kullanıcı arabirimi elemanına gitmek i\xe7in uygun <strong>Ok</strong> tuşuna basın.</p>\n\n<p><strong>Sol</strong> ve <strong>Sağ</strong> ok tuşları</p>\n\n<ul>\n  <li>men\xfc \xe7ubuğundaki men\xfcler arasında hareket eder.</li>\n  <li>men\xfcde bir alt men\xfc a\xe7ar.</li>\n  <li>ara\xe7 \xe7ubuğu grubundaki d\xfcğmeler arasında hareket eder.</li>\n  <li>alt bilginin \xf6ğe yolundaki \xf6ğeler arasında hareket eder.</li>\n</ul>\n\n<p><strong>Aşağı</strong> ve <strong>Yukarı</strong> ok tuşları\n\n<ul>\n  <li>men\xfcdeki men\xfc \xf6ğeleri arasında hareket eder.</li>\n  <li>ara\xe7 \xe7ubuğu a\xe7ılır men\xfcs\xfcndeki \xf6ğeler arasında hareket eder.</li>\n</ul>\n\n<p><strong>Ok</strong> tuşları, odaklanılan kullanıcı arabirimi b\xf6l\xfcm\xfc i\xe7inde d\xf6ng\xfcsel olarak hareket eder.</p>\n\n<p>A\xe7ık bir men\xfcy\xfc, a\xe7ık bir alt men\xfcy\xfc veya a\xe7ık bir a\xe7ılır men\xfcy\xfc kapatmak i\xe7in <strong>Esc</strong> tuşuna basın.\n\n<p>Ge\xe7erli odak belirli bir kullanıcı arabirimi b\xf6l\xfcm\xfcn\xfcn "\xfcst" kısmındaysa <strong>Esc</strong> tuşuna basıldığında\n  klavyeyle gezintiden de tamamen \xe7ıkılır.</p>\n\n<h1>Men\xfc \xf6ğesini veya ara\xe7 \xe7ubuğu d\xfcğmesini y\xfcr\xfctme</h1>\n\n<p>İstediğiniz men\xfc \xf6ğesi veya ara\xe7 \xe7ubuğu d\xfcğmesi vurgulandığında <strong>Return</strong>, <strong>Enter</strong>\n  veya <strong>Ara \xe7ubuğu</strong> tuşuna basın.\n\n<h1>Sekme bulunmayan iletişim kutularında gezinme</h1>\n\n<p>Sekme bulunmayan iletişim kutularında, iletişim kutusu a\xe7ıldığında ilk etkileşimli bileşene odaklanılır.</p>\n\n<p>Etkileşimli iletişim kutusu bileşenleri arasında gezinmek i\xe7in <strong>Sekme</strong> veya <strong>Shift+ Sekme</strong> tuşlarına basın.</p>\n\n<h1>Sekmeli iletişim kutularında gezinme</h1>\n\n<p>Sekmeli iletişim kutularında, iletişim kutusu a\xe7ıldığında sekme men\xfcs\xfcndeki ilk d\xfcğmeye odaklanılır.</p>\n\n<p>Bu iletişim kutusu sekmesinin etkileşimli bileşenleri arasında gezinmek i\xe7in <strong>Sekme</strong> veya\n  <strong>Shift+Sekme</strong> tuşlarına basın.</p>\n\n<p>Mevcut sekmeler arasında ge\xe7iş yapmak i\xe7in sekme men\xfcs\xfcne odaklanıp uygun <strong>Ok</strong> tuşuna basarak\n  başka bir iletişim kutusu sekmesine ge\xe7iş yapın.</p>\n');
+tinymce.Resource.add('tinymce.html-i18n.help-keynav.tr',
+'<h1>Klavyeyle gezintiyi başlatma</h1>\n' +
+  '\n' +
+  '<dl>\n' +
+  '  <dt>Menü çubuğuna odaklan</dt>\n' +
+  '  <dd>Windows veya Linux: Alt+F9</dd>\n' +
+  '  <dd>macOS: &#x2325;F9</dd>\n' +
+  '  <dt>Araç çubuğuna odaklan</dt>\n' +
+  '  <dd>Windows veya Linux: Alt+F10</dd>\n' +
+  '  <dd>macOS: &#x2325;F10</dd>\n' +
+  '  <dt>Alt bilgiye odaklan</dt>\n' +
+  '  <dd>Windows veya Linux: Alt+F11</dd>\n' +
+  '  <dd>macOS: &#x2325;F11</dd>\n' +
+  '  <dt>Bağlamsal araç çubuğuna odaklan</dt>\n' +
+  '  <dd>Windows, Linux veya macOS: Ctrl+F9\n' +
+  '</dl>\n' +
+  '\n' +
+  '<p>Gezinti ilk kullanıcı arabirimi öğesinden başlar, bu öğe vurgulanır ya da ilk öğe, Alt bilgi elemanı\n' +
+  '  yolundaysa altı çizilir.</p>\n' +
+  '\n' +
+  '<h1>Kullanıcı arabirimi bölümleri arasında gezinme</h1>\n' +
+  '\n' +
+  '<p>Sonraki kullanıcı arabirimi bölümüne gitmek için <strong>Sekme</strong> tuşuna basın.</p>\n' +
+  '\n' +
+  '<p>Önceki kullanıcı arabirimi bölümüne gitmek için <strong>Shift+Sekme</strong> tuşlarına basın.</p>\n' +
+  '\n' +
+  '<p>Bu kullanıcı arabirimi bölümlerinin <strong>Sekme</strong> sırası:\n' +
+  '\n' +
+  '<ol>\n' +
+  '  <li>Menü çubuğu</li>\n' +
+  '  <li>Her araç çubuğu grubu</li>\n' +
+  '  <li>Kenar çubuğu</li>\n' +
+  '  <li>Alt bilgide öğe yolu</li>\n' +
+  '  <li>Alt bilgide sözcük sayısı geçiş düğmesi</li>\n' +
+  '  <li>Alt bilgide marka bağlantısı</li>\n' +
+  '  <li>Alt bilgide düzenleyiciyi yeniden boyutlandırma tutamacı</li>\n' +
+  '</ol>\n' +
+  '\n' +
+  '<p>Kullanıcı arabirimi bölümü yoksa atlanır.</p>\n' +
+  '\n' +
+  '<p>Alt bilgide klavyeyle gezinti odağı yoksa ve görünür bir kenar çubuğu mevcut değilse <strong>Shift+Sekme</strong> tuşlarına basıldığında\n' +
+  '  odak son araç çubuğu yerine ilk araç çubuğu grubuna taşınır.\n' +
+  '\n' +
+  '<h1>Kullanıcı arabirimi bölümleri içinde gezinme</h1>\n' +
+  '\n' +
+  '<p>Sonraki kullanıcı arabirimi elemanına gitmek için uygun <strong>Ok</strong> tuşuna basın.</p>\n' +
+  '\n' +
+  '<p><strong>Sol</strong> ve <strong>Sağ</strong> ok tuşları</p>\n' +
+  '\n' +
+  '<ul>\n' +
+  '  <li>menü çubuğundaki menüler arasında hareket eder.</li>\n' +
+  '  <li>menüde bir alt menü açar.</li>\n' +
+  '  <li>araç çubuğu grubundaki düğmeler arasında hareket eder.</li>\n' +
+  '  <li>alt bilginin öğe yolundaki öğeler arasında hareket eder.</li>\n' +
+  '</ul>\n' +
+  '\n' +
+  '<p><strong>Aşağı</strong> ve <strong>Yukarı</strong> ok tuşları\n' +
+  '\n' +
+  '<ul>\n' +
+  '  <li>menüdeki menü öğeleri arasında hareket eder.</li>\n' +
+  '  <li>araç çubuğu açılır menüsündeki öğeler arasında hareket eder.</li>\n' +
+  '</ul>\n' +
+  '\n' +
+  '<p><strong>Ok</strong> tuşları, odaklanılan kullanıcı arabirimi bölümü içinde döngüsel olarak hareket eder.</p>\n' +
+  '\n' +
+  '<p>Açık bir menüyü, açık bir alt menüyü veya açık bir açılır menüyü kapatmak için <strong>Esc</strong> tuşuna basın.\n' +
+  '\n' +
+  '<p>Geçerli odak belirli bir kullanıcı arabirimi bölümünün "üst" kısmındaysa <strong>Esc</strong> tuşuna basıldığında\n' +
+  '  klavyeyle gezintiden de tamamen çıkılır.</p>\n' +
+  '\n' +
+  '<h1>Menü öğesini veya araç çubuğu düğmesini yürütme</h1>\n' +
+  '\n' +
+  '<p>İstediğiniz menü öğesi veya araç çubuğu düğmesi vurgulandığında <strong>Return</strong>, <strong>Enter</strong>\n' +
+  '  veya <strong>Ara çubuğu</strong> tuşuna basın.\n' +
+  '\n' +
+  '<h1>Sekme bulunmayan iletişim kutularında gezinme</h1>\n' +
+  '\n' +
+  '<p>Sekme bulunmayan iletişim kutularında, iletişim kutusu açıldığında ilk etkileşimli bileşene odaklanılır.</p>\n' +
+  '\n' +
+  '<p>Etkileşimli iletişim kutusu bileşenleri arasında gezinmek için <strong>Sekme</strong> veya <strong>Shift+ Sekme</strong> tuşlarına basın.</p>\n' +
+  '\n' +
+  '<h1>Sekmeli iletişim kutularında gezinme</h1>\n' +
+  '\n' +
+  '<p>Sekmeli iletişim kutularında, iletişim kutusu açıldığında sekme menüsündeki ilk düğmeye odaklanılır.</p>\n' +
+  '\n' +
+  '<p>Bu iletişim kutusu sekmesinin etkileşimli bileşenleri arasında gezinmek için <strong>Sekme</strong> veya\n' +
+  '  <strong>Shift+Sekme</strong> tuşlarına basın.</p>\n' +
+  '\n' +
+  '<p>Mevcut sekmeler arasında geçiş yapmak için sekme menüsüne odaklanıp uygun <strong>Ok</strong> tuşuna basarak\n' +
+  '  başka bir iletişim kutusu sekmesine geçiş yapın.</p>\n');

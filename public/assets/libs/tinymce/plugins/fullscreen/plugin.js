@@ -1,1 +1,1196 @@
-!function(){"use strict";let e,t;let r=e=>{let t=e;return{get:()=>t,set:e=>{t=e}}};var n,o=tinymce.util.Tools.resolve("tinymce.PluginManager");let l=e=>({isFullscreen:()=>null!==e.get()}),i=(e,t,r)=>{var n;return!!r(e,t.prototype)||(null===(n=e.constructor)||void 0===n?void 0:n.name)===t.name},s=e=>{let t=typeof e;return null===e?"null":"object"===t&&Array.isArray(e)?"array":"object"===t&&i(e,String,(e,t)=>t.isPrototypeOf(e))?"string":t},a=e=>t=>s(t)===e,u=e=>t=>typeof t===e,m=e=>t=>e===t,d=a("string"),c=a("array"),h=m(null),f=u("boolean"),g=m(void 0),p=e=>null==e,v=e=>!p(e),w=u("function"),b=u("number"),y=()=>{},S=(e,t)=>(...r)=>e(t.apply(null,r)),x=(e,t)=>r=>e(t(r)),E=e=>()=>e,F=E(!1),T=E(!0);class O{constructor(e,t){this.tag=e,this.value=t}static some(e){return new O(!0,e)}static none(){return O.singletonNone}fold(e,t){return this.tag?t(this.value):e()}isSome(){return this.tag}isNone(){return!this.tag}map(e){return this.tag?O.some(e(this.value)):O.none()}bind(e){return this.tag?e(this.value):O.none()}exists(e){return this.tag&&e(this.value)}forall(e){return!this.tag||e(this.value)}filter(e){return!this.tag||e(this.value)?this:O.none()}getOr(e){return this.tag?this.value:e}or(e){return this.tag?this:e}getOrThunk(e){return this.tag?this.value:e()}orThunk(e){return this.tag?this:e()}getOrDie(e){if(this.tag)return this.value;throw Error(null!=e?e:"Called getOrDie on None")}static from(e){return v(e)?O.some(e):O.none()}getOrNull(){return this.tag?this.value:null}getOrUndefined(){return this.value}each(e){this.tag&&e(this.value)}toArray(){return this.tag?[this.value]:[]}toString(){return this.tag?`some(${this.value})`:"none()"}}O.singletonNone=new O(!1);let k=e=>{let t=r(O.none()),n=()=>t.get().each(e);return{clear:()=>{n(),t.set(O.none())},isSet:()=>t.get().isSome(),get:()=>t.get(),set:e=>{n(),t.set(O.some(e))}}},C=()=>k(e=>e.unbind()),D=()=>{let e=k(y);return{...e,on:t=>e.get().each(t)}},A=(e,t)=>{let r=null;return{cancel:()=>{h(r)||(clearTimeout(r),r=null)},throttle:(...n)=>{h(r)&&(r=setTimeout(()=>{r=null,e.apply(null,n)},t))}}},R=Array.prototype.push,N=(e,t)=>{let r=e.length,n=Array(r);for(let o=0;o<r;o++){let r=e[o];n[o]=t(r,o)}return n},L=(e,t)=>{for(let r=0,n=e.length;r<n;r++){let n=e[r];t(n,r)}},M=(e,t)=>{let r=[];for(let n=0,o=e.length;n<o;n++){let o=e[n];t(o,n)&&r.push(o)}return r},P=(e,t,r)=>{for(let n=0,o=e.length;n<o;n++){let o=e[n];if(t(o,n))return O.some(o);if(r(o,n))break}return O.none()},H=(e,t)=>P(e,t,F),W=e=>{let t=[];for(let r=0,n=e.length;r<n;++r){if(!c(e[r]))throw Error("Arr.flatten item "+r+" was not an array, input: "+e);R.apply(t,e[r])}return t},q=(e,t)=>W(N(e,t)),I=(e,t)=>t>=0&&t<e.length?O.some(e[t]):O.none(),B=e=>I(e,0),V=(e,t)=>{for(let r=0;r<e.length;r++){let n=t(e[r],r);if(n.isSome())return n}return O.none()},_=Object.keys,j=(e,t)=>{let r=_(e);for(let n=0,o=r.length;n<o;n++){let o=r[n],l=e[o];t(l,o)}},z=(e,t,r=0,n)=>{let o=e.indexOf(t,r);return -1!==o&&(!!g(n)||o+t.length<=n)},$=e=>void 0!==e.style&&w(e.style.getPropertyValue),U=e=>{if(null==e)throw Error("Node cannot be null or undefined");return{dom:e}},K={fromHtml:(e,t)=>{let r=t||document,n=r.createElement("div");if(n.innerHTML=e,!n.hasChildNodes()||n.childNodes.length>1){let t="HTML does not have a single root node";throw console.error(t,e),Error(t)}return U(n.childNodes[0])},fromTag:(e,t)=>{let r=t||document,n=r.createElement(e);return U(n)},fromText:(e,t)=>{let r=t||document,n=r.createTextNode(e);return U(n)},fromDom:U,fromPoint:(e,t,r)=>O.from(e.dom.elementFromPoint(t,r)).map(U)};"undefined"!=typeof window?window:Function("return this;")();let X=e=>e.dom.nodeType,Y=e=>t=>X(t)===e,G=Y(1),J=Y(3),Q=Y(9),Z=Y(11),ee=(e,t)=>{let r=e.dom;if(1!==r.nodeType)return!1;if(void 0!==r.matches)return r.matches(t);if(void 0!==r.msMatchesSelector)return r.msMatchesSelector(t);if(void 0!==r.webkitMatchesSelector)return r.webkitMatchesSelector(t);if(void 0!==r.mozMatchesSelector)return r.mozMatchesSelector(t);throw Error("Browser lacks native selectors")},et=e=>1!==e.nodeType&&9!==e.nodeType&&11!==e.nodeType||0===e.childElementCount,er=(e,t)=>{let r=void 0===t?document:t.dom;return et(r)?[]:N(r.querySelectorAll(e),K.fromDom)},en=(e,t)=>e.dom===t.dom,eo=e=>K.fromDom(e.dom.ownerDocument),el=e=>O.from(e.dom.parentNode).map(K.fromDom),ei=(e,t)=>{let r=w(t)?t:F,n=e.dom,o=[];for(;null!==n.parentNode&&void 0!==n.parentNode;){let e=n.parentNode,t=K.fromDom(e);if(o.push(t),!0===r(t))break;n=e}return o},es=e=>el(e).map(ea).map(t=>M(t,t=>!en(e,t))).getOr([]),ea=e=>N(e.dom.childNodes,K.fromDom),eu=e=>Z(e)&&v(e.dom.host),em=w(Element.prototype.attachShadow)&&w(Node.prototype.getRootNode),ed=E(em),ec=em?e=>K.fromDom(e.dom.getRootNode()):e=>Q(e)?e:eo(e),eh=e=>{let t=ec(e);return eu(t)?O.some(t):O.none()},ef=e=>K.fromDom(e.dom.host),eg=e=>{if(ed()&&v(e.target)){let t=K.fromDom(e.target);if(G(t)&&ep(t)&&e.composed&&e.composedPath){let t=e.composedPath();if(t)return B(t)}}return O.from(e.target)},ep=e=>v(e.dom.shadowRoot),ev=e=>{let t=J(e)?e.dom.parentNode:e.dom;if(null==t||null===t.ownerDocument)return!1;let r=t.ownerDocument;return eh(K.fromDom(t)).fold(()=>r.body.contains(t),x(ev,ef))},ew=e=>{let t=e.dom.body;if(null==t)throw Error("Body is not available yet");return K.fromDom(t)},eb=(e,t,r)=>{if(d(r)||f(r)||b(r))e.setAttribute(t,r+"");else throw console.error("Invalid call to Attribute.set. Key ",t,":: Value ",r,":: Element ",e),Error("Attribute value was not simple")},ey=(e,t,r)=>{eb(e.dom,t,r)},eS=(e,t)=>{let r=e.dom.getAttribute(t);return null===r?void 0:r},ex=(e,t)=>{e.dom.removeAttribute(t)},eE=(e,t,r)=>{if(!d(r))throw console.error("Invalid call to CSS.set. Property ",t,":: Value ",r,":: Element ",e),Error("CSS value must be a string: "+r);$(e)&&e.style.setProperty(t,r)},eF=(e,t)=>{let r=e.dom;j(t,(e,t)=>{eE(r,t,e)})},eT=(e,t)=>{let r=e.dom,n=window.getComputedStyle(r),o=n.getPropertyValue(t);return""!==o||ev(e)?o:eO(r,t)},eO=(e,t)=>$(e)?e.style.getPropertyValue(t):"",ek=(e,t,r,n,o,l,i)=>({target:e,x:t,y:r,stop:n,prevent:o,kill:l,raw:i}),eC=e=>{let t=K.fromDom(eg(e).getOr(e.target)),r=()=>e.stopPropagation(),n=()=>e.preventDefault(),o=S(n,r);return ek(t,e.clientX,e.clientY,r,n,o,e)},eD=(e,t)=>r=>{e(r)&&t(eC(r))},eA=(e,t,r,n,o)=>{let l=eD(r,n);return e.dom.addEventListener(t,l,o),{unbind:function(e,...t){return(...r)=>{let n=t.concat(r);return e.apply(null,n)}}(eN,e,t,l,o)}},eR=(e,t,r,n)=>eA(e,t,r,n,!1),eN=(e,t,r,n)=>{e.dom.removeEventListener(t,r,n)},eL=(e,t,r)=>eR(e,t,T,r),eM=(e,t,r,n)=>{let o=e.isiOS()&&!0===/ipad/i.test(r),l=e.isiOS()&&!o,i=e.isiOS()||e.isAndroid(),s=i||n("(pointer:coarse)"),a=o||!l&&i&&n("(min-device-width:768px)"),u=l||i&&!a,m=t.isSafari()&&e.isiOS()&&!1===/safari/i.test(r),d=!u&&!a&&!m;return{isiPad:E(o),isiPhone:E(l),isTablet:E(a),isPhone:E(u),isTouch:E(s),isAndroid:e.isAndroid,isiOS:e.isiOS,isWebView:E(m),isDesktop:E(d)}},eP=(e,t)=>{for(let r=0;r<e.length;r++){let n=e[r];if(n.test(t))return n}},eH=(e,t)=>{let r=eP(e,t);if(!r)return{major:0,minor:0};let n=e=>Number(t.replace(r,"$"+e));return eq(n(1),n(2))},eW=()=>eq(0,0),eq=(e,t)=>({major:e,minor:t}),eI={nu:eq,detect:(e,t)=>{let r=String(t).toLowerCase();return 0===e.length?eW():eH(e,r)},unknown:eW},eB=(e,t)=>V(t.brands,t=>{let r=t.brand.toLowerCase();return H(e,e=>{var t;return r===(null===(t=e.brand)||void 0===t?void 0:t.toLowerCase())}).map(e=>({current:e.name,version:eI.nu(parseInt(t.version,10),0)}))}),eV=(e,t)=>{let r=String(t).toLowerCase();return H(e,e=>e.search(r))},e_=(e,t)=>eV(e,t).map(e=>{let r=eI.detect(e.versionRegexes,t);return{current:e.name,version:r}}),ej=(e,t)=>eV(e,t).map(e=>{let r=eI.detect(e.versionRegexes,t);return{current:e.name,version:r}}),ez=/.*?version\/\ ?([0-9]+)\.([0-9]+).*/,e$=e=>t=>z(t,e),eU=[{name:"Edge",versionRegexes:[/.*?edge\/ ?([0-9]+)\.([0-9]+)$/],search:e=>z(e,"edge/")&&z(e,"chrome")&&z(e,"safari")&&z(e,"applewebkit")},{name:"Chromium",brand:"Chromium",versionRegexes:[/.*?chrome\/([0-9]+)\.([0-9]+).*/,ez],search:e=>z(e,"chrome")&&!z(e,"chromeframe")},{name:"IE",versionRegexes:[/.*?msie\ ?([0-9]+)\.([0-9]+).*/,/.*?rv:([0-9]+)\.([0-9]+).*/],search:e=>z(e,"msie")||z(e,"trident")},{name:"Opera",versionRegexes:[ez,/.*?opera\/([0-9]+)\.([0-9]+).*/],search:e$("opera")},{name:"Firefox",versionRegexes:[/.*?firefox\/\ ?([0-9]+)\.([0-9]+).*/],search:e$("firefox")},{name:"Safari",versionRegexes:[ez,/.*?cpu os ([0-9]+)_([0-9]+).*/],search:e=>(z(e,"safari")||z(e,"mobile/"))&&z(e,"applewebkit")}],eK=[{name:"Windows",search:e$("win"),versionRegexes:[/.*?windows\ nt\ ?([0-9]+)\.([0-9]+).*/]},{name:"iOS",search:e=>z(e,"iphone")||z(e,"ipad"),versionRegexes:[/.*?version\/\ ?([0-9]+)\.([0-9]+).*/,/.*cpu os ([0-9]+)_([0-9]+).*/,/.*cpu iphone os ([0-9]+)_([0-9]+).*/]},{name:"Android",search:e$("android"),versionRegexes:[/.*?android\ ?([0-9]+)\.([0-9]+).*/]},{name:"macOS",search:e$("mac os x"),versionRegexes:[/.*?mac\ os\ x\ ?([0-9]+)_([0-9]+).*/]},{name:"Linux",search:e$("linux"),versionRegexes:[]},{name:"Solaris",search:e$("sunos"),versionRegexes:[]},{name:"FreeBSD",search:e$("freebsd"),versionRegexes:[]},{name:"ChromeOS",search:e$("cros"),versionRegexes:[/.*?chrome\/([0-9]+)\.([0-9]+).*/]}],eX={browsers:E(eU),oses:E(eK)},eY="Edge",eG="Chromium",eJ="Opera",eQ="Firefox",eZ="Safari",e0=e=>{let t=e.current,r=e.version,n=e=>()=>t===e;return{current:t,version:r,isEdge:n(eY),isChromium:n(eG),isIE:n("IE"),isOpera:n(eJ),isFirefox:n(eQ),isSafari:n(eZ)}},e9={unknown:()=>e0({current:void 0,version:eI.unknown()}),nu:e0,edge:E(eY),chromium:E(eG),ie:E("IE"),opera:E(eJ),firefox:E(eQ),safari:E(eZ)},e1="Windows",e5="Android",e2="Linux",e3="macOS",e6="Solaris",e7="FreeBSD",e8="ChromeOS",e4=e=>{let t=e.current,r=e.version,n=e=>()=>t===e;return{current:t,version:r,isWindows:n(e1),isiOS:n("iOS"),isAndroid:n(e5),isMacOS:n(e3),isLinux:n(e2),isSolaris:n(e6),isFreeBSD:n(e7),isChromeOS:n(e8)}},te={unknown:()=>e4({current:void 0,version:eI.unknown()}),nu:e4,windows:E(e1),ios:E("iOS"),android:E(e5),linux:E(e2),macos:E(e3),solaris:E(e6),freebsd:E(e7),chromeos:E(e8)},tt={detect:(e,t,r)=>{let n=eX.browsers(),o=eX.oses(),l=t.bind(e=>eB(n,e)).orThunk(()=>e_(n,e)).fold(e9.unknown,e9.nu),i=ej(o,e).fold(te.unknown,te.nu),s=eM(i,l,e,r);return{browser:l,os:i,deviceType:s}}},tr=e=>window.matchMedia(e).matches,tn=(n=()=>tt.detect(navigator.userAgent,O.from(navigator.userAgentData),tr),t=!1,(...r)=>(t||(t=!0,e=n.apply(null,r)),e)),to=()=>tn(),tl=(e,t)=>({left:e,top:t,translate:(r,n)=>tl(e+r,t+n)}),ti=e=>{let t=void 0!==e?e.dom:document,r=t.body.scrollLeft||t.documentElement.scrollLeft,n=t.body.scrollTop||t.documentElement.scrollTop;return tl(r,n)},ts=e=>{let t=void 0===e?window:e;return to().browser.isFirefox()?O.none():O.from(t.visualViewport)},ta=(e,t,r,n)=>({x:e,y:t,width:r,height:n,right:e+r,bottom:t+n}),tu=e=>{let t=void 0===e?window:e,r=t.document,n=ti(K.fromDom(r));return ts(t).fold(()=>{let e=t.document.documentElement,r=e.clientWidth,o=e.clientHeight;return ta(n.left,n.top,r,o)},e=>ta(Math.max(e.pageLeft,n.left),Math.max(e.pageTop,n.top),e.width,e.height))},tm=(e,t,r)=>ts(r).map(r=>{let n=e=>t(eC(e));return r.addEventListener(e,n),{unbind:()=>r.removeEventListener(e,n)}}).getOrThunk(()=>({unbind:y}));var td=tinymce.util.Tools.resolve("tinymce.dom.DOMUtils"),tc=tinymce.util.Tools.resolve("tinymce.Env");let th=(e,t)=>{e.dispatch("FullscreenStateChanged",{state:t}),e.dispatch("ResizeEditor")},tf=e=>{let t=e.options.register;t("fullscreen_native",{processor:"boolean",default:!1})},tg=e=>e.options.get("fullscreen_native"),tp=e=>{let t=K.fromDom(e.getElement());return eh(t).map(ef).getOrThunk(()=>ew(eo(t)))},tv=e=>void 0!==e.fullscreenElement?e.fullscreenElement:void 0!==e.msFullscreenElement?e.msFullscreenElement:void 0!==e.webkitFullscreenElement?e.webkitFullscreenElement:null,tw=()=>void 0!==document.fullscreenElement?"fullscreenchange":void 0!==document.msFullscreenElement?"MSFullscreenChange":void 0!==document.webkitFullscreenElement?"webkitfullscreenchange":"fullscreenchange",tb=e=>{let t=e.dom;t.requestFullscreen?t.requestFullscreen():t.msRequestFullscreen?t.msRequestFullscreen():t.webkitRequestFullScreen&&t.webkitRequestFullScreen()},ty=e=>{let t=e.dom;t.exitFullscreen?t.exitFullscreen():t.msExitFullscreen?t.msExitFullscreen():t.webkitCancelFullScreen&&t.webkitCancelFullScreen()},tS=e=>e.dom===tv(eo(e).dom),tx=(e,t,r)=>M(ei(e,r),t),tE=(e,t)=>M(es(e),t),tF=e=>er(e),tT=(e,t,r)=>tx(e,e=>ee(e,t),r),tO=(e,t)=>tE(e,e=>ee(e,t)),tk="data-ephox-mobile-fullscreen-style",tC="position:absolute!important;",tD="top:0!important;left:0!important;margin:0!important;padding:0!important;width:100%!important;height:100%!important;overflow:visible!important;",tA=tc.os.isAndroid(),tR=e=>{let t=eT(e,"background-color");return void 0!==t&&""!==t?"background-color:"+t+"!important":"background-color:rgb(255,255,255)!important;"},tN=(e,t,r)=>{let n=t=>r=>{let n=eS(r,"style"),o=void 0===n?"no-styles":n.trim();o!==t&&(ey(r,tk,o),eF(r,e.parseStyle(t)))},o=tT(t,"*"),l=q(o,e=>tO(e,"*:not(.tox-silver-sink)")),i=tR(r);L(l,n("display:none!important;")),L(o,n(tC+tD+i));let s=!0===tA?"":tC;n(s+tD+i)(t)},tL=e=>{let t=tF("["+tk+"]");L(t,t=>{let r=eS(t,tk);r&&"no-styles"!==r?eF(t,e.parseStyle(r)):ex(t,"style"),ex(t,tk)})},tM=td.DOM,tP=()=>tu(window),tH=e=>window.scrollTo(e.x,e.y),tW=ts().fold(()=>({bind:y,unbind:y}),e=>{let t=D(),r=C(),n=C(),o=()=>{document.body.scrollTop=0,document.documentElement.scrollTop=0},l=()=>{window.requestAnimationFrame(()=>{t.on(t=>eF(t,{top:e.offsetTop+"px",left:e.offsetLeft+"px",height:e.height+"px",width:e.width+"px"}))})},i=A(()=>{o(),l()},50);return{bind:e=>{t.set(e),i.throttle(),r.set(tm("resize",i.throttle)),n.set(tm("scroll",i.throttle))},unbind:()=>{t.on(()=>{r.clear(),n.clear()}),t.clear()}}}),tq=(e,t)=>{let r=document.body,n=document.documentElement,o=e.getContainer(),l=K.fromDom(o),i=tp(e),s=t.get(),a=K.fromDom(e.getBody()),u=tc.deviceType.isTouch(),m=o.style,d=e.iframeElement,c=null==d?void 0:d.style,h=e=>{e(r,"tox-fullscreen"),e(n,"tox-fullscreen"),e(o,"tox-fullscreen"),eh(l).map(e=>ef(e).dom).each(t=>{e(t,"tox-fullscreen"),e(t,"tox-shadowhost")})},f=()=>{u&&tL(e.dom),h(tM.removeClass),tW.unbind(),O.from(t.get()).each(e=>e.fullscreenChangeHandler.unbind())};if(s)s.fullscreenChangeHandler.unbind(),tg(e)&&tS(i)&&ty(eo(i)),c.width=s.iframeWidth,c.height=s.iframeHeight,m.width=s.containerWidth,m.height=s.containerHeight,m.top=s.containerTop,m.left=s.containerLeft,f(),tH(s.scrollPos),t.set(null),th(e,!1),e.off("remove",f);else{let r=eL(eo(i),tw(),r=>{tg(e)&&!tS(i)&&null!==t.get()&&tq(e,t)}),n={scrollPos:tP(),containerWidth:m.width,containerHeight:m.height,containerTop:m.top,containerLeft:m.left,iframeWidth:c.width,iframeHeight:c.height,fullscreenChangeHandler:r};u&&tN(e.dom,l,a),c.width=c.height="100%",m.width=m.height="",h(tM.addClass),tW.bind(l),e.on("remove",f),t.set(n),tg(e)&&tb(i),th(e,!0)}},tI=(e,t)=>{e.addCommand("mceFullScreen",()=>{tq(e,t)})},tB=(e,t)=>r=>{r.setActive(null!==t.get());let n=e=>r.setActive(e.state);return e.on("FullscreenStateChanged",n),()=>e.off("FullscreenStateChanged",n)},tV=(e,t)=>{let r=()=>e.execCommand("mceFullScreen");e.ui.registry.addToggleMenuItem("fullscreen",{text:"Fullscreen",icon:"fullscreen",shortcut:"Meta+Shift+F",onAction:r,onSetup:tB(e,t)}),e.ui.registry.addToggleButton("fullscreen",{tooltip:"Fullscreen",icon:"fullscreen",onAction:r,onSetup:tB(e,t)})};o.add("fullscreen",e=>{let t=r(null);return e.inline||(tf(e),tI(e,t),tV(e,t),e.addShortcut("Meta+Shift+F","","mceFullScreen")),l(t)})}();
+/**
+ * TinyMCE version 6.6.0 (2023-07-12)
+ */
+
+(function () {
+    'use strict';
+
+    const Cell = initial => {
+      let value = initial;
+      const get = () => {
+        return value;
+      };
+      const set = v => {
+        value = v;
+      };
+      return {
+        get,
+        set
+      };
+    };
+
+    var global$2 = tinymce.util.Tools.resolve('tinymce.PluginManager');
+
+    const get$5 = fullscreenState => ({ isFullscreen: () => fullscreenState.get() !== null });
+
+    const hasProto = (v, constructor, predicate) => {
+      var _a;
+      if (predicate(v, constructor.prototype)) {
+        return true;
+      } else {
+        return ((_a = v.constructor) === null || _a === void 0 ? void 0 : _a.name) === constructor.name;
+      }
+    };
+    const typeOf = x => {
+      const t = typeof x;
+      if (x === null) {
+        return 'null';
+      } else if (t === 'object' && Array.isArray(x)) {
+        return 'array';
+      } else if (t === 'object' && hasProto(x, String, (o, proto) => proto.isPrototypeOf(o))) {
+        return 'string';
+      } else {
+        return t;
+      }
+    };
+    const isType$1 = type => value => typeOf(value) === type;
+    const isSimpleType = type => value => typeof value === type;
+    const eq$1 = t => a => t === a;
+    const isString = isType$1('string');
+    const isArray = isType$1('array');
+    const isNull = eq$1(null);
+    const isBoolean = isSimpleType('boolean');
+    const isUndefined = eq$1(undefined);
+    const isNullable = a => a === null || a === undefined;
+    const isNonNullable = a => !isNullable(a);
+    const isFunction = isSimpleType('function');
+    const isNumber = isSimpleType('number');
+
+    const noop = () => {
+    };
+    const compose = (fa, fb) => {
+      return (...args) => {
+        return fa(fb.apply(null, args));
+      };
+    };
+    const compose1 = (fbc, fab) => a => fbc(fab(a));
+    const constant = value => {
+      return () => {
+        return value;
+      };
+    };
+    function curry(fn, ...initialArgs) {
+      return (...restArgs) => {
+        const all = initialArgs.concat(restArgs);
+        return fn.apply(null, all);
+      };
+    }
+    const never = constant(false);
+    const always = constant(true);
+
+    class Optional {
+      constructor(tag, value) {
+        this.tag = tag;
+        this.value = value;
+      }
+      static some(value) {
+        return new Optional(true, value);
+      }
+      static none() {
+        return Optional.singletonNone;
+      }
+      fold(onNone, onSome) {
+        if (this.tag) {
+          return onSome(this.value);
+        } else {
+          return onNone();
+        }
+      }
+      isSome() {
+        return this.tag;
+      }
+      isNone() {
+        return !this.tag;
+      }
+      map(mapper) {
+        if (this.tag) {
+          return Optional.some(mapper(this.value));
+        } else {
+          return Optional.none();
+        }
+      }
+      bind(binder) {
+        if (this.tag) {
+          return binder(this.value);
+        } else {
+          return Optional.none();
+        }
+      }
+      exists(predicate) {
+        return this.tag && predicate(this.value);
+      }
+      forall(predicate) {
+        return !this.tag || predicate(this.value);
+      }
+      filter(predicate) {
+        if (!this.tag || predicate(this.value)) {
+          return this;
+        } else {
+          return Optional.none();
+        }
+      }
+      getOr(replacement) {
+        return this.tag ? this.value : replacement;
+      }
+      or(replacement) {
+        return this.tag ? this : replacement;
+      }
+      getOrThunk(thunk) {
+        return this.tag ? this.value : thunk();
+      }
+      orThunk(thunk) {
+        return this.tag ? this : thunk();
+      }
+      getOrDie(message) {
+        if (!this.tag) {
+          throw new Error(message !== null && message !== void 0 ? message : 'Called getOrDie on None');
+        } else {
+          return this.value;
+        }
+      }
+      static from(value) {
+        return isNonNullable(value) ? Optional.some(value) : Optional.none();
+      }
+      getOrNull() {
+        return this.tag ? this.value : null;
+      }
+      getOrUndefined() {
+        return this.value;
+      }
+      each(worker) {
+        if (this.tag) {
+          worker(this.value);
+        }
+      }
+      toArray() {
+        return this.tag ? [this.value] : [];
+      }
+      toString() {
+        return this.tag ? `some(${ this.value })` : 'none()';
+      }
+    }
+    Optional.singletonNone = new Optional(false);
+
+    const singleton = doRevoke => {
+      const subject = Cell(Optional.none());
+      const revoke = () => subject.get().each(doRevoke);
+      const clear = () => {
+        revoke();
+        subject.set(Optional.none());
+      };
+      const isSet = () => subject.get().isSome();
+      const get = () => subject.get();
+      const set = s => {
+        revoke();
+        subject.set(Optional.some(s));
+      };
+      return {
+        clear,
+        isSet,
+        get,
+        set
+      };
+    };
+    const unbindable = () => singleton(s => s.unbind());
+    const value = () => {
+      const subject = singleton(noop);
+      const on = f => subject.get().each(f);
+      return {
+        ...subject,
+        on
+      };
+    };
+
+    const first = (fn, rate) => {
+      let timer = null;
+      const cancel = () => {
+        if (!isNull(timer)) {
+          clearTimeout(timer);
+          timer = null;
+        }
+      };
+      const throttle = (...args) => {
+        if (isNull(timer)) {
+          timer = setTimeout(() => {
+            timer = null;
+            fn.apply(null, args);
+          }, rate);
+        }
+      };
+      return {
+        cancel,
+        throttle
+      };
+    };
+
+    const nativePush = Array.prototype.push;
+    const map = (xs, f) => {
+      const len = xs.length;
+      const r = new Array(len);
+      for (let i = 0; i < len; i++) {
+        const x = xs[i];
+        r[i] = f(x, i);
+      }
+      return r;
+    };
+    const each$1 = (xs, f) => {
+      for (let i = 0, len = xs.length; i < len; i++) {
+        const x = xs[i];
+        f(x, i);
+      }
+    };
+    const filter$1 = (xs, pred) => {
+      const r = [];
+      for (let i = 0, len = xs.length; i < len; i++) {
+        const x = xs[i];
+        if (pred(x, i)) {
+          r.push(x);
+        }
+      }
+      return r;
+    };
+    const findUntil = (xs, pred, until) => {
+      for (let i = 0, len = xs.length; i < len; i++) {
+        const x = xs[i];
+        if (pred(x, i)) {
+          return Optional.some(x);
+        } else if (until(x, i)) {
+          break;
+        }
+      }
+      return Optional.none();
+    };
+    const find$1 = (xs, pred) => {
+      return findUntil(xs, pred, never);
+    };
+    const flatten = xs => {
+      const r = [];
+      for (let i = 0, len = xs.length; i < len; ++i) {
+        if (!isArray(xs[i])) {
+          throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
+        }
+        nativePush.apply(r, xs[i]);
+      }
+      return r;
+    };
+    const bind$3 = (xs, f) => flatten(map(xs, f));
+    const get$4 = (xs, i) => i >= 0 && i < xs.length ? Optional.some(xs[i]) : Optional.none();
+    const head = xs => get$4(xs, 0);
+    const findMap = (arr, f) => {
+      for (let i = 0; i < arr.length; i++) {
+        const r = f(arr[i], i);
+        if (r.isSome()) {
+          return r;
+        }
+      }
+      return Optional.none();
+    };
+
+    const keys = Object.keys;
+    const each = (obj, f) => {
+      const props = keys(obj);
+      for (let k = 0, len = props.length; k < len; k++) {
+        const i = props[k];
+        const x = obj[i];
+        f(x, i);
+      }
+    };
+
+    const contains = (str, substr, start = 0, end) => {
+      const idx = str.indexOf(substr, start);
+      if (idx !== -1) {
+        return isUndefined(end) ? true : idx + substr.length <= end;
+      } else {
+        return false;
+      }
+    };
+
+    const isSupported$1 = dom => dom.style !== undefined && isFunction(dom.style.getPropertyValue);
+
+    const fromHtml = (html, scope) => {
+      const doc = scope || document;
+      const div = doc.createElement('div');
+      div.innerHTML = html;
+      if (!div.hasChildNodes() || div.childNodes.length > 1) {
+        const message = 'HTML does not have a single root node';
+        console.error(message, html);
+        throw new Error(message);
+      }
+      return fromDom(div.childNodes[0]);
+    };
+    const fromTag = (tag, scope) => {
+      const doc = scope || document;
+      const node = doc.createElement(tag);
+      return fromDom(node);
+    };
+    const fromText = (text, scope) => {
+      const doc = scope || document;
+      const node = doc.createTextNode(text);
+      return fromDom(node);
+    };
+    const fromDom = node => {
+      if (node === null || node === undefined) {
+        throw new Error('Node cannot be null or undefined');
+      }
+      return { dom: node };
+    };
+    const fromPoint = (docElm, x, y) => Optional.from(docElm.dom.elementFromPoint(x, y)).map(fromDom);
+    const SugarElement = {
+      fromHtml,
+      fromTag,
+      fromText,
+      fromDom,
+      fromPoint
+    };
+
+    typeof window !== 'undefined' ? window : Function('return this;')();
+
+    const DOCUMENT = 9;
+    const DOCUMENT_FRAGMENT = 11;
+    const ELEMENT = 1;
+    const TEXT = 3;
+
+    const type = element => element.dom.nodeType;
+    const isType = t => element => type(element) === t;
+    const isElement = isType(ELEMENT);
+    const isText = isType(TEXT);
+    const isDocument = isType(DOCUMENT);
+    const isDocumentFragment = isType(DOCUMENT_FRAGMENT);
+
+    const is = (element, selector) => {
+      const dom = element.dom;
+      if (dom.nodeType !== ELEMENT) {
+        return false;
+      } else {
+        const elem = dom;
+        if (elem.matches !== undefined) {
+          return elem.matches(selector);
+        } else if (elem.msMatchesSelector !== undefined) {
+          return elem.msMatchesSelector(selector);
+        } else if (elem.webkitMatchesSelector !== undefined) {
+          return elem.webkitMatchesSelector(selector);
+        } else if (elem.mozMatchesSelector !== undefined) {
+          return elem.mozMatchesSelector(selector);
+        } else {
+          throw new Error('Browser lacks native selectors');
+        }
+      }
+    };
+    const bypassSelector = dom => dom.nodeType !== ELEMENT && dom.nodeType !== DOCUMENT && dom.nodeType !== DOCUMENT_FRAGMENT || dom.childElementCount === 0;
+    const all$1 = (selector, scope) => {
+      const base = scope === undefined ? document : scope.dom;
+      return bypassSelector(base) ? [] : map(base.querySelectorAll(selector), SugarElement.fromDom);
+    };
+
+    const eq = (e1, e2) => e1.dom === e2.dom;
+
+    const owner = element => SugarElement.fromDom(element.dom.ownerDocument);
+    const documentOrOwner = dos => isDocument(dos) ? dos : owner(dos);
+    const parent = element => Optional.from(element.dom.parentNode).map(SugarElement.fromDom);
+    const parents = (element, isRoot) => {
+      const stop = isFunction(isRoot) ? isRoot : never;
+      let dom = element.dom;
+      const ret = [];
+      while (dom.parentNode !== null && dom.parentNode !== undefined) {
+        const rawParent = dom.parentNode;
+        const p = SugarElement.fromDom(rawParent);
+        ret.push(p);
+        if (stop(p) === true) {
+          break;
+        } else {
+          dom = rawParent;
+        }
+      }
+      return ret;
+    };
+    const siblings$2 = element => {
+      const filterSelf = elements => filter$1(elements, x => !eq(element, x));
+      return parent(element).map(children).map(filterSelf).getOr([]);
+    };
+    const children = element => map(element.dom.childNodes, SugarElement.fromDom);
+
+    const isShadowRoot = dos => isDocumentFragment(dos) && isNonNullable(dos.dom.host);
+    const supported = isFunction(Element.prototype.attachShadow) && isFunction(Node.prototype.getRootNode);
+    const isSupported = constant(supported);
+    const getRootNode = supported ? e => SugarElement.fromDom(e.dom.getRootNode()) : documentOrOwner;
+    const getShadowRoot = e => {
+      const r = getRootNode(e);
+      return isShadowRoot(r) ? Optional.some(r) : Optional.none();
+    };
+    const getShadowHost = e => SugarElement.fromDom(e.dom.host);
+    const getOriginalEventTarget = event => {
+      if (isSupported() && isNonNullable(event.target)) {
+        const el = SugarElement.fromDom(event.target);
+        if (isElement(el) && isOpenShadowHost(el)) {
+          if (event.composed && event.composedPath) {
+            const composedPath = event.composedPath();
+            if (composedPath) {
+              return head(composedPath);
+            }
+          }
+        }
+      }
+      return Optional.from(event.target);
+    };
+    const isOpenShadowHost = element => isNonNullable(element.dom.shadowRoot);
+
+    const inBody = element => {
+      const dom = isText(element) ? element.dom.parentNode : element.dom;
+      if (dom === undefined || dom === null || dom.ownerDocument === null) {
+        return false;
+      }
+      const doc = dom.ownerDocument;
+      return getShadowRoot(SugarElement.fromDom(dom)).fold(() => doc.body.contains(dom), compose1(inBody, getShadowHost));
+    };
+    const getBody = doc => {
+      const b = doc.dom.body;
+      if (b === null || b === undefined) {
+        throw new Error('Body is not available yet');
+      }
+      return SugarElement.fromDom(b);
+    };
+
+    const rawSet = (dom, key, value) => {
+      if (isString(value) || isBoolean(value) || isNumber(value)) {
+        dom.setAttribute(key, value + '');
+      } else {
+        console.error('Invalid call to Attribute.set. Key ', key, ':: Value ', value, ':: Element ', dom);
+        throw new Error('Attribute value was not simple');
+      }
+    };
+    const set = (element, key, value) => {
+      rawSet(element.dom, key, value);
+    };
+    const get$3 = (element, key) => {
+      const v = element.dom.getAttribute(key);
+      return v === null ? undefined : v;
+    };
+    const remove = (element, key) => {
+      element.dom.removeAttribute(key);
+    };
+
+    const internalSet = (dom, property, value) => {
+      if (!isString(value)) {
+        console.error('Invalid call to CSS.set. Property ', property, ':: Value ', value, ':: Element ', dom);
+        throw new Error('CSS value must be a string: ' + value);
+      }
+      if (isSupported$1(dom)) {
+        dom.style.setProperty(property, value);
+      }
+    };
+    const setAll = (element, css) => {
+      const dom = element.dom;
+      each(css, (v, k) => {
+        internalSet(dom, k, v);
+      });
+    };
+    const get$2 = (element, property) => {
+      const dom = element.dom;
+      const styles = window.getComputedStyle(dom);
+      const r = styles.getPropertyValue(property);
+      return r === '' && !inBody(element) ? getUnsafeProperty(dom, property) : r;
+    };
+    const getUnsafeProperty = (dom, property) => isSupported$1(dom) ? dom.style.getPropertyValue(property) : '';
+
+    const mkEvent = (target, x, y, stop, prevent, kill, raw) => ({
+      target,
+      x,
+      y,
+      stop,
+      prevent,
+      kill,
+      raw
+    });
+    const fromRawEvent = rawEvent => {
+      const target = SugarElement.fromDom(getOriginalEventTarget(rawEvent).getOr(rawEvent.target));
+      const stop = () => rawEvent.stopPropagation();
+      const prevent = () => rawEvent.preventDefault();
+      const kill = compose(prevent, stop);
+      return mkEvent(target, rawEvent.clientX, rawEvent.clientY, stop, prevent, kill, rawEvent);
+    };
+    const handle = (filter, handler) => rawEvent => {
+      if (filter(rawEvent)) {
+        handler(fromRawEvent(rawEvent));
+      }
+    };
+    const binder = (element, event, filter, handler, useCapture) => {
+      const wrapped = handle(filter, handler);
+      element.dom.addEventListener(event, wrapped, useCapture);
+      return { unbind: curry(unbind, element, event, wrapped, useCapture) };
+    };
+    const bind$2 = (element, event, filter, handler) => binder(element, event, filter, handler, false);
+    const unbind = (element, event, handler, useCapture) => {
+      element.dom.removeEventListener(event, handler, useCapture);
+    };
+
+    const filter = always;
+    const bind$1 = (element, event, handler) => bind$2(element, event, filter, handler);
+
+    const cached = f => {
+      let called = false;
+      let r;
+      return (...args) => {
+        if (!called) {
+          called = true;
+          r = f.apply(null, args);
+        }
+        return r;
+      };
+    };
+
+    const DeviceType = (os, browser, userAgent, mediaMatch) => {
+      const isiPad = os.isiOS() && /ipad/i.test(userAgent) === true;
+      const isiPhone = os.isiOS() && !isiPad;
+      const isMobile = os.isiOS() || os.isAndroid();
+      const isTouch = isMobile || mediaMatch('(pointer:coarse)');
+      const isTablet = isiPad || !isiPhone && isMobile && mediaMatch('(min-device-width:768px)');
+      const isPhone = isiPhone || isMobile && !isTablet;
+      const iOSwebview = browser.isSafari() && os.isiOS() && /safari/i.test(userAgent) === false;
+      const isDesktop = !isPhone && !isTablet && !iOSwebview;
+      return {
+        isiPad: constant(isiPad),
+        isiPhone: constant(isiPhone),
+        isTablet: constant(isTablet),
+        isPhone: constant(isPhone),
+        isTouch: constant(isTouch),
+        isAndroid: os.isAndroid,
+        isiOS: os.isiOS,
+        isWebView: constant(iOSwebview),
+        isDesktop: constant(isDesktop)
+      };
+    };
+
+    const firstMatch = (regexes, s) => {
+      for (let i = 0; i < regexes.length; i++) {
+        const x = regexes[i];
+        if (x.test(s)) {
+          return x;
+        }
+      }
+      return undefined;
+    };
+    const find = (regexes, agent) => {
+      const r = firstMatch(regexes, agent);
+      if (!r) {
+        return {
+          major: 0,
+          minor: 0
+        };
+      }
+      const group = i => {
+        return Number(agent.replace(r, '$' + i));
+      };
+      return nu$2(group(1), group(2));
+    };
+    const detect$3 = (versionRegexes, agent) => {
+      const cleanedAgent = String(agent).toLowerCase();
+      if (versionRegexes.length === 0) {
+        return unknown$2();
+      }
+      return find(versionRegexes, cleanedAgent);
+    };
+    const unknown$2 = () => {
+      return nu$2(0, 0);
+    };
+    const nu$2 = (major, minor) => {
+      return {
+        major,
+        minor
+      };
+    };
+    const Version = {
+      nu: nu$2,
+      detect: detect$3,
+      unknown: unknown$2
+    };
+
+    const detectBrowser$1 = (browsers, userAgentData) => {
+      return findMap(userAgentData.brands, uaBrand => {
+        const lcBrand = uaBrand.brand.toLowerCase();
+        return find$1(browsers, browser => {
+          var _a;
+          return lcBrand === ((_a = browser.brand) === null || _a === void 0 ? void 0 : _a.toLowerCase());
+        }).map(info => ({
+          current: info.name,
+          version: Version.nu(parseInt(uaBrand.version, 10), 0)
+        }));
+      });
+    };
+
+    const detect$2 = (candidates, userAgent) => {
+      const agent = String(userAgent).toLowerCase();
+      return find$1(candidates, candidate => {
+        return candidate.search(agent);
+      });
+    };
+    const detectBrowser = (browsers, userAgent) => {
+      return detect$2(browsers, userAgent).map(browser => {
+        const version = Version.detect(browser.versionRegexes, userAgent);
+        return {
+          current: browser.name,
+          version
+        };
+      });
+    };
+    const detectOs = (oses, userAgent) => {
+      return detect$2(oses, userAgent).map(os => {
+        const version = Version.detect(os.versionRegexes, userAgent);
+        return {
+          current: os.name,
+          version
+        };
+      });
+    };
+
+    const normalVersionRegex = /.*?version\/\ ?([0-9]+)\.([0-9]+).*/;
+    const checkContains = target => {
+      return uastring => {
+        return contains(uastring, target);
+      };
+    };
+    const browsers = [
+      {
+        name: 'Edge',
+        versionRegexes: [/.*?edge\/ ?([0-9]+)\.([0-9]+)$/],
+        search: uastring => {
+          return contains(uastring, 'edge/') && contains(uastring, 'chrome') && contains(uastring, 'safari') && contains(uastring, 'applewebkit');
+        }
+      },
+      {
+        name: 'Chromium',
+        brand: 'Chromium',
+        versionRegexes: [
+          /.*?chrome\/([0-9]+)\.([0-9]+).*/,
+          normalVersionRegex
+        ],
+        search: uastring => {
+          return contains(uastring, 'chrome') && !contains(uastring, 'chromeframe');
+        }
+      },
+      {
+        name: 'IE',
+        versionRegexes: [
+          /.*?msie\ ?([0-9]+)\.([0-9]+).*/,
+          /.*?rv:([0-9]+)\.([0-9]+).*/
+        ],
+        search: uastring => {
+          return contains(uastring, 'msie') || contains(uastring, 'trident');
+        }
+      },
+      {
+        name: 'Opera',
+        versionRegexes: [
+          normalVersionRegex,
+          /.*?opera\/([0-9]+)\.([0-9]+).*/
+        ],
+        search: checkContains('opera')
+      },
+      {
+        name: 'Firefox',
+        versionRegexes: [/.*?firefox\/\ ?([0-9]+)\.([0-9]+).*/],
+        search: checkContains('firefox')
+      },
+      {
+        name: 'Safari',
+        versionRegexes: [
+          normalVersionRegex,
+          /.*?cpu os ([0-9]+)_([0-9]+).*/
+        ],
+        search: uastring => {
+          return (contains(uastring, 'safari') || contains(uastring, 'mobile/')) && contains(uastring, 'applewebkit');
+        }
+      }
+    ];
+    const oses = [
+      {
+        name: 'Windows',
+        search: checkContains('win'),
+        versionRegexes: [/.*?windows\ nt\ ?([0-9]+)\.([0-9]+).*/]
+      },
+      {
+        name: 'iOS',
+        search: uastring => {
+          return contains(uastring, 'iphone') || contains(uastring, 'ipad');
+        },
+        versionRegexes: [
+          /.*?version\/\ ?([0-9]+)\.([0-9]+).*/,
+          /.*cpu os ([0-9]+)_([0-9]+).*/,
+          /.*cpu iphone os ([0-9]+)_([0-9]+).*/
+        ]
+      },
+      {
+        name: 'Android',
+        search: checkContains('android'),
+        versionRegexes: [/.*?android\ ?([0-9]+)\.([0-9]+).*/]
+      },
+      {
+        name: 'macOS',
+        search: checkContains('mac os x'),
+        versionRegexes: [/.*?mac\ os\ x\ ?([0-9]+)_([0-9]+).*/]
+      },
+      {
+        name: 'Linux',
+        search: checkContains('linux'),
+        versionRegexes: []
+      },
+      {
+        name: 'Solaris',
+        search: checkContains('sunos'),
+        versionRegexes: []
+      },
+      {
+        name: 'FreeBSD',
+        search: checkContains('freebsd'),
+        versionRegexes: []
+      },
+      {
+        name: 'ChromeOS',
+        search: checkContains('cros'),
+        versionRegexes: [/.*?chrome\/([0-9]+)\.([0-9]+).*/]
+      }
+    ];
+    const PlatformInfo = {
+      browsers: constant(browsers),
+      oses: constant(oses)
+    };
+
+    const edge = 'Edge';
+    const chromium = 'Chromium';
+    const ie = 'IE';
+    const opera = 'Opera';
+    const firefox = 'Firefox';
+    const safari = 'Safari';
+    const unknown$1 = () => {
+      return nu$1({
+        current: undefined,
+        version: Version.unknown()
+      });
+    };
+    const nu$1 = info => {
+      const current = info.current;
+      const version = info.version;
+      const isBrowser = name => () => current === name;
+      return {
+        current,
+        version,
+        isEdge: isBrowser(edge),
+        isChromium: isBrowser(chromium),
+        isIE: isBrowser(ie),
+        isOpera: isBrowser(opera),
+        isFirefox: isBrowser(firefox),
+        isSafari: isBrowser(safari)
+      };
+    };
+    const Browser = {
+      unknown: unknown$1,
+      nu: nu$1,
+      edge: constant(edge),
+      chromium: constant(chromium),
+      ie: constant(ie),
+      opera: constant(opera),
+      firefox: constant(firefox),
+      safari: constant(safari)
+    };
+
+    const windows = 'Windows';
+    const ios = 'iOS';
+    const android = 'Android';
+    const linux = 'Linux';
+    const macos = 'macOS';
+    const solaris = 'Solaris';
+    const freebsd = 'FreeBSD';
+    const chromeos = 'ChromeOS';
+    const unknown = () => {
+      return nu({
+        current: undefined,
+        version: Version.unknown()
+      });
+    };
+    const nu = info => {
+      const current = info.current;
+      const version = info.version;
+      const isOS = name => () => current === name;
+      return {
+        current,
+        version,
+        isWindows: isOS(windows),
+        isiOS: isOS(ios),
+        isAndroid: isOS(android),
+        isMacOS: isOS(macos),
+        isLinux: isOS(linux),
+        isSolaris: isOS(solaris),
+        isFreeBSD: isOS(freebsd),
+        isChromeOS: isOS(chromeos)
+      };
+    };
+    const OperatingSystem = {
+      unknown,
+      nu,
+      windows: constant(windows),
+      ios: constant(ios),
+      android: constant(android),
+      linux: constant(linux),
+      macos: constant(macos),
+      solaris: constant(solaris),
+      freebsd: constant(freebsd),
+      chromeos: constant(chromeos)
+    };
+
+    const detect$1 = (userAgent, userAgentDataOpt, mediaMatch) => {
+      const browsers = PlatformInfo.browsers();
+      const oses = PlatformInfo.oses();
+      const browser = userAgentDataOpt.bind(userAgentData => detectBrowser$1(browsers, userAgentData)).orThunk(() => detectBrowser(browsers, userAgent)).fold(Browser.unknown, Browser.nu);
+      const os = detectOs(oses, userAgent).fold(OperatingSystem.unknown, OperatingSystem.nu);
+      const deviceType = DeviceType(os, browser, userAgent, mediaMatch);
+      return {
+        browser,
+        os,
+        deviceType
+      };
+    };
+    const PlatformDetection = { detect: detect$1 };
+
+    const mediaMatch = query => window.matchMedia(query).matches;
+    let platform = cached(() => PlatformDetection.detect(navigator.userAgent, Optional.from(navigator.userAgentData), mediaMatch));
+    const detect = () => platform();
+
+    const r = (left, top) => {
+      const translate = (x, y) => r(left + x, top + y);
+      return {
+        left,
+        top,
+        translate
+      };
+    };
+    const SugarPosition = r;
+
+    const get$1 = _DOC => {
+      const doc = _DOC !== undefined ? _DOC.dom : document;
+      const x = doc.body.scrollLeft || doc.documentElement.scrollLeft;
+      const y = doc.body.scrollTop || doc.documentElement.scrollTop;
+      return SugarPosition(x, y);
+    };
+
+    const get = _win => {
+      const win = _win === undefined ? window : _win;
+      if (detect().browser.isFirefox()) {
+        return Optional.none();
+      } else {
+        return Optional.from(win.visualViewport);
+      }
+    };
+    const bounds = (x, y, width, height) => ({
+      x,
+      y,
+      width,
+      height,
+      right: x + width,
+      bottom: y + height
+    });
+    const getBounds = _win => {
+      const win = _win === undefined ? window : _win;
+      const doc = win.document;
+      const scroll = get$1(SugarElement.fromDom(doc));
+      return get(win).fold(() => {
+        const html = win.document.documentElement;
+        const width = html.clientWidth;
+        const height = html.clientHeight;
+        return bounds(scroll.left, scroll.top, width, height);
+      }, visualViewport => bounds(Math.max(visualViewport.pageLeft, scroll.left), Math.max(visualViewport.pageTop, scroll.top), visualViewport.width, visualViewport.height));
+    };
+    const bind = (name, callback, _win) => get(_win).map(visualViewport => {
+      const handler = e => callback(fromRawEvent(e));
+      visualViewport.addEventListener(name, handler);
+      return { unbind: () => visualViewport.removeEventListener(name, handler) };
+    }).getOrThunk(() => ({ unbind: noop }));
+
+    var global$1 = tinymce.util.Tools.resolve('tinymce.dom.DOMUtils');
+
+    var global = tinymce.util.Tools.resolve('tinymce.Env');
+
+    const fireFullscreenStateChanged = (editor, state) => {
+      editor.dispatch('FullscreenStateChanged', { state });
+      editor.dispatch('ResizeEditor');
+    };
+
+    const option = name => editor => editor.options.get(name);
+    const register$2 = editor => {
+      const registerOption = editor.options.register;
+      registerOption('fullscreen_native', {
+        processor: 'boolean',
+        default: false
+      });
+    };
+    const getFullscreenNative = option('fullscreen_native');
+
+    const getFullscreenRoot = editor => {
+      const elem = SugarElement.fromDom(editor.getElement());
+      return getShadowRoot(elem).map(getShadowHost).getOrThunk(() => getBody(owner(elem)));
+    };
+    const getFullscreenElement = root => {
+      if (root.fullscreenElement !== undefined) {
+        return root.fullscreenElement;
+      } else if (root.msFullscreenElement !== undefined) {
+        return root.msFullscreenElement;
+      } else if (root.webkitFullscreenElement !== undefined) {
+        return root.webkitFullscreenElement;
+      } else {
+        return null;
+      }
+    };
+    const getFullscreenchangeEventName = () => {
+      if (document.fullscreenElement !== undefined) {
+        return 'fullscreenchange';
+      } else if (document.msFullscreenElement !== undefined) {
+        return 'MSFullscreenChange';
+      } else if (document.webkitFullscreenElement !== undefined) {
+        return 'webkitfullscreenchange';
+      } else {
+        return 'fullscreenchange';
+      }
+    };
+    const requestFullscreen = sugarElem => {
+      const elem = sugarElem.dom;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      } else if (elem.webkitRequestFullScreen) {
+        elem.webkitRequestFullScreen();
+      }
+    };
+    const exitFullscreen = sugarDoc => {
+      const doc = sugarDoc.dom;
+      if (doc.exitFullscreen) {
+        doc.exitFullscreen();
+      } else if (doc.msExitFullscreen) {
+        doc.msExitFullscreen();
+      } else if (doc.webkitCancelFullScreen) {
+        doc.webkitCancelFullScreen();
+      }
+    };
+    const isFullscreenElement = elem => elem.dom === getFullscreenElement(owner(elem).dom);
+
+    const ancestors$1 = (scope, predicate, isRoot) => filter$1(parents(scope, isRoot), predicate);
+    const siblings$1 = (scope, predicate) => filter$1(siblings$2(scope), predicate);
+
+    const all = selector => all$1(selector);
+    const ancestors = (scope, selector, isRoot) => ancestors$1(scope, e => is(e, selector), isRoot);
+    const siblings = (scope, selector) => siblings$1(scope, e => is(e, selector));
+
+    const attr = 'data-ephox-mobile-fullscreen-style';
+    const siblingStyles = 'display:none!important;';
+    const ancestorPosition = 'position:absolute!important;';
+    const ancestorStyles = 'top:0!important;left:0!important;margin:0!important;padding:0!important;width:100%!important;height:100%!important;overflow:visible!important;';
+    const bgFallback = 'background-color:rgb(255,255,255)!important;';
+    const isAndroid = global.os.isAndroid();
+    const matchColor = editorBody => {
+      const color = get$2(editorBody, 'background-color');
+      return color !== undefined && color !== '' ? 'background-color:' + color + '!important' : bgFallback;
+    };
+    const clobberStyles = (dom, container, editorBody) => {
+      const gatherSiblings = element => {
+        return siblings(element, '*:not(.tox-silver-sink)');
+      };
+      const clobber = clobberStyle => element => {
+        const styles = get$3(element, 'style');
+        const backup = styles === undefined ? 'no-styles' : styles.trim();
+        if (backup === clobberStyle) {
+          return;
+        } else {
+          set(element, attr, backup);
+          setAll(element, dom.parseStyle(clobberStyle));
+        }
+      };
+      const ancestors$1 = ancestors(container, '*');
+      const siblings$1 = bind$3(ancestors$1, gatherSiblings);
+      const bgColor = matchColor(editorBody);
+      each$1(siblings$1, clobber(siblingStyles));
+      each$1(ancestors$1, clobber(ancestorPosition + ancestorStyles + bgColor));
+      const containerStyles = isAndroid === true ? '' : ancestorPosition;
+      clobber(containerStyles + ancestorStyles + bgColor)(container);
+    };
+    const restoreStyles = dom => {
+      const clobberedEls = all('[' + attr + ']');
+      each$1(clobberedEls, element => {
+        const restore = get$3(element, attr);
+        if (restore && restore !== 'no-styles') {
+          setAll(element, dom.parseStyle(restore));
+        } else {
+          remove(element, 'style');
+        }
+        remove(element, attr);
+      });
+    };
+
+    const DOM = global$1.DOM;
+    const getScrollPos = () => getBounds(window);
+    const setScrollPos = pos => window.scrollTo(pos.x, pos.y);
+    const viewportUpdate = get().fold(() => ({
+      bind: noop,
+      unbind: noop
+    }), visualViewport => {
+      const editorContainer = value();
+      const resizeBinder = unbindable();
+      const scrollBinder = unbindable();
+      const refreshScroll = () => {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      };
+      const refreshVisualViewport = () => {
+        window.requestAnimationFrame(() => {
+          editorContainer.on(container => setAll(container, {
+            top: visualViewport.offsetTop + 'px',
+            left: visualViewport.offsetLeft + 'px',
+            height: visualViewport.height + 'px',
+            width: visualViewport.width + 'px'
+          }));
+        });
+      };
+      const update = first(() => {
+        refreshScroll();
+        refreshVisualViewport();
+      }, 50);
+      const bind$1 = element => {
+        editorContainer.set(element);
+        update.throttle();
+        resizeBinder.set(bind('resize', update.throttle));
+        scrollBinder.set(bind('scroll', update.throttle));
+      };
+      const unbind = () => {
+        editorContainer.on(() => {
+          resizeBinder.clear();
+          scrollBinder.clear();
+        });
+        editorContainer.clear();
+      };
+      return {
+        bind: bind$1,
+        unbind
+      };
+    });
+    const toggleFullscreen = (editor, fullscreenState) => {
+      const body = document.body;
+      const documentElement = document.documentElement;
+      const editorContainer = editor.getContainer();
+      const editorContainerS = SugarElement.fromDom(editorContainer);
+      const fullscreenRoot = getFullscreenRoot(editor);
+      const fullscreenInfo = fullscreenState.get();
+      const editorBody = SugarElement.fromDom(editor.getBody());
+      const isTouch = global.deviceType.isTouch();
+      const editorContainerStyle = editorContainer.style;
+      const iframe = editor.iframeElement;
+      const iframeStyle = iframe === null || iframe === void 0 ? void 0 : iframe.style;
+      const handleClasses = handler => {
+        handler(body, 'tox-fullscreen');
+        handler(documentElement, 'tox-fullscreen');
+        handler(editorContainer, 'tox-fullscreen');
+        getShadowRoot(editorContainerS).map(root => getShadowHost(root).dom).each(host => {
+          handler(host, 'tox-fullscreen');
+          handler(host, 'tox-shadowhost');
+        });
+      };
+      const cleanup = () => {
+        if (isTouch) {
+          restoreStyles(editor.dom);
+        }
+        handleClasses(DOM.removeClass);
+        viewportUpdate.unbind();
+        Optional.from(fullscreenState.get()).each(info => info.fullscreenChangeHandler.unbind());
+      };
+      if (!fullscreenInfo) {
+        const fullscreenChangeHandler = bind$1(owner(fullscreenRoot), getFullscreenchangeEventName(), _evt => {
+          if (getFullscreenNative(editor)) {
+            if (!isFullscreenElement(fullscreenRoot) && fullscreenState.get() !== null) {
+              toggleFullscreen(editor, fullscreenState);
+            }
+          }
+        });
+        const newFullScreenInfo = {
+          scrollPos: getScrollPos(),
+          containerWidth: editorContainerStyle.width,
+          containerHeight: editorContainerStyle.height,
+          containerTop: editorContainerStyle.top,
+          containerLeft: editorContainerStyle.left,
+          iframeWidth: iframeStyle.width,
+          iframeHeight: iframeStyle.height,
+          fullscreenChangeHandler
+        };
+        if (isTouch) {
+          clobberStyles(editor.dom, editorContainerS, editorBody);
+        }
+        iframeStyle.width = iframeStyle.height = '100%';
+        editorContainerStyle.width = editorContainerStyle.height = '';
+        handleClasses(DOM.addClass);
+        viewportUpdate.bind(editorContainerS);
+        editor.on('remove', cleanup);
+        fullscreenState.set(newFullScreenInfo);
+        if (getFullscreenNative(editor)) {
+          requestFullscreen(fullscreenRoot);
+        }
+        fireFullscreenStateChanged(editor, true);
+      } else {
+        fullscreenInfo.fullscreenChangeHandler.unbind();
+        if (getFullscreenNative(editor) && isFullscreenElement(fullscreenRoot)) {
+          exitFullscreen(owner(fullscreenRoot));
+        }
+        iframeStyle.width = fullscreenInfo.iframeWidth;
+        iframeStyle.height = fullscreenInfo.iframeHeight;
+        editorContainerStyle.width = fullscreenInfo.containerWidth;
+        editorContainerStyle.height = fullscreenInfo.containerHeight;
+        editorContainerStyle.top = fullscreenInfo.containerTop;
+        editorContainerStyle.left = fullscreenInfo.containerLeft;
+        cleanup();
+        setScrollPos(fullscreenInfo.scrollPos);
+        fullscreenState.set(null);
+        fireFullscreenStateChanged(editor, false);
+        editor.off('remove', cleanup);
+      }
+    };
+
+    const register$1 = (editor, fullscreenState) => {
+      editor.addCommand('mceFullScreen', () => {
+        toggleFullscreen(editor, fullscreenState);
+      });
+    };
+
+    const makeSetupHandler = (editor, fullscreenState) => api => {
+      api.setActive(fullscreenState.get() !== null);
+      const editorEventCallback = e => api.setActive(e.state);
+      editor.on('FullscreenStateChanged', editorEventCallback);
+      return () => editor.off('FullscreenStateChanged', editorEventCallback);
+    };
+    const register = (editor, fullscreenState) => {
+      const onAction = () => editor.execCommand('mceFullScreen');
+      editor.ui.registry.addToggleMenuItem('fullscreen', {
+        text: 'Fullscreen',
+        icon: 'fullscreen',
+        shortcut: 'Meta+Shift+F',
+        onAction,
+        onSetup: makeSetupHandler(editor, fullscreenState)
+      });
+      editor.ui.registry.addToggleButton('fullscreen', {
+        tooltip: 'Fullscreen',
+        icon: 'fullscreen',
+        onAction,
+        onSetup: makeSetupHandler(editor, fullscreenState)
+      });
+    };
+
+    var Plugin = () => {
+      global$2.add('fullscreen', editor => {
+        const fullscreenState = Cell(null);
+        if (editor.inline) {
+          return get$5(fullscreenState);
+        }
+        register$2(editor);
+        register$1(editor, fullscreenState);
+        register(editor, fullscreenState);
+        editor.addShortcut('Meta+Shift+F', '', 'mceFullScreen');
+        return get$5(fullscreenState);
+      });
+    };
+
+    Plugin();
+
+})();

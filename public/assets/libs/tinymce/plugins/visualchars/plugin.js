@@ -1,1 +1,560 @@
-!function(){"use strict";let e;let t=e=>{let t=e;return{get:()=>t,set:e=>{t=e}}};var r=tinymce.util.Tools.resolve("tinymce.PluginManager");let o=e=>({isEnabled:()=>e.get()}),n=(e,t)=>e.dispatch("VisualChars",{state:t}),l=(e,t,r)=>{var o;return!!r(e,t.prototype)||(null===(o=e.constructor)||void 0===o?void 0:o.name)===t.name},s=e=>{let t=typeof e;return null===e?"null":"object"===t&&Array.isArray(e)?"array":"object"===t&&l(e,String,(e,t)=>t.isPrototypeOf(e))?"string":t},a=e=>t=>s(t)===e,i=e=>t=>typeof t===e,u=a("string"),d=a("object"),c=e=>null===e,m=i("boolean"),h=e=>null==e,g=e=>!h(e),f=i("number");class v{constructor(e,t){this.tag=e,this.value=t}static some(e){return new v(!0,e)}static none(){return v.singletonNone}fold(e,t){return this.tag?t(this.value):e()}isSome(){return this.tag}isNone(){return!this.tag}map(e){return this.tag?v.some(e(this.value)):v.none()}bind(e){return this.tag?e(this.value):v.none()}exists(e){return this.tag&&e(this.value)}forall(e){return!this.tag||e(this.value)}filter(e){return!this.tag||e(this.value)?this:v.none()}getOr(e){return this.tag?this.value:e}or(e){return this.tag?this:e}getOrThunk(e){return this.tag?this.value:e()}orThunk(e){return this.tag?this:e()}getOrDie(e){if(this.tag)return this.value;throw Error(null!=e?e:"Called getOrDie on None")}static from(e){return g(e)?v.some(e):v.none()}getOrNull(){return this.tag?this.value:null}getOrUndefined(){return this.value}each(e){this.tag&&e(this.value)}toArray(){return this.tag?[this.value]:[]}toString(){return this.tag?`some(${this.value})`:"none()"}}v.singletonNone=new v(!1);let p=(e,t)=>{let r=e.length,o=Array(r);for(let n=0;n<r;n++){let r=e[n];o[n]=t(r,n)}return o},b=(e,t)=>{for(let r=0,o=e.length;r<o;r++){let o=e[r];t(o,r)}},y=(e,t)=>{let r=[];for(let o=0,n=e.length;o<n;o++){let n=e[o];t(n,o)&&r.push(n)}return r},w=Object.keys,N=(e,t)=>{let r=w(e);for(let o=0,n=r.length;o<n;o++){let n=r[o],l=e[n];t(l,n)}},T="undefined"!=typeof window?window:Function("return this;")(),E=(e,t)=>{let r=null!=t?t:T;for(let t=0;t<e.length&&null!=r;++t)r=r[e[t]];return r},k=(e,t)=>{let r=e.split(".");return E(r,t)},A=(e,t)=>k(e,t),C=(e,t)=>{let r=A(e,t);if(null==r)throw Error(e+" not available on this browser");return r},O=Object.getPrototypeOf,L=e=>C("HTMLElement",e),x=e=>{let t=k("ownerDocument.defaultView",e);return d(e)&&(L(t).prototype.isPrototypeOf(e)||/^HTML\w*Element$/.test(O(e).constructor.name))},V=e=>e.dom.nodeType,j=e=>e.dom.nodeValue,B=e=>t=>V(t)===e,D=e=>S(e)&&x(e.dom),S=B(1),M=B(3),P=(e,t,r)=>{if(u(r)||m(r)||f(r))e.setAttribute(t,r+"");else throw console.error("Invalid call to Attribute.set. Key ",t,":: Value ",r,":: Element ",e),Error("Attribute value was not simple")},H=(e,t,r)=>{P(e.dom,t,r)},_=(e,t)=>{let r=e.dom.getAttribute(t);return null===r?void 0:r},F=(e,t)=>{e.dom.removeAttribute(t)},I=(e,t)=>{let r=_(e,t);return void 0===r||""===r?[]:r.split(" ")},$=(e,t,r)=>{let o=I(e,t),n=o.concat([r]);return H(e,t,n.join(" ")),!0},K=(e,t,r)=>{let o=y(I(e,t),e=>e!==r);return o.length>0?H(e,t,o.join(" ")):F(e,t),!1},R=e=>void 0!==e.dom.classList,U=e=>I(e,"class"),q=(e,t)=>$(e,"class",t),z=(e,t)=>K(e,"class",t),G=(e,t)=>{R(e)?e.dom.classList.add(t):q(e,t)},J=e=>{let t=R(e)?e.dom.classList:U(e);0===t.length&&F(e,"class")},Q=(e,t)=>{if(R(e)){let r=e.dom.classList;r.remove(t)}else z(e,t);J(e)},W=e=>{if(null==e)throw Error("Node cannot be null or undefined");return{dom:e}},X={fromHtml:(e,t)=>{let r=(t||document).createElement("div");if(r.innerHTML=e,!r.hasChildNodes()||r.childNodes.length>1){let t="HTML does not have a single root node";throw console.error(t,e),Error(t)}return W(r.childNodes[0])},fromTag:(e,t)=>{let r=(t||document).createElement(e);return W(r)},fromText:(e,t)=>{let r=(t||document).createTextNode(e);return W(r)},fromDom:W,fromPoint:(e,t,r)=>v.from(e.dom.elementFromPoint(t,r)).map(W)},Y={"\xa0":"nbsp","\xad":"shy"},Z=(e,t)=>{let r="";return N(e,(e,t)=>{r+=t}),RegExp("["+r+"]",t?"g":"")},ee=Z(Y),et=Z(Y,!0),er=(e="",N(Y,t=>{e&&(e+=","),e+="span.mce-"+t}),e),eo="mce-nbsp",en=e=>e.dom.contentEditable,el=e=>'<span data-mce-bogus="1" class="mce-'+Y[e]+'">'+e+"</span>",es=e=>"span"===e.nodeName.toLowerCase()&&e.classList.contains("mce-nbsp-wrap"),ea=e=>{let t=j(e);return M(e)&&u(t)&&ee.test(t)},ei=e=>D(e)&&"false"===en(e),eu=(e,t)=>{if(D(e)&&!es(e.dom)){let t=en(e);if("true"===t)return!0;if("false"===t)return!1}return t},ed=(e,t,r)=>{let o=[],n=e.dom,l=p(n.childNodes,X.fromDom),s=e=>es(e.dom)||!ei(e);return b(l,e=>{r&&s(e)&&t(e)&&(o=o.concat([e])),o=o.concat(ed(e,t,eu(e,r)))}),o},ec=(e,t)=>{for(;e.parentNode;){if(e.parentNode===t)return t;e=e.parentNode}},em=e=>e.replace(et,el),eh=(e,t)=>{let r=e.dom,o=ed(X.fromDom(t),ea,e.dom.isEditable(t));b(o,t=>{var o;let n=t.dom.parentNode;if(es(n))G(X.fromDom(n),eo);else{let n;let l=em(r.encode(null!==(o=j(t))&&void 0!==o?o:"")),s=r.create("div",{},l);for(;n=s.lastChild;)r.insertAfter(n,t.dom);e.dom.remove(t.dom)}})},eg=(e,t)=>{let r=e.dom.select(er,t);b(r,t=>{es(t)?Q(X.fromDom(t),eo):e.dom.remove(t,!0)})},ef=e=>{let t=e.getBody(),r=e.selection.getBookmark(),o=ec(e.selection.getNode(),t);eg(e,o=void 0!==o?o:t),eh(e,o),e.selection.moveToBookmark(r)},ev=(e,t)=>{n(e,t.get());let r=e.getBody();!0===t.get()?eh(e,r):eg(e,r)},ep=(e,t)=>{t.set(!t.get());let r=e.selection.getBookmark();ev(e,t),e.selection.moveToBookmark(r)},eb=(e,t)=>{e.addCommand("mceVisualChars",()=>{ep(e,t)})},ey=e=>{let t=e.options.register;t("visualchars_default_state",{processor:"boolean",default:!1})},ew=e=>e.options.get("visualchars_default_state"),eN=(e,t)=>{e.on("init",()=>{ev(e,t)})},eT=(e,t)=>{let r=null;return{cancel:()=>{c(r)||(clearTimeout(r),r=null)},throttle:(...o)=>{c(r)&&(r=setTimeout(()=>{r=null,e.apply(null,o)},t))}}},eE=(e,t)=>{let r=eT(()=>{ef(e)},300);e.on("keydown",o=>{!0===t.get()&&(13===o.keyCode?ef(e):r.throttle())}),e.on("remove",r.cancel)},ek=(e,t)=>r=>{r.setActive(t.get());let o=e=>r.setActive(e.state);return e.on("VisualChars",o),()=>e.off("VisualChars",o)},eA=(e,t)=>{let r=()=>e.execCommand("mceVisualChars");e.ui.registry.addToggleButton("visualchars",{tooltip:"Show invisible characters",icon:"visualchars",onAction:r,onSetup:ek(e,t)}),e.ui.registry.addToggleMenuItem("visualchars",{text:"Show invisible characters",icon:"visualchars",onAction:r,onSetup:ek(e,t)})};r.add("visualchars",e=>{ey(e);let r=t(ew(e));return eb(e,r),eA(e,r),eE(e,r),eN(e,r),o(r)})}();
+/**
+ * TinyMCE version 6.6.0 (2023-07-12)
+ */
+
+(function () {
+    'use strict';
+
+    const Cell = initial => {
+      let value = initial;
+      const get = () => {
+        return value;
+      };
+      const set = v => {
+        value = v;
+      };
+      return {
+        get,
+        set
+      };
+    };
+
+    var global = tinymce.util.Tools.resolve('tinymce.PluginManager');
+
+    const get$2 = toggleState => {
+      const isEnabled = () => {
+        return toggleState.get();
+      };
+      return { isEnabled };
+    };
+
+    const fireVisualChars = (editor, state) => {
+      return editor.dispatch('VisualChars', { state });
+    };
+
+    const hasProto = (v, constructor, predicate) => {
+      var _a;
+      if (predicate(v, constructor.prototype)) {
+        return true;
+      } else {
+        return ((_a = v.constructor) === null || _a === void 0 ? void 0 : _a.name) === constructor.name;
+      }
+    };
+    const typeOf = x => {
+      const t = typeof x;
+      if (x === null) {
+        return 'null';
+      } else if (t === 'object' && Array.isArray(x)) {
+        return 'array';
+      } else if (t === 'object' && hasProto(x, String, (o, proto) => proto.isPrototypeOf(o))) {
+        return 'string';
+      } else {
+        return t;
+      }
+    };
+    const isType$1 = type => value => typeOf(value) === type;
+    const isSimpleType = type => value => typeof value === type;
+    const eq = t => a => t === a;
+    const isString = isType$1('string');
+    const isObject = isType$1('object');
+    const isNull = eq(null);
+    const isBoolean = isSimpleType('boolean');
+    const isNullable = a => a === null || a === undefined;
+    const isNonNullable = a => !isNullable(a);
+    const isNumber = isSimpleType('number');
+
+    class Optional {
+      constructor(tag, value) {
+        this.tag = tag;
+        this.value = value;
+      }
+      static some(value) {
+        return new Optional(true, value);
+      }
+      static none() {
+        return Optional.singletonNone;
+      }
+      fold(onNone, onSome) {
+        if (this.tag) {
+          return onSome(this.value);
+        } else {
+          return onNone();
+        }
+      }
+      isSome() {
+        return this.tag;
+      }
+      isNone() {
+        return !this.tag;
+      }
+      map(mapper) {
+        if (this.tag) {
+          return Optional.some(mapper(this.value));
+        } else {
+          return Optional.none();
+        }
+      }
+      bind(binder) {
+        if (this.tag) {
+          return binder(this.value);
+        } else {
+          return Optional.none();
+        }
+      }
+      exists(predicate) {
+        return this.tag && predicate(this.value);
+      }
+      forall(predicate) {
+        return !this.tag || predicate(this.value);
+      }
+      filter(predicate) {
+        if (!this.tag || predicate(this.value)) {
+          return this;
+        } else {
+          return Optional.none();
+        }
+      }
+      getOr(replacement) {
+        return this.tag ? this.value : replacement;
+      }
+      or(replacement) {
+        return this.tag ? this : replacement;
+      }
+      getOrThunk(thunk) {
+        return this.tag ? this.value : thunk();
+      }
+      orThunk(thunk) {
+        return this.tag ? this : thunk();
+      }
+      getOrDie(message) {
+        if (!this.tag) {
+          throw new Error(message !== null && message !== void 0 ? message : 'Called getOrDie on None');
+        } else {
+          return this.value;
+        }
+      }
+      static from(value) {
+        return isNonNullable(value) ? Optional.some(value) : Optional.none();
+      }
+      getOrNull() {
+        return this.tag ? this.value : null;
+      }
+      getOrUndefined() {
+        return this.value;
+      }
+      each(worker) {
+        if (this.tag) {
+          worker(this.value);
+        }
+      }
+      toArray() {
+        return this.tag ? [this.value] : [];
+      }
+      toString() {
+        return this.tag ? `some(${ this.value })` : 'none()';
+      }
+    }
+    Optional.singletonNone = new Optional(false);
+
+    const map = (xs, f) => {
+      const len = xs.length;
+      const r = new Array(len);
+      for (let i = 0; i < len; i++) {
+        const x = xs[i];
+        r[i] = f(x, i);
+      }
+      return r;
+    };
+    const each$1 = (xs, f) => {
+      for (let i = 0, len = xs.length; i < len; i++) {
+        const x = xs[i];
+        f(x, i);
+      }
+    };
+    const filter = (xs, pred) => {
+      const r = [];
+      for (let i = 0, len = xs.length; i < len; i++) {
+        const x = xs[i];
+        if (pred(x, i)) {
+          r.push(x);
+        }
+      }
+      return r;
+    };
+
+    const keys = Object.keys;
+    const each = (obj, f) => {
+      const props = keys(obj);
+      for (let k = 0, len = props.length; k < len; k++) {
+        const i = props[k];
+        const x = obj[i];
+        f(x, i);
+      }
+    };
+
+    const Global = typeof window !== 'undefined' ? window : Function('return this;')();
+
+    const path = (parts, scope) => {
+      let o = scope !== undefined && scope !== null ? scope : Global;
+      for (let i = 0; i < parts.length && o !== undefined && o !== null; ++i) {
+        o = o[parts[i]];
+      }
+      return o;
+    };
+    const resolve = (p, scope) => {
+      const parts = p.split('.');
+      return path(parts, scope);
+    };
+
+    const unsafe = (name, scope) => {
+      return resolve(name, scope);
+    };
+    const getOrDie = (name, scope) => {
+      const actual = unsafe(name, scope);
+      if (actual === undefined || actual === null) {
+        throw new Error(name + ' not available on this browser');
+      }
+      return actual;
+    };
+
+    const getPrototypeOf = Object.getPrototypeOf;
+    const sandHTMLElement = scope => {
+      return getOrDie('HTMLElement', scope);
+    };
+    const isPrototypeOf = x => {
+      const scope = resolve('ownerDocument.defaultView', x);
+      return isObject(x) && (sandHTMLElement(scope).prototype.isPrototypeOf(x) || /^HTML\w*Element$/.test(getPrototypeOf(x).constructor.name));
+    };
+
+    const ELEMENT = 1;
+    const TEXT = 3;
+
+    const type = element => element.dom.nodeType;
+    const value = element => element.dom.nodeValue;
+    const isType = t => element => type(element) === t;
+    const isHTMLElement = element => isElement(element) && isPrototypeOf(element.dom);
+    const isElement = isType(ELEMENT);
+    const isText = isType(TEXT);
+
+    const rawSet = (dom, key, value) => {
+      if (isString(value) || isBoolean(value) || isNumber(value)) {
+        dom.setAttribute(key, value + '');
+      } else {
+        console.error('Invalid call to Attribute.set. Key ', key, ':: Value ', value, ':: Element ', dom);
+        throw new Error('Attribute value was not simple');
+      }
+    };
+    const set = (element, key, value) => {
+      rawSet(element.dom, key, value);
+    };
+    const get$1 = (element, key) => {
+      const v = element.dom.getAttribute(key);
+      return v === null ? undefined : v;
+    };
+    const remove$3 = (element, key) => {
+      element.dom.removeAttribute(key);
+    };
+
+    const read = (element, attr) => {
+      const value = get$1(element, attr);
+      return value === undefined || value === '' ? [] : value.split(' ');
+    };
+    const add$2 = (element, attr, id) => {
+      const old = read(element, attr);
+      const nu = old.concat([id]);
+      set(element, attr, nu.join(' '));
+      return true;
+    };
+    const remove$2 = (element, attr, id) => {
+      const nu = filter(read(element, attr), v => v !== id);
+      if (nu.length > 0) {
+        set(element, attr, nu.join(' '));
+      } else {
+        remove$3(element, attr);
+      }
+      return false;
+    };
+
+    const supports = element => element.dom.classList !== undefined;
+    const get = element => read(element, 'class');
+    const add$1 = (element, clazz) => add$2(element, 'class', clazz);
+    const remove$1 = (element, clazz) => remove$2(element, 'class', clazz);
+
+    const add = (element, clazz) => {
+      if (supports(element)) {
+        element.dom.classList.add(clazz);
+      } else {
+        add$1(element, clazz);
+      }
+    };
+    const cleanClass = element => {
+      const classList = supports(element) ? element.dom.classList : get(element);
+      if (classList.length === 0) {
+        remove$3(element, 'class');
+      }
+    };
+    const remove = (element, clazz) => {
+      if (supports(element)) {
+        const classList = element.dom.classList;
+        classList.remove(clazz);
+      } else {
+        remove$1(element, clazz);
+      }
+      cleanClass(element);
+    };
+
+    const fromHtml = (html, scope) => {
+      const doc = scope || document;
+      const div = doc.createElement('div');
+      div.innerHTML = html;
+      if (!div.hasChildNodes() || div.childNodes.length > 1) {
+        const message = 'HTML does not have a single root node';
+        console.error(message, html);
+        throw new Error(message);
+      }
+      return fromDom(div.childNodes[0]);
+    };
+    const fromTag = (tag, scope) => {
+      const doc = scope || document;
+      const node = doc.createElement(tag);
+      return fromDom(node);
+    };
+    const fromText = (text, scope) => {
+      const doc = scope || document;
+      const node = doc.createTextNode(text);
+      return fromDom(node);
+    };
+    const fromDom = node => {
+      if (node === null || node === undefined) {
+        throw new Error('Node cannot be null or undefined');
+      }
+      return { dom: node };
+    };
+    const fromPoint = (docElm, x, y) => Optional.from(docElm.dom.elementFromPoint(x, y)).map(fromDom);
+    const SugarElement = {
+      fromHtml,
+      fromTag,
+      fromText,
+      fromDom,
+      fromPoint
+    };
+
+    const charMap = {
+      '\xA0': 'nbsp',
+      '\xAD': 'shy'
+    };
+    const charMapToRegExp = (charMap, global) => {
+      let regExp = '';
+      each(charMap, (_value, key) => {
+        regExp += key;
+      });
+      return new RegExp('[' + regExp + ']', global ? 'g' : '');
+    };
+    const charMapToSelector = charMap => {
+      let selector = '';
+      each(charMap, value => {
+        if (selector) {
+          selector += ',';
+        }
+        selector += 'span.mce-' + value;
+      });
+      return selector;
+    };
+    const regExp = charMapToRegExp(charMap);
+    const regExpGlobal = charMapToRegExp(charMap, true);
+    const selector = charMapToSelector(charMap);
+    const nbspClass = 'mce-nbsp';
+
+    const getRaw = element => element.dom.contentEditable;
+
+    const wrapCharWithSpan = value => '<span data-mce-bogus="1" class="mce-' + charMap[value] + '">' + value + '</span>';
+
+    const isWrappedNbsp = node => node.nodeName.toLowerCase() === 'span' && node.classList.contains('mce-nbsp-wrap');
+    const isMatch = n => {
+      const value$1 = value(n);
+      return isText(n) && isString(value$1) && regExp.test(value$1);
+    };
+    const isContentEditableFalse = node => isHTMLElement(node) && getRaw(node) === 'false';
+    const isChildEditable = (node, currentState) => {
+      if (isHTMLElement(node) && !isWrappedNbsp(node.dom)) {
+        const value = getRaw(node);
+        if (value === 'true') {
+          return true;
+        } else if (value === 'false') {
+          return false;
+        }
+      }
+      return currentState;
+    };
+    const filterEditableDescendants = (scope, predicate, editable) => {
+      let result = [];
+      const dom = scope.dom;
+      const children = map(dom.childNodes, SugarElement.fromDom);
+      const isEditable = node => isWrappedNbsp(node.dom) || !isContentEditableFalse(node);
+      each$1(children, x => {
+        if (editable && isEditable(x) && predicate(x)) {
+          result = result.concat([x]);
+        }
+        result = result.concat(filterEditableDescendants(x, predicate, isChildEditable(x, editable)));
+      });
+      return result;
+    };
+    const findParentElm = (elm, rootElm) => {
+      while (elm.parentNode) {
+        if (elm.parentNode === rootElm) {
+          return rootElm;
+        }
+        elm = elm.parentNode;
+      }
+      return undefined;
+    };
+    const replaceWithSpans = text => text.replace(regExpGlobal, wrapCharWithSpan);
+
+    const show = (editor, rootElm) => {
+      const dom = editor.dom;
+      const nodeList = filterEditableDescendants(SugarElement.fromDom(rootElm), isMatch, editor.dom.isEditable(rootElm));
+      each$1(nodeList, n => {
+        var _a;
+        const parent = n.dom.parentNode;
+        if (isWrappedNbsp(parent)) {
+          add(SugarElement.fromDom(parent), nbspClass);
+        } else {
+          const withSpans = replaceWithSpans(dom.encode((_a = value(n)) !== null && _a !== void 0 ? _a : ''));
+          const div = dom.create('div', {}, withSpans);
+          let node;
+          while (node = div.lastChild) {
+            dom.insertAfter(node, n.dom);
+          }
+          editor.dom.remove(n.dom);
+        }
+      });
+    };
+    const hide = (editor, rootElm) => {
+      const nodeList = editor.dom.select(selector, rootElm);
+      each$1(nodeList, node => {
+        if (isWrappedNbsp(node)) {
+          remove(SugarElement.fromDom(node), nbspClass);
+        } else {
+          editor.dom.remove(node, true);
+        }
+      });
+    };
+    const toggle = editor => {
+      const body = editor.getBody();
+      const bookmark = editor.selection.getBookmark();
+      let parentNode = findParentElm(editor.selection.getNode(), body);
+      parentNode = parentNode !== undefined ? parentNode : body;
+      hide(editor, parentNode);
+      show(editor, parentNode);
+      editor.selection.moveToBookmark(bookmark);
+    };
+
+    const applyVisualChars = (editor, toggleState) => {
+      fireVisualChars(editor, toggleState.get());
+      const body = editor.getBody();
+      if (toggleState.get() === true) {
+        show(editor, body);
+      } else {
+        hide(editor, body);
+      }
+    };
+    const toggleVisualChars = (editor, toggleState) => {
+      toggleState.set(!toggleState.get());
+      const bookmark = editor.selection.getBookmark();
+      applyVisualChars(editor, toggleState);
+      editor.selection.moveToBookmark(bookmark);
+    };
+
+    const register$2 = (editor, toggleState) => {
+      editor.addCommand('mceVisualChars', () => {
+        toggleVisualChars(editor, toggleState);
+      });
+    };
+
+    const option = name => editor => editor.options.get(name);
+    const register$1 = editor => {
+      const registerOption = editor.options.register;
+      registerOption('visualchars_default_state', {
+        processor: 'boolean',
+        default: false
+      });
+    };
+    const isEnabledByDefault = option('visualchars_default_state');
+
+    const setup$1 = (editor, toggleState) => {
+      editor.on('init', () => {
+        applyVisualChars(editor, toggleState);
+      });
+    };
+
+    const first = (fn, rate) => {
+      let timer = null;
+      const cancel = () => {
+        if (!isNull(timer)) {
+          clearTimeout(timer);
+          timer = null;
+        }
+      };
+      const throttle = (...args) => {
+        if (isNull(timer)) {
+          timer = setTimeout(() => {
+            timer = null;
+            fn.apply(null, args);
+          }, rate);
+        }
+      };
+      return {
+        cancel,
+        throttle
+      };
+    };
+
+    const setup = (editor, toggleState) => {
+      const debouncedToggle = first(() => {
+        toggle(editor);
+      }, 300);
+      editor.on('keydown', e => {
+        if (toggleState.get() === true) {
+          e.keyCode === 13 ? toggle(editor) : debouncedToggle.throttle();
+        }
+      });
+      editor.on('remove', debouncedToggle.cancel);
+    };
+
+    const toggleActiveState = (editor, enabledStated) => api => {
+      api.setActive(enabledStated.get());
+      const editorEventCallback = e => api.setActive(e.state);
+      editor.on('VisualChars', editorEventCallback);
+      return () => editor.off('VisualChars', editorEventCallback);
+    };
+    const register = (editor, toggleState) => {
+      const onAction = () => editor.execCommand('mceVisualChars');
+      editor.ui.registry.addToggleButton('visualchars', {
+        tooltip: 'Show invisible characters',
+        icon: 'visualchars',
+        onAction,
+        onSetup: toggleActiveState(editor, toggleState)
+      });
+      editor.ui.registry.addToggleMenuItem('visualchars', {
+        text: 'Show invisible characters',
+        icon: 'visualchars',
+        onAction,
+        onSetup: toggleActiveState(editor, toggleState)
+      });
+    };
+
+    var Plugin = () => {
+      global.add('visualchars', editor => {
+        register$1(editor);
+        const toggleState = Cell(isEnabledByDefault(editor));
+        register$2(editor, toggleState);
+        register(editor, toggleState);
+        setup(editor, toggleState);
+        setup$1(editor, toggleState);
+        return get$2(toggleState);
+      });
+    };
+
+    Plugin();
+
+})();

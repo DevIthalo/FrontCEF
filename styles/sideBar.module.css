@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
-    z-index: 9999;
+    z-index: 99999;
     padding: 30px;
     transition: 0.5s ease;
     transform: translateX(-100%);
@@ -21,7 +21,7 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
-    z-index: 999; 
+    z-index: 9999; 
     visibility: hidden;
     background: rgba(0, 0, 0, 0);
     transition: 0.5s ease;
@@ -56,3 +56,15 @@
 
     color: #fff;
 }
+
+.button{
+    padding: 10px;
+    border: 1px solid #013F7C;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+.button p{
+    color: #013F7C;
+}
+
